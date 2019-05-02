@@ -3,4 +3,21 @@
   <groupId>turboTranscriber</groupId>
   <artifactId>turboTranscriber</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+    <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>ch.blandolt.turboTranscriber.TurboTranscriberMain</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
