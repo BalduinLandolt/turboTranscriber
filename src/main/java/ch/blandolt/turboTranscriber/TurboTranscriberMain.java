@@ -15,12 +15,13 @@ public class TurboTranscriberMain {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		Log.log("Hello log!");
+		Log.initialize();
+		Log.log("Log initialized.\n");
 		
+		//TODO Run Core here
 		
-		System.out.println("Hello World");
+		Log.log("Requesting log shutdown...");
+		Log.terminate();
 	}
 
 }
