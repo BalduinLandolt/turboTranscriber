@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>[Title]</title>
+				<author>[Author]</author>
+			</titleStmt>
+			<publicationStmt>
+				<p>[Publication Statement]</p>
+				<p>[Source Description]</p>
+			</publicationStmt>
+			<sourceDesc />
+		</fileDesc>
+	</teiHeader>
+	<text>
+		<body>
+			<div>
+				<!--Here starts the Transcription.-->
+				<w>bla</w>
+				<hi rend="2">
+					<w>bli</w>
+				</hi>
+				<w>blu</w>
+				<pb n="2" />
+				<w>blubb</w>
+				<!--Here ends the Transcription.-->
+			</div>
+		</body>
+	</text>
+</TEI>
+

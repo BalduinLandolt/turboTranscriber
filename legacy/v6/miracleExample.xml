@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<?xml-stylesheet href="MS-dipl2.css" type="text/css"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Title</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <charDecl>
+            <desc>Variant letter forms</desc>
+            <glyph xml:id="aalig">
+               <glyphName>LATIN SMALL LIGATURE AA</glyphName>
+               <mapping type="facs">U+EFA0</mapping>
+               <mapping type="norm">aa</mapping>
+            </glyph>    
+            <glyph xml:id="aelig">
+               <glyphName>LATIN SMALL LIGATURE AE</glyphName>
+               <mapping type="facs">U+00E6</mapping>
+               <mapping type="norm">ae</mapping>
+            </glyph>         
+            <glyph xml:id="fins">
+               <glyphName>LATIN SMALL LETTER INSULAR F</glyphName>
+               <mapping type="facs">U+F207</mapping>
+               <mapping type="norm">f</mapping>
+            </glyph>
+            <glyph xml:id="jscap">
+               <glyphName>LATIN LETTER SMALL CAPITAL J</glyphName>
+               <mapping type="facs">U+1DOA</mapping>
+            </glyph>
+            <glyph xml:id="nscap">
+               <glyphName>LATIN LETTER SMALL CAPITAL N</glyphName>
+               <mapping type="facs">U+0274</mapping>
+            </glyph>
+            <glyph xml:id="rrot">
+               <glyphName>LATIN SMALL LETTER R ROTUNDA</glyphName>
+               <mapping type="facs">U+A75B</mapping>
+               <mapping type="norm">r</mapping>
+            </glyph>
+            <glyph xml:id="rscap">
+               <glyphName>LATIN LETTER SMALL CAPITAL R</glyphName>
+               <mapping type="facs">U+0280</mapping>
+            </glyph>
+            <glyph xml:id="slong">
+               <glyphName>LATIN SMALL LETTER LONG S</glyphName>
+               <mapping type="facs">U+017F</mapping>
+               <mapping type="norm">s</mapping>
+            </glyph>
+            <glyph xml:id="sscap">
+               <glyphName>LATIN LETTER SMALL CAPITAL S</glyphName>
+               <mapping type="facs">U+A731</mapping>
+            </glyph>
+         </charDecl>
+         <charDecl>
+            <desc>Abbreviation marks</desc>
+            <glyph xml:id="ar">
+               <glyphName>LATIN ABBREVIATION SIGN</glyphName>
+               <mapping type="facs">U+036C</mapping>
+            </glyph>
+            <glyph xml:id="asup">
+               <glyphName>COMBINING LATIN SMALL LETTER A</glyphName>
+               <mapping type="facs">U+0363</mapping>
+            </glyph>
+            <glyph xml:id="bar">
+               <glyphName>COMBINING ABBREVIATION MARK BAR ABOVE</glyphName>
+               <mapping type="facs">U+0305</mapping>
+            </glyph>
+            <glyph xml:id="csup">
+               <glyphName>COMBINING LATIN SMALL LETTER C</glyphName>
+               <mapping type="facs">U+0368</mapping>
+            </glyph>
+            <glyph xml:id="dot">
+               <glyphName>DOT ABOVE</glyphName>
+               <mapping type="facs">U+02D9</mapping>
+            </glyph>
+            <glyph xml:id="dsup">
+               <glyphName>COMBINING LATIN SMALL LETTER D</glyphName>
+               <mapping type="facs">U+0369</mapping>
+            </glyph>
+            <glyph xml:id="er">
+               <glyphName>COMBINING ABBREVIATION MARK ZIGZAG ABOVE</glyphName>
+               <mapping type="facs">U+035B</mapping>
+            </glyph>
+            <glyph xml:id="et">
+               <glyphName>LATIN ABBREVIATION SIGN SMALL ET WITH STROKE</glyphName>
+               <mapping type="facs">U+F158</mapping>
+               <mapping type="norm">&amp;</mapping>
+            </glyph>
+            <glyph xml:id="ezh">
+               <glyphName>LATIN SMALL LETTER EZH</glyphName>
+               <mapping type="facs">U+0292</mapping>
+            </glyph>
+            <glyph xml:id="isup">
+               <glyphName>COMBINING LATIN SMALL LETTER I</glyphName>
+               <mapping type="facs">U+0365</mapping>
+            </glyph>
+            <glyph xml:id="nsup">
+               <glyphName>COMBINING LATIN SMALL LETTER N</glyphName>
+               <mapping type="facs">U+F021</mapping>
+           </glyph>
+            <glyph xml:id="ra">
+               <glyphName>COMBINING LATIN SMALL LETTER FLATTENED OPEN A ABOVE</glyphName>
+               <mapping type="facs">U+F1C1</mapping>
+            </glyph>
+            <glyph xml:id="rsup">
+               <glyphName>COMBINING LATIN SMALL LETTER R</glyphName>
+               <mapping type="facs">U+036C</mapping>
+            </glyph>
+            <glyph xml:id="tsup">
+               <glyphName>COMBINING LATIN SMALL LETTER T</glyphName>
+               <mapping type="facs">U+036D</mapping>
+            </glyph>
+            <glyph xml:id="ur">
+               <glyphName>COMBINING ABBREVIATION MARK SUPERSCRIPT UR ROUND R FORM</glyphName>
+               <mapping type="facs">U+F153</mapping>
+            </glyph>
+            <glyph xml:id="zsup">
+               <glyphName>COMBINING LATIN SMALL LETTER Z</glyphName>
+               <mapping type="facs">U+00B3</mapping>
+            </glyph>
+         </charDecl>
+      </encodingDesc>
+      
+   </teiHeader>
+   <text>
+      <body>         
+         <div type="miracle" n="92">
+      <pb n="41"/> <!-- not a new page -->
+         <lb n="16"/>
+            <head>
+            <w><choice><reg>Hér</reg><orig>H<choice><ex>er</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>segir</reg><orig>seg<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>af</reg><orig>a<g ref="#fins"/></orig></choice></w>
+            <w><choice><reg>várri</reg><orig>vor</orig></choice></w>
+            <w><choice><reg>frú</reg><orig><g ref="#fins"/><choice><ex>rv</ex><am><g ref="#vsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>tíðum.</reg><orig>tidum.</orig></choice></w>
+            </head>
+   <p>
+         <lb n="17"/>
+            <w><hi rend="2">
+            <supplied reason="omitted">
+            <choice><reg/><orig>S</orig></choice>
+            </supplied>
+            </hi>
+            <choice><reg>Svá</reg><orig>wo</orig></choice></w>
+            <w><choice><reg>segir</reg><orig><g ref="#slong"/>eg<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <name type="person">
+            <w><choice><reg>Petrus</reg><orig>Pet<choice><ex>ru</ex><am><g ref="#vsup"/></am></choice>s</orig></choice></w>
+            </name>
+            <w><choice><reg>at</reg><orig>at</orig></choice></w>
+            <w><choice><reg>í</reg><orig>i</orig></choice></w>
+            <w><choice><reg>því</reg><orig>þ<choice><ex>vi</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>munklífi</reg><orig>m<choice><ex>un</ex><am><g ref="#bar"/></am></choice>kli<g ref="#fins"/>i</orig></choice></w>
+            <w><choice><reg>sem</reg><orig><g ref="#slong"/>e<choice><ex>m</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>heitir</reg><orig>he</orig></choice></w>
+            <fw type="catch">
+            <w><choice><reg/><orig>it<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            </fw>
+      <pb n="42"/>
+         <lb n="1"/>
+            <w><choice><reg/><orig>it<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <name type="person">
+            <w><choice><reg>Petra</reg><orig>pet<choice><ex>ra</ex><am><g ref="#ra"/></am></choice></orig></choice></w>
+            <w><choice><reg>Pertusa,</reg><orig>p<choice><ex>e</ex><am><g ref="#barbl"/></am></choice>rtu<g ref="#slong"/>a</orig></choice></w>
+            </name>
+            <w><choice><reg>skamt</reg><orig><g ref="#slong"/>ka<choice><ex>m</ex><am><g ref="#bar"/></am></choice>t</orig></choice></w>
+            <w><choice><reg>frá</reg><orig><g ref="#fins"/><choice><ex>ra</ex><am><g ref="#ra"/></am></choice></orig></choice></w>
+            <w><choice><reg>munklífi</reg><orig>m<choice><ex>un</ex><am><g ref="#bar"/></am></choice>kli<g ref="#fins"/>i</orig></choice></w>
+            <w><choice><reg>Heilags</reg><orig>heilags</orig></choice></w>
+            <w><choice><reg>Vincencii,</reg><orig>uincencij</orig></choice></w>
+         <lb n="2"/>
+            <w><choice><reg>var</reg><orig>v<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>skipat</reg><orig><g ref="#slong"/>kip<choice><ex>ad</ex><am><g ref="#dsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>af</reg><orig>a<g ref="#fins"/></orig></choice></w>
+            <w><choice><reg>brœðrum</reg><orig>b<g ref="#rrot"/>æd<g ref="#rrot"/>u<choice><ex>m</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>haldit</reg><orig>halld<choice><ex>it</ex><am><g ref="#tsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>um</reg><orig>um</orig></choice></w>
+            <w><choice><reg>þrjá</reg><orig>þ<choice><ex>ri</ex><am><g ref="#isup"/></am></choice>a</orig></choice></w>
+            <w><choice><reg>vetr,</reg><orig>vet<choice><ex>ur</ex><am><g ref="#ur"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>at</reg><orig>ath</orig></choice></w>
+            <w><choice><reg>eptir</reg><orig>ept<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+         <lb n="3"/>
+            <w><choice><reg>þær</reg><orig>þær</orig></choice></w>
+            <w><choice><reg>tíðir</reg><orig>tid<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>sem</reg><orig><g ref="#slong"/>e<choice><ex>m</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>brœðrunum</reg><orig>b<g ref="#rrot"/>æd<g ref="#rrot"/>un<choice><ex>um</ex><am><g ref="#msup"/></am></choice></orig></choice></w>
+            <w><choice><reg>var</reg><orig>v<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>skyldugt</reg><orig><g ref="#slong"/>kylldugt</orig></choice></w>
+            <w><choice><reg>at</reg><orig>at</orig></choice></w>
+            <w><choice><reg>syngja,</reg><orig><g ref="#slong"/>yng<choice><ex>ia</ex><am><g ref="#asup"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>skyldi</reg><orig><g ref="#slong"/>ky</orig></choice><lb n="4"/><choice><reg/><orig>lldi</orig></choice></w>
+
+            <w><choice><reg>þeir</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice><g ref="#rrot"/></orig></choice></w>
+            <w><choice><reg>lesa</reg><orig>le<g ref="#slong"/>a</orig></choice></w>
+            <w><choice><reg>tiðir</reg><orig>tid<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>várrar</reg><orig>vo<g ref="#rscap"/><choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>frú.</reg><orig><g ref="#fins"/><choice><ex>rv</ex><am><g ref="#vsup"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>Einn</reg><orig>Ein<choice><ex>n</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>munkr</reg><orig>m<choice><ex>un</ex><am><g ref="#bar"/></am></choice>kr</orig></choice></w>
+            <w><choice><reg>er</reg><orig>e<choice><ex>r</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <name type="person">
+            <w><choice><reg>Gazo</reg><orig>ga<g ref="#ezh"/>o</orig></choice></w>
+            </name>
+            <w><choice><reg>hét,</reg><orig>h<choice><ex>et</ex><am><g ref="#tsup"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>ranglátr</reg><orig><g ref="#rscap"/>a<choice><ex>n</ex><am><g ref="#nsup"/></am></choice>g</orig></choice>
+         <lb n="5"/>
+            <choice><reg/><orig>lat<choice><ex>ur</ex><am><g ref="#ur"/></am></choice></orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>illz lifnaðar</reg><orig>ill<g ref="#ezh"/></orig></choice>
+            <choice><reg/><orig>li<g ref="#fins"/>nad<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>en</reg><orig>en<choice><ex>n</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>mjǫk</reg><orig>miok</orig></choice></w>
+            <w><choice><reg>orðigr</reg><orig>o<g ref="#rrot"/>dig<choice><ex>ur</ex><am><g ref="#ur"/></am></choice></orig></choice></w>
+            <w><choice><reg>ok</reg><orig>ok</orig></choice></w>
+            <w><choice><reg>margtalaðr</reg><orig>m<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice>gtalad<choice><ex>ur</ex><am><g ref="#ur"/></am></choice></orig></choice></w>
+         <lb n="6"/>
+            <w><choice><reg>gerði</reg><orig>kærdi</orig></choice></w>
+            <w><choice><reg>sik</reg><orig>s<choice><am><g ref="#csup"/></am><ex>ik</ex></choice></orig></choice></w>
+            <w><choice><reg>fast</reg><orig><g ref="#fins"/>a<g ref="#slong"/>t</orig></choice></w>
+            <w><choice><reg>um</reg><orig>um</orig></choice></w>
+            <w><choice><reg>þat,</reg><orig>þ<choice><ex>at</ex><am><g ref="#tsup"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>sagði</reg><orig><g ref="#slong"/>agdi.</orig></choice></w>
+            <w><choice><reg>eigi</reg><orig>e<choice><ex>igi</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>réttliga</reg><orig><g ref="#rscap"/>ettliga</orig></choice></w>
+            <w><choice><reg>mega</reg><orig>mega</orig></choice></w>
+            <w><choice><reg>leggja</reg><orig>leg</orig></choice>
+         <lb n="7"/>
+            <choice><reg/><orig>g<choice><ex>ia</ex><am><g ref="#asup"/></am></choice></orig></choice></w>
+            <w><choice><reg>svá</reg><orig>s<choice><ex>uo</ex><am><g ref="#osup"/></am></choice></orig></choice></w>
+            <w><choice><reg>mikinn</reg><orig>mikin<choice><ex>n</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>þunga</reg><orig>þunga</orig></choice></w>
+            <w><choice><reg>á</reg><orig><g ref="#aalig"/></orig></choice></w>
+            <w><choice><reg>brœðurna,</reg><orig>b<g ref="#rrot"/>æd<choice><ex>ur</ex><am><g ref="#ur"/></am></choice>na.</orig></choice></w>
+            <w><choice><reg>um</reg><orig>um</orig></choice></w>
+            <w><choice><reg>þat</reg><orig>þ<choice><ex>at</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>fram</reg><orig><g ref="#fins"/><choice><ex>ra</ex><am><g ref="#ra"/></am></choice>m</orig></choice></w>
+            <w><choice><reg>sem</reg><orig><g ref="#slong"/>e<choice><ex>m</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+         <lb n="8"/>
+            <w><choice><reg>boðit</reg><orig>bod<choice><ex>it</ex><am><g ref="#tsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>var</reg><orig>w<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>í</reg><orig>j</orig></choice></w>
+            <w><choice><reg>þeira</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice><g ref="#rrot"/>a</orig></choice></w>
+            <w><choice><reg>reglu.</reg><orig><g ref="#rscap"/>eglu.</orig></choice></w>
+            <w><choice><reg>Ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>sagði</reg><orig><g ref="#slong"/>agdi</orig></choice></w>
+            <w><choice><reg>þeim</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice>m</orig></choice></w>
+            <w><choice><reg>vel</reg><orig>vel</orig></choice></w>
+            <w><choice><reg>mega</reg><orig>mega</orig></choice></w>
+            <w><choice><reg>nœgjast</reg><orig>nægi<choice><am><g ref="#zsup"/></am><ex>azt</ex></choice></orig></choice></w>
+         <lb n="9"/>
+            <w><choice><reg>þó</reg><orig>þo</orig></choice></w>
+            <w><choice><reg>at</reg><orig>at</orig></choice></w>
+            <w><choice><reg>þeir</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice><g ref="#rrot"/></orig></choice></w>
+            <w><choice><reg>lǫgðu</reg><orig>legdi</orig></choice></w>
+            <w><choice><reg>engar</reg><orig>eng<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>nýjungar</reg><orig>nyiu<choice><ex>n</ex><am><g ref="#bar"/></am></choice>g<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>inn</reg><orig>jn<choice><ex>n</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>í</reg><orig>j</orig></choice></w>
+            <w><choice><reg>sinn</reg><orig><g ref="#slong"/>in<choice><ex>n</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>sið.</reg><orig><g ref="#slong"/>id.</orig></choice></w>
+            <w><choice><reg>Hann</reg><orig>h<choice><ex>an</ex><am><g ref="#bar"/></am></choice>n</orig></choice></w>
+         <lb n="10"/>
+            <w><choice><reg>fekk</reg><orig><g ref="#fins"/>eck</orig></choice></w>
+            <w><choice><reg>hér</reg><orig>h<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>til</reg><orig>t<choice><ex>il</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>margar</reg><orig>m<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice>g<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>greinir</reg><orig>g<choice><ex>re</ex><am><g ref="#esup"/></am></choice>in<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>skynsemdir</reg><orig><g ref="#slong"/>kyn<g ref="#slong"/>emd<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>at</reg><orig>at</orig></choice></w>
+            <w><choice><reg>sanna</reg><orig><g ref="#slong"/>an<choice><am><g ref="#bar"/></am><ex>n</ex></choice>a</orig></choice></w>
+            <w><choice><reg>sitt</reg><orig><g ref="#slong"/>itt</orig></choice></w>
+         <lb n="11"/>
+            <w><choice><reg>mál.</reg><orig>mal.</orig></choice></w>
+            <w><choice><reg>Ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>með</reg><orig>m<choice><ex>ed</ex><am><g ref="#ezh"/></am></choice></orig></choice></w>
+            <w><choice><reg>sinni</reg><orig><g ref="#slong"/>in<choice><ex>n</ex><am><g ref="#bar"/></am></choice>i</orig></choice></w>
+            <w><choice><reg>þrætu</reg><orig>þ<g ref="#rrot"/>ætu</orig></choice></w>
+            <w><choice><reg>fekk</reg><orig><g ref="#fins"/>eck</orig></choice></w>
+            <w><choice><reg>hann</reg><orig>h<choice><ex>an</ex><am><g ref="#bar"/></am></choice>n</orig></choice></w>
+            <w><choice><reg>því</reg><orig>þ<choice><ex>vi</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>við</reg><orig>v<choice><ex>id</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>komit,</reg><orig>ko<choice><ex>m</ex><am><g ref="#bar"/></am></choice>it.</orig></choice></w>
+            <w><choice><reg>at</reg><orig>at</orig></choice></w>
+         <lb n="12"/>
+            <w><choice><reg>brœðrnir</reg><orig>b<g ref="#rrot"/>æd<choice><ex>ur</ex><am><g ref="#ur"/></am></choice>n<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>létu</reg><orig>letu</orig></choice></w>
+            <w><choice><reg>af</reg><orig>a<g ref="#fins"/></orig></choice></w>
+            <w><choice><reg>at</reg><orig>at</orig></choice></w>
+            <w><choice><reg>segja</reg><orig><g ref="#slong"/>eg<choice><ex>ia</ex><am><g ref="#asup"/></am></choice></orig></choice></w>
+            <w><choice><reg>tíðir</reg><orig>tid<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>jungfrú</reg><orig>ju<choice><ex>n</ex><am><g ref="#bar"/></am></choice>g<g ref="#fins"/><choice><ex>rv</ex><am><g ref="#vsup"/></am></choice></orig></choice></w>
+            <name type="person">
+            <hi rend="caps">
+            <w><choice><reg>Marie</reg><orig>Marie</orig></choice></w>.
+            </hi>
+            </name>
+         
+         <lb n="13"/>
+            <w><choice><reg>Þegar</reg><orig>þeg<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>rísu</reg><orig><g ref="#rscap"/>i<g ref="#slong"/>u</orig></choice></w>
+            <w><choice><reg>upp</reg><orig>upp</orig></choice></w>
+            <w><choice><reg>margir</reg><orig>m<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice>g<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>vǫldugir</reg><orig>volldug<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>menn,</reg><orig>m<choice><ex>enn</ex><am><g ref="#bar"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>gerðu</reg><orig>g<choice><ex>er</ex><am><g ref="#er"/></am></choice>du</orig></choice></w>
+            <w><choice><reg>otalligar</reg><orig>otallig<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+         <lb n="14"/>
+            <w><choice><reg>meingerðir</reg><orig>mei<choice><ex>n</ex><am><g ref="#bar"/></am></choice>g<choice><ex>er</ex><am><g ref="#er"/></am></choice>d<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>skaða</reg><orig><g ref="#slong"/>kada</orig></choice></w>
+            <w><choice><reg>því</reg><orig>þ<choice><ex>ui</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>sama</reg><orig><g ref="#slong"/>ama</orig></choice></w>
+            <w><choice><reg>klaustri.</reg><orig>klau<g ref="#slong"/>t<choice><ex>ri</ex><am><g ref="#isup"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>Var</reg><orig>v<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>gripit</reg><orig>g<choice><ex>ri</ex><am><g ref="#isup"/></am></choice>p<choice><ex>it</ex><am><g ref="#tsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>góðs</reg><orig>god<g ref="#ezh"/></orig></choice></w>
+         <lb n="15"/>
+            <w><choice><reg>munkanna,</reg><orig>m<choice><ex>un</ex><am><g ref="#bar"/></am></choice>kan<choice><ex>n</ex><am><g ref="#bar"/></am></choice>a.</orig></choice></w>
+            <w><choice><reg>ok</reg><orig>ok</orig></choice></w>
+            <w><choice><reg>ræntir</reg><orig><g ref="#rscap"/>ænt<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>þeira</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice><g ref="#rrot"/>a</orig></choice></w>
+            <w><choice><reg>menn,</reg><orig>m<choice><ex>enn</ex><am><g ref="#bar"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>brendir</reg><orig>b<g ref="#rrot"/>end<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>þeira</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice><g ref="#rrot"/>a</orig></choice></w>
+            <w><choice><reg>bœir,</reg><orig>bæ<choice><ex>ir</ex><am><g ref="#er"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>særðir</reg><orig><g ref="#slong"/>ær</orig></choice></w>
+         <lb n="16"/>
+            <w><choice><reg/><orig>d<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>drepnir</reg><orig>d<g ref="#rrot"/>epn<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>þeira</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice><g ref="#rrot"/>a</orig></choice></w>
+            <w><choice><reg>þjónustumenn</reg><orig>þionu<g ref="#slong"/>tu m<choice><ex>enn</ex><am><g ref="#bar"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>Þeir</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice><g ref="#rrot"/></orig></choice></w>
+            <w><choice><reg>senda</reg><orig><g ref="#slong"/>enda</orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>fara</reg><orig><g ref="#fins"/><choice><ex>ar</ex><am><g ref="#rsup"/></am></choice>a</orig></choice></w>
+         <lb n="17"/>
+            <w><choice><reg>sjálfir</reg><orig><g ref="#slong"/>ial<g ref="#fins"/><choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>til</reg><orig>t<choice><ex>il</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>Saxlands</reg><orig><g ref="#slong"/>axl<choice><ex>an</ex><am><g ref="#bar"/></am></choice>d<g ref="#ezh"/></orig></choice></w>
+            <w><choice><reg>keisara,</reg><orig>kei<g ref="#slong"/>a<choice><ex>ra</ex><am><g ref="#ra"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>at</reg><orig>at</orig></choice></w>
+            <w><choice><reg>þarflausu,</reg><orig>þ<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice><g ref="#fins"/>lau<g ref="#slong"/>u.</orig></choice></w>
+            <w><choice><reg>þvíat</reg><orig>þ<choice><ex>uia</ex><am><g ref="#bar"/></am></choice>t</orig></choice></w>
+            <w><choice><reg>þeir</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice><g ref="#rrot"/></orig></choice></w>
+            <fw type="catch">
+            <w><choice><reg/><orig><g ref="#fins"/>a</orig></choice></w>
+            </fw>
+      <pb n="43"/>
+         <lb n="1"/>
+            <w><choice><reg>fá</reg><orig><g ref="#fins"/>a</orig></choice></w>
+            <w><choice><reg>enga</reg><orig>enga</orig></choice></w>
+            <w><choice><reg>rétting</reg><orig><g ref="#rscap"/>etti<choice><ex>n</ex><am><g ref="#bar"/></am></choice>g</orig></choice></w>
+            <w><choice><reg>sinna</reg><orig><g ref="#slong"/>in<choice><ex>n</ex><am><g ref="#bar"/></am></choice>a</orig></choice></w>
+            <w><choice><reg>mála.</reg><orig>mala.</orig></choice></w>
+            <w><choice><reg>"Þá</reg><orig>þa</orig></choice></w>
+            <w><choice><reg>komu</reg><orig>kuo<choice><ex>m</ex><am><g ref="#bar"/></am></choice>u</orig></choice></w>
+            <w><choice><reg>þeir</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice><g ref="#rrot"/></orig></choice></w>
+            <w><choice><reg>til</reg><orig>t<choice><ex>il</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>mín"</reg><orig>mi<choice><ex>n</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+         <lb n="2"/>
+            <w><choice><reg>sagði</reg><orig><g ref="#slong"/>ag<choice><ex>di</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>fyrr</reg><orig><g ref="#fins"/>yr</orig></choice></w>
+            <w><choice><reg>sagður</reg><orig><g ref="#slong"/>agd<choice><ex>ur</ex><am><g ref="#ur"/></am></choice></orig></choice></w>
+            <w><choice><reg>biskup</reg><orig>b<choice><ex>ysku</ex><am><g ref="#bar"/></am></choice>p</orig></choice></w>
+            <name type="person">
+            <w><choice><reg>Petrus</reg><orig>Pet<choice><ex>rv</ex><am><g ref="#vsup"/></am></choice>s</orig></choice></w>.
+            </name>    
+            <w><choice><reg>"kærandi</reg><orig>kæ<choice><ex>ra</ex><am><g ref="#ra"/></am></choice>ndi</orig></choice></w>
+            <w><choice><reg>fyrir</reg><orig><g ref="#fins"/><choice><ex>yrir</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>mér</reg><orig>m<choice><ex>er</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>sína</reg><orig><g ref="#slong"/>ina</orig></choice></w>
+            <w><choice><reg>vesǫld.</reg><orig>ve<g ref="#slong"/>o<lb n="3"/>ld.</orig></choice></w>
+            <w><choice><reg>Sagði</reg><orig><g ref="#slong"/>ag<choice><ex>di</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>ek,</reg><orig>ek.</orig></choice></w>
+            <w><choice><reg>sakir</reg><orig>sak<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>þess</reg><orig>þ<choice><ex>e</ex><am><g ref="#bar"/></am></choice><g ref="#sscap"/></orig></choice></w>
+            <w><choice><reg>þeim</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice>m</orig></choice></w>
+            <w><choice><reg>þetta</reg><orig>þ<choice><ex>e</ex><am><g ref="#bar"/></am></choice>tta</orig></choice></w>
+            <w><choice><reg>hafa</reg><orig>ha<g ref="#fins"/>a</orig></choice></w>
+            <w><choice><reg>til</reg><orig>t<choice><ex>il</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>borit,</reg><orig>bo<g ref="#rrot"/><choice><ex>it</ex><am><g ref="#tsup"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>at</reg><orig>ath</orig></choice></w>
+         <lb n="4"/>
+            <w><choice><reg>þeir</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice>r</orig></choice></w>
+            <w><choice><reg>hǫfðu</reg><orig>ho<g ref="#fins"/>du</orig></choice></w>
+            <w><choice><reg>frá</reg><orig><g ref="#fins"/><choice><ex>ra</ex><am><g ref="#ra"/></am></choice></orig></choice></w>
+            <w><choice><reg>sér</reg><orig>s<choice><ex>er</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>rekit</reg><orig><g ref="#rscap"/>ek<choice><ex>it</ex><am><g ref="#tsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>móðr</reg><orig>mod<choice><ex>ur</ex><am><g ref="#ur"/></am></choice></orig></choice></w>
+            <w><choice><reg>hins</reg><orig>hi<choice><ex>n</ex><am><g ref="#bar"/></am></choice>s</orig></choice></w>
+            <w><choice><reg>sanna</reg><orig><g ref="#slong"/>an<choice><ex>n</ex><am><g ref="#bar"/></am></choice>a</orig></choice></w>
+      <w><choice><reg>friðar."</reg><orig><g ref="#fins"/><choice><ex>ri</ex><am><g ref="#isup"/></am></choice>d<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>Þeira</reg><orig>þ<choice><ex>ei</ex><am><g ref="#bar"/></am></choice><g ref="#rrot"/>a</orig></choice></w>
+         <lb n="5"/>
+            <w><choice><reg>sendi</reg><orig><g ref="#slong"/>endi</orig></choice></w>
+            <w><choice><reg>menn</reg><orig>m<choice><ex>enn</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>falla</reg><orig><g ref="#fins"/>alla</orig></choice></w>
+            <w><choice><reg>þegar</reg><orig>þeg<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>til</reg><orig>t<choice><ex>il</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>jarðar,</reg><orig>j<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice>d<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>segjandi</reg><orig><g ref="#slong"/>eg<choice><ex>ia</ex><am><g ref="#asup"/></am></choice>ndi</orig></choice></w>
+            <w><choice><reg>sik</reg><orig>s<choice><ex>ik</ex><am><g ref="#csup"/></am></choice></orig></choice></w>
+            <w><choice><reg>aldri</reg><orig>alld<choice><ex>ri</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <w><choice><reg>heðan</reg><orig>hed<choice><ex>an</ex><am><g ref="#nsup"/></am></choice></orig></choice></w>
+         <lb n="6"/>
+            <w><choice><reg>af</reg><orig>a<g ref="#fins"/></orig></choice></w>
+            <w><choice><reg>skulu</reg><orig><g ref="#slong"/>k<choice><ex>ul</ex><am><g ref="#bar"/></am></choice>u</orig></choice></w>
+            <w><choice><reg>uppgefa</reg><orig>uppge<g ref="#fins"/>a</orig></choice></w>
+            <w><choice><reg>at</reg><orig>at</orig></choice></w>
+            <w><choice><reg>segja</reg><orig><g ref="#slong"/>eg<choice><ex>ia</ex><am><g ref="#asup"/></am></choice></orig></choice></w>
+            <w><choice><reg>lof</reg><orig>lo<g ref="#fins"/></orig></choice></w>
+            <w><choice><reg>sællar</reg><orig><g ref="#slong"/>ællar</orig></choice></w>
+            <w><choice><reg>jungfrú</reg><orig>ju<choice><ex>n</ex><am><g ref="#bar"/></am></choice>g<g ref="#fins"/><choice><ex>rv</ex><am><g ref="#vsup"/></am></choice></orig></choice></w>
+            <name type="person">
+            <hi rend="caps">
+            <w><choice><reg>Marie.</reg><orig>Ma</orig></choice><lb n="7"/><choice><reg/><orig>rie.</orig></choice></w>
+            </hi>
+            </name>
+            
+            <w><choice><reg>Fengu</reg><orig><g ref="#fins"/>ei<choice><ex>n</ex><am><g ref="#bar"/></am></choice>gu</orig></choice></w>
+            <w><choice><reg>svá</reg><orig>s<choice><ex>uo</ex><am><g ref="#osup"/></am></choice></orig></choice></w>
+            <w><choice><reg>þegar</reg><orig>þeg<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>frið</reg><orig><g ref="#fins"/><choice><ex>ri</ex><am><g ref="#isup"/></am></choice>d</orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>náðir,</reg><orig>nad<choice><ex>ir</ex><am><g ref="#er"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>héldu</reg><orig>helldu</orig></choice></w>
+            <w><choice><reg>vel</reg><orig>vel</orig></choice></w>
+            <w><choice><reg>sitt</reg><orig><g ref="#slong"/>itt</orig></choice></w>
+         <lb n="8"/>
+            <w><choice><reg>heit.</reg><orig>heit.</orig></choice></w>
+            <w><choice><reg>Mǫrgum</reg><orig>Mo<g ref="#rrot"/>gu<choice><ex>m</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>árum</reg><orig><g ref="#aalig"/>ru<choice><ex>m</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>síðar,</reg><orig><g ref="#slong"/>id<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>sem</reg><orig><g ref="#slong"/>e<choice><ex>m</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>liðit</reg><orig>lid<choice><ex>it</ex><am><g ref="#tsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>var</reg><orig>v<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg>frá</reg><orig><g ref="#fins"/><choice><ex>ra</ex><am><g ref="#ra"/></am></choice></orig></choice></w>
+            <w><choice><reg>hingat</reg><orig>hi<choice><ex>n</ex><am><g ref="#bar"/></am></choice>gat</orig></choice></w>
+            <w><choice><reg>burð</reg><orig>burd</orig></choice></w>
+         <lb n="9"/>
+            <w><choice><reg>várs</reg><orig>v<choice><ex>or</ex><am><g ref="#osup"/></am></choice>s</orig></choice></w>
+            <w><choice><reg>herra</reg><orig>h<choice><ex>e</ex><am><g ref="#bar"/></am></choice><g ref="#rrot"/>a</orig></choice></w>
+            <name type="person">
+            <w><choice><reg>Jesu Kristi</reg><orig><choice><ex>Jesu Kristi</ex><am>JH<g ref="#bar"/>u X<g ref="#isup"/></am></choice></orig></choice></w>
+            </name>
+            <w><choice><reg>þúsund</reg><orig>þu<g ref="#slong"/>und</orig></choice></w>
+            <w><choice><reg>níutigir</reg><orig>niutig<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+            <w><choice><reg>fimm</reg><orig><g ref="#fins"/>im</orig></choice></w>
+            <w><choice><reg>ár,</reg><orig><g ref="#aalig"/>r.</orig></choice></w>
+         <lb n="10"/>
+            <w><choice><reg>skipaði</reg><orig><g ref="#slong"/>kipadi</orig></choice></w>
+            <name type="person">
+            <w><choice><reg>Urbanus</reg><orig>vrban<choice><ex>us</ex><am><g ref="#us"/></am></choice></orig></choice></w>
+            </name>
+            <w><choice><reg>Páfi</reg><orig>p<choice><ex>a<g ref="#fins"/>i</ex><am>p<g ref="#ra"/></am></choice>.</orig></choice></w>
+            <w><choice><reg>á</reg><orig><g ref="#aalig"/></orig></choice></w>
+            <w><choice><reg>kennimanna</reg><orig>ken<choice><ex>n</ex><am><g ref="#bar"/></am></choice>i m<choice><ex>anna</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            <w><choice><reg>þingi</reg><orig>þi<choice><ex>n</ex><am><g ref="#bar"/></am></choice>gi</orig></choice></w>
+            <w><choice><reg>við</reg><orig>v<choice><ex>id</ex><am><g ref="#isup"/></am></choice></orig></choice></w>
+            <name type="place">
+            <w><choice><reg>Claromontem</reg><orig>clarom<choice><ex>on</ex><am><g ref="#bar"/></am></choice>te<choice><ex>m</ex><am><g ref="#bar"/></am></choice></orig></choice></w>
+            </name>
+         <lb n="11"/>
+            <w><choice><reg>í</reg><orig>j</orig></choice></w>
+            <name type="place">
+            <w><choice><reg>Gallia</reg><orig>gallia</orig></choice></w>
+            </name>
+            <w><choice><reg>at</reg><orig>at</orig></choice></w>
+            <w><choice><reg>lesa</reg><orig>le<g ref="#slong"/>a</orig></choice></w>
+            <w><choice><reg>skyldi</reg><orig><g ref="#slong"/>kylldi</orig></choice></w>
+            <w><choice><reg>tíðir</reg><orig>tid<choice><ex>ir</ex><am><g ref="#er"/></am></choice></orig></choice></w>
+            <w><choice><reg>af</reg><orig>a<g ref="#fins"/></orig></choice></w>
+            <w><choice><reg>jungfrú</reg><orig>ju<choice><ex>n</ex><am><g ref="#bar"/></am></choice>g<g ref="#fins"/><choice><ex>rv</ex><am><g ref="#vsup"/></am></choice></orig></choice></w>
+            <name type="person">
+            <hi rend="caps">
+            <w><choice><reg>Marie</reg><orig>marie.</orig></choice></w>
+            </hi>
+            </name>
+           
+            <w><choice><reg>ok</reg><orig><g ref="#et"/></orig></choice></w>
+         <lb n="12"/>
+            <w><choice><reg>henni</reg><orig>h<choice><ex>en</ex><am><g ref="#bar"/></am></choice>ni</orig></choice></w>
+            <w><choice><reg>skyldi</reg><orig><g ref="#slong"/>kylldi</orig></choice></w>
+            <w><choice><reg>syngja</reg><orig>syng<choice><ex>ia</ex><am><g ref="#asup"/></am></choice></orig></choice></w>
+            <w><choice><reg>hátíðliga</reg><orig>hatidliga</orig></choice></w>
+            <w><choice><reg>hvern</reg><orig>hu<choice><ex>er</ex><am><g ref="#er"/></am></choice>n</orig></choice></w>
+            <w><choice><reg>laugardag.</reg><orig>laug<choice><ex>ar</ex><am><g ref="#rsup"/></am></choice></orig></choice></w>
+            <w><choice><reg/><orig>dag.</orig></choice></w>
+   </p>
+   
+
+
+
+         </div>       
+      </body>
+   </text>
+</TEI>
+

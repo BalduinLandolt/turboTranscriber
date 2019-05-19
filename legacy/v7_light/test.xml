@@ -1,0 +1,1480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>[Title]</title>
+				<author>[Author]</author>
+			</titleStmt>
+			<publicationStmt>
+				<p>[Publication Statement]</p>
+				<p>[Source Description]</p>
+			</publicationStmt>
+			<sourceDesc />
+		</fileDesc>
+	</teiHeader>
+	<text>
+		<body>
+			<div>
+				<!--Here starts the Transcription.-->
+				<pb n="76v" />
+				<lb n="1" />
+				<head>
+					<w>Krÿngil</w>
+					<w>nefju</w>
+					<w>vÿsur</w>
+				</head>
+				<lg type="stanza" n="1">
+					<l n="1">
+						<lb n="2" />
+						<w>Mun</w>
+						<w>eg</w>
+						<w>frä</w>
+						<w>kalle</w>
+					</l>
+					<l n="2">
+						<w>kun<choice><ex>n</ex><am /></choice>a</w>
+						<w>ad</w>
+						<lb n="3" />
+						<w><g ref="#slong" />eigja</w>
+					</l>
+					<l n="3">
+						<w>þ<choice><ex>ei</ex><am /></choice>m</w>
+						<w><g ref="#fins" />yrre</w>
+						<w>biö</w>
+					</l>
+					<l n="4">
+						<w>j</w>
+						<w>fornu<choice><ex>m</ex><am /></choice></w>
+						<lb n="4" />
+						<w>sið,</w>
+					</l>
+					<l n="5">
+						<w>konu</w>
+						<w>atte</w>
+						<w><g ref="#slong" />ier</w>
+					</l>
+					<l n="6">
+						<w>a<g ref="#fins" /></w>
+						<w>kyne</w>
+						<lb n="5" />
+						<w>godu,</w>
+					</l>
+					<l n="7">
+						<w>þ<choice><ex>ei</ex><am /></choice>m</w>
+						<w>var</w>
+						<w>þeim</w>
+						<w>Bräd<g ref="#slong" />kapad</w>
+					</l>
+					<l n="8">
+						<lb n="6" />
+						<w>Barn<choice><ex>n</ex><am /></choice></w>
+						<w>ad</w>
+						<w>eiga</w>
+						<pc>.</pc>
+					</l>
+				</lg>
+				<lg type="stanza" n="2">
+					<l n="1">
+						<w>Upp</w>
+						<w>gátu</w>
+						<w>þau</w>
+					</l>
+					<l n="2">
+						<w>eina</w>
+						<w>að</w>
+						<w>fæða,</w>
+					</l>
+					<l n="3">
+						<w>sú</w>
+						<w>var</w>
+						<w>fegri</w>
+					</l>
+					<l n="4">
+						<w>en</w>
+						<w>fljóð</w>
+						<w>onnur</w>
+						<pc>.</pc>
+					</l>
+					<l n="5">
+						<w>Nafn</w>
+						<w>skal</w>
+						<w>gefa</w>
+					</l>
+					<l n="6">
+						<w>nýtri</w>
+						<w>meyju,</w>
+					</l>
+					<l n="7">
+						<w>okkur</w>
+						<w>mun</w>
+						<w>að</w>
+						<w>gamni</w>
+					</l>
+					<l n="8">
+						<w>Gullinhöfða</w>
+						<pc>.</pc>
+					</l>
+					<l n="9">
+						<w>Þá</w>
+						<w>kom</w>
+						<w>sóttin</w>
+					</l>
+					<l n="10">
+						<w>í</w>
+						<w>sal</w>
+						<w>þeirra</w>
+					</l>
+					<l n="11">
+						<w>svo</w>
+						<w>að</w>
+						<w>Álþrúður</w>
+					</l>
+					<l n="12">
+						<w>andar</w>
+						<w>misti;</w>
+					</l>
+					<l n="13">
+						<w>þau</w>
+						<w>eptir</w>
+						<w>hana</w>
+					</l>
+					<l n="14">
+						<w>hauginn</w>
+						<w>urpu</w>
+					</l>
+					<l n="15">
+						<w>og</w>
+						<w>allmikið</w>
+					</l>
+					<l n="16">
+						<w>erfi</w>
+						<w>drukku</w>
+						<pc>.</pc>
+					</l>
+					<l n="17">
+						<w>Karl</w>
+						<w>réð</w>
+						<w>að</w>
+						<w>skunda</w>
+					</l>
+					<l n="18">
+						<w>á</w>
+						<w>skóg</w>
+						<w>víðan</w>
+					</l>
+					<l n="19">
+						<w>og</w>
+						<w>ætlaði</w>
+						<w>að</w>
+						<w>afla</w>
+						<w>sér</w>
+					</l>
+					<l n="20">
+						<w>eldiviðar;</w>
+					</l>
+					<l n="21">
+						<w>þá</w>
+						<w>kom</w>
+						<w>fyrir</w>
+						<w>honum</w>
+					</l>
+					<l n="22">
+						<w>hrím</w>
+						<w>og</w>
+						<w>þóka,</w>
+					</l>
+					<l n="23">
+						<w>svo</w>
+						<w>hann</w>
+						<w>heim</w>
+						<w>feta</w>
+					</l>
+					<l n="24">
+						<w>hvergi</w>
+						<w>náði</w>
+						<pc>.</pc>
+					</l>
+					<l n="25">
+						<w>Karl</w>
+						<w>fann</w>
+						<w>fyrir</w>
+						<w>sér</w>
+					</l>
+					<l n="26">
+						<w>konu</w>
+						<w>á</w>
+						<w>skógi,</w>
+					</l>
+					<l n="27">
+						<w>hjó</w>
+						<w>rammlega</w>
+					</l>
+					<l n="28">
+						<w>rótarkylfu;</w>
+					</l>
+					<l n="29">
+						<w>sú</w>
+						<w>var</w>
+						<w>kerlíng</w>
+					</l>
+					<l n="30">
+						<w>í</w>
+						<w>kjagg</w>
+						<w>búin,</w>
+					</l>
+					<l n="31">
+						<w>tók</w>
+						<w>henni</w>
+						<w>kyrtill</w>
+					</l>
+					<l n="32">
+						<w>á</w>
+						<w>kné</w>
+						<w>ofan</w>
+						<pc>.</pc>
+					</l>
+					<l n="33">
+						<w>Karl</w>
+						<w>réð</w>
+						<w>að</w>
+						<w>spyrja</w>
+					</l>
+					<l n="34">
+						<w>konu</w>
+						<w>á</w>
+						<w>heiti</w>
+						<pc>.</pc>
+					</l>
+					<l n="35">
+						<w>Vita</w>
+						<w>muntu</w>
+						<w>á</w>
+						<w>mér</w>
+					</l>
+					<l n="36">
+						<w>eingin</w>
+						<w>deili;</w>
+					</l>
+					<l n="37">
+						<w>hefi</w>
+						<w>ég</w>
+						<w>opt</w>
+						<w>búið</w>
+					</l>
+					<l n="38">
+						<w>ein</w>
+						<w>á</w>
+						<w>skógi;</w>
+					</l>
+					<l n="39">
+						<w>máttu</w>
+						<w>kalla</w>
+						<w>mig</w>
+					</l>
+					<l n="40">
+						<w>Kríngilnefju</w>
+						<pc>.</pc>
+					</l>
+					<l n="41">
+						<w>Hitt</w>
+						<w>þætti</w>
+						<w>mér</w>
+					</l>
+					<l n="42">
+						<w>þó</w>
+						<w>enn</w>
+						<w>vænna</w>
+					</l>
+					<l n="43">
+						<w>að</w>
+						<w>við</w>
+						<w>ættum</w>
+					</l>
+					<l n="44">
+						<w>eitt</w>
+						<w>bú</w>
+						<w>til</w>
+						<w>samans</w>
+						<pc>.</pc>
+					</l>
+					<l n="45">
+						<w>Mín</w>
+						<w>er</w>
+						<w>kerlíng</w>
+					</l>
+					<l n="46">
+						<w>krafin</w>
+						<w>andar</w>
+					</l>
+					<l n="47">
+						<w>en</w>
+						<w>bús</w>
+						<w>gætir</w>
+						<w>heima</w>
+					</l>
+					<l n="48">
+						<w>Gullinhöfða</w>
+						<pc>.</pc>
+					</l>
+					<l n="49">
+						<w>Mjög</w>
+						<w>þætti</w>
+						<w>mér</w>
+					</l>
+					<l n="50">
+						<w>þá</w>
+						<w>minn</w>
+						<w>hagur</w>
+						<w>skipast,</w>
+					</l>
+					<l n="51">
+						<w>ef</w>
+						<w>eg</w>
+						<w>hjá</w>
+						<w>karli</w>
+					</l>
+					<l n="52">
+						<w>í</w>
+						<w>koti</w>
+						<w>lagi,</w>
+					</l>
+					<l n="53">
+						<w>en</w>
+						<w>þó</w>
+						<w>læt</w>
+						<w>ekki</w>
+					</l>
+					<l n="54">
+						<w>örvænt</w>
+						<w>á</w>
+						<w>því,</w>
+					</l>
+					<l n="55">
+						<w>ef</w>
+						<w>eg</w>
+						<w>má</w>
+						<w>kostum</w>
+					</l>
+					<l n="56">
+						<w>öllum</w>
+						<w>ráða</w>
+						<pc>.</pc>
+					</l>
+					<l n="57">
+						<w>Þau</w>
+						<w>sambýlum</w>
+					</l>
+					<l n="58">
+						<w>sínum</w>
+						<w>réðu,</w>
+					</l>
+					<l n="59">
+						<w>fór</w>
+						<w>með</w>
+						<w>karli</w>
+					</l>
+					<l n="60">
+						<w>Kríngilnefja</w>
+						<pc>.</pc>
+					</l>
+					<l n="61">
+						<w>Kerlíng</w>
+						<w>átti</w>
+					</l>
+					<l n="62">
+						<w>þrjár</w>
+						<w>kýr</w>
+						<w>til</w>
+						<w>bús</w>
+					</l>
+					<l n="63">
+						<w>og</w>
+						<w>annað</w>
+						<w>fé</w>
+					</l>
+					<l n="64">
+						<w>ekki</w>
+						<w>minna</w>
+						<pc>.</pc>
+					</l>
+					<l n="65">
+						<w>Komu</w>
+						<w>þau</w>
+						<w>að</w>
+						<w>kvöldi</w>
+					</l>
+					<l n="66">
+						<w>til</w>
+						<w>karls</w>
+						<w>sala</w>
+					</l>
+					<l n="67">
+						<w>þá</w>
+						<w>var</w>
+						<w>hert</w>
+					</l>
+					<l n="68">
+						<w>og</w>
+						<w>hugað</w>
+						<w>að</w>
+						<w>veizlu;</w>
+					</l>
+					<l n="69">
+						<w>gekk</w>
+						<w>bráðlega</w>
+					</l>
+					<l n="70">
+						<w>brúður</w>
+						<w>um</w>
+						<w>sýslur,</w>
+					</l>
+					<l n="71">
+						<w>þar</w>
+						<w>sem</w>
+						<w>grátin</w>
+						<w>sat</w>
+					</l>
+					<l n="72">
+						<w>Gullinhöfða</w>
+						<pc>.</pc>
+					</l>
+					<l n="73">
+						<w>Að</w>
+						<w>spurði</w>
+						<w>kerlíng</w>
+					</l>
+					<l n="74">
+						<w>únga</w>
+						<w>dömmu:</w>
+					</l>
+					<l n="75">
+						<w>Hvort</w>
+						<w>var</w>
+						<w>þér,</w>
+						<w>meyja</w>
+					</l>
+					<l n="76">
+						<w>mans</w>
+						<w>nafn</w>
+						<w>gefið,</w>
+					</l>
+					<l n="77">
+						<w>hvað</w>
+						<w>kantu,</w>
+						<w>vænt</w>
+						<w>jóð,</w>
+					</l>
+					<l n="78">
+						<w>til</w>
+						<w>verknaðar,</w>
+					</l>
+					<l n="79">
+						<w>að</w>
+						<w>þú</w>
+						<w>fegri</w>
+						<w>ert</w>
+					</l>
+					<l n="80">
+						<w>en</w>
+						<w>fljóð</w>
+						<w>önnur?</w>
+					</l>
+					<l n="81">
+						<w>Lítt</w>
+						<w>sér</w>
+						<w>það</w>
+						<w>á</w>
+						<w>þér</w>
+					</l>
+					<l n="82">
+						<w>velvaxinn</w>
+						<w>mær,</w>
+					</l>
+					<l n="83">
+						<w>að</w>
+						<w>þín</w>
+						<w>móðir</w>
+						<w>hafi</w>
+					</l>
+					<l n="84">
+						<w>margfróð</w>
+						<w>verið</w>
+						<pc>.</pc>
+					</l>
+					<l n="85">
+						<w>Mista</w>
+						<w>eg</w>
+						<w>minna</w>
+					</l>
+					<l n="86">
+						<w>móður</w>
+						<w>snemma,</w>
+					</l>
+					<l n="87">
+						<w>hlaut</w>
+						<w>eg</w>
+						<w>eptir</w>
+						<w>hana</w>
+					</l>
+					<l n="88">
+						<w>helstríð</w>
+						<w>að</w>
+						<w>bera</w>
+						<pc>.</pc>
+					</l>
+					<l n="89">
+						<w>Síðan</w>
+						<w>hafa</w>
+						<w>mér</w>
+						<w>eingir</w>
+					</l>
+					<l n="90">
+						<w>sauma</w>
+						<w>kenda</w>
+					</l>
+					<l n="91">
+						<w>þá</w>
+						<w>hafi</w>
+						<w>eg</w>
+						<w>hjá</w>
+						<w>karli</w>
+					</l>
+					<l n="92">
+						<w>í</w>
+						<w>koti</w>
+						<w>legið</w>
+						<pc>.</pc>
+					</l>
+					<l n="93">
+						<w>Rakti</w>
+						<w>borða</w>
+					</l>
+					<l n="94">
+						<w>brúður</w>
+						<w>vænlegan,</w>
+					</l>
+					<l n="95">
+						<w>en</w>
+						<w>sú</w>
+						<w>en</w>
+						<w>ýngri</w>
+					</l>
+					<l n="96">
+						<w>eptir</w>
+						<w>myndaði</w>
+						<pc>.</pc>
+					</l>
+					<l n="97">
+						<w>Það</w>
+						<w>var</w>
+						<w>á</w>
+						<w>einu</w>
+					</l>
+					<l n="98">
+						<w>augabragði</w>
+					</l>
+					<l n="99">
+						<w>að</w>
+						<w>hún</w>
+						<w>kænni</w>
+						<w>var</w>
+					</l>
+					<l n="100">
+						<w>en</w>
+						<w>konur</w>
+						<w>aðrar;</w>
+					</l>
+					<l n="101">
+						<w>sátu</w>
+						<w>þær</w>
+						<w>og</w>
+						<w>sömdu</w>
+					</l>
+					<l n="102">
+						<w>síðan</w>
+						<w>hvað</w>
+						<w>vildu</w>
+					</l>
+					<l n="103">
+						<pc>.</pc>
+						<pc>.</pc>
+						<pc>.</pc>
+					</l>
+					<l n="104">
+						<w>Kerlíng</w>
+						<w>talar</w>
+					</l>
+					<l n="105">
+						<w>við</w>
+						<w>karl</w>
+						<w>sinn</w>
+						<w>þegar:</w>
+					</l>
+					<l n="106">
+						<w>Þú</w>
+						<w>skalt</w>
+						<w>skjótlega</w>
+					</l>
+					<l n="107">
+						<w>skemmu</w>
+						<w>reisa</w>
+						<pc>.</pc>
+					</l>
+					<l n="108">
+						<w>Fátt</w>
+						<w>mun</w>
+						<w>að</w>
+						<w>gamni</w>
+					</l>
+					<l n="109">
+						<w>Gullinhöfðu</w>
+					</l>
+					<l n="110">
+						<w>þó</w>
+						<w>yfir</w>
+						<w>borða</w>
+					</l>
+					<l n="111">
+						<w>brúðurin</w>
+						<w>sitji</w>
+						<pc>.</pc>
+					</l>
+					<l n="112">
+						<w>Úti</w>
+						<w>stóðu</w>
+						<w>þau</w>
+					</l>
+					<l n="113">
+						<w>árla</w>
+						<w>morgins</w>
+					</l>
+					<l n="114">
+						<w>hjú</w>
+						<w>þrjú</w>
+						<w>saman</w>
+					</l>
+					<l n="115">
+						<w>og</w>
+						<w>hjalast</w>
+						<w>við:</w>
+					</l>
+					<l n="116">
+						<w>Líttu</w>
+						<w>til,</w>
+						<w>karl</w>
+						<w>minn,</w>
+					</l>
+					<l n="117">
+						<w>lángt</w>
+						<w>út</w>
+						<w>í</w>
+						<w>hafi,</w>
+					</l>
+					<l n="118">
+						<w>þar</w>
+						<w>mun</w>
+						<w>skjöldúng</w>
+					</l>
+					<l n="119">
+						<w>fyrir</w>
+						<w>skipum</w>
+						<w>ráða</w>
+						<pc>.</pc>
+					</l>
+					<l n="120">
+						<w>Sá</w>
+						<w>stýrir</w>
+						<w>hingað</w>
+					</l>
+					<l n="121">
+						<w>stranda</w>
+						<w>essi</w>
+					</l>
+					<l n="122">
+						<w>Ásmundur</w>
+						<w>kóngsson</w>
+					</l>
+					<l n="123">
+						<w>öllu</w>
+						<w>liði,</w>
+					</l>
+					<l n="124">
+						<w>hans</w>
+						<w>er</w>
+						<w>dreki</w>
+					</l>
+					<l n="125">
+						<w>dýrstur</w>
+						<w>á</w>
+						<w>sundi,</w>
+					</l>
+					<l n="126">
+						<w>hann</w>
+						<w>er</w>
+						<w>frækinn</w>
+						<w>maður</w>
+					</l>
+					<l n="127">
+						<w>og</w>
+						<w>honum</w>
+						<w>skal</w>
+						<w>ég</w>
+						<w>bjóða</w>
+						<pc>.</pc>
+					</l>
+					<l n="128">
+						<w>Kerlíng</w>
+						<w>talar</w>
+					</l>
+					<l n="129">
+						<w>við</w>
+						<w>karl</w>
+						<w>sinn</w>
+						<w>þegar:</w>
+					</l>
+					<l n="130">
+						<w>Þú</w>
+						<w>skalt</w>
+						<w>skunda</w>
+					</l>
+					<l n="131">
+						<w>til</w>
+						<w>skipa</w>
+						<w>ofan</w>
+					</l>
+					<l n="132">
+						<w>og</w>
+						<w>bjóða</w>
+						<w>þeim</w>
+						<w>híngað</w>
+					</l>
+					<l n="133">
+						<w>heim</w>
+						<w>öllum</w>
+						<w>gánga</w>
+					</l>
+					<l n="134">
+						<w>Ásmundi</w>
+						<w>kóngssyni</w>
+					</l>
+					<l n="135">
+						<w>einkar</w>
+						<w>fyrstum</w>
+						<pc>.</pc>
+					</l>
+					<l n="136">
+						<w>Skunda</w>
+						<w>eg</w>
+						<w>ekki</w>
+					</l>
+					<l n="137">
+						<w>til</w>
+						<w>skipa</w>
+						<w>ofan</w>
+					</l>
+					<l n="138">
+						<w>því</w>
+						<w>eigi</w>
+						<w>kann</w>
+						<w>eg</w>
+					</l>
+					<l n="139">
+						<w>við</w>
+						<w>öðlíng</w>
+						<w>mæla,</w>
+					</l>
+					<l n="140">
+						<w>fyr</w>
+						<w>munu</w>
+						<w>firrast</w>
+					</l>
+					<l n="141">
+						<w>fundir</w>
+						<w>okkrir</w>
+					</l>
+					<l n="142">
+						<w>en</w>
+						<w>eg</w>
+						<w>hann</w>
+						<w>Ásmund</w>
+					</l>
+					<l n="143">
+						<w>augum</w>
+						<w>líti</w>
+						<pc>.</pc>
+					</l>
+					<l n="144">
+						<w>Mér</w>
+						<w>er</w>
+						<w>kærara</w>
+					</l>
+					<l n="145">
+						<w>í</w>
+						<w>koti</w>
+						<w>mínu,</w>
+					</l>
+					<l n="146">
+						<w>kann</w>
+						<w>eg</w>
+						<w>eigi</w>
+					</l>
+					<l n="147">
+						<w>við</w>
+						<w>kónga</w>
+						<w>siðu;</w>
+					</l>
+					<l n="148">
+						<w>eg</w>
+						<w>skal</w>
+						<w>mig</w>
+						<w>fela</w>
+					</l>
+					<l n="149">
+						<w>fyrst</w>
+						<w>í</w>
+						<w>skógi,</w>
+					</l>
+					<l n="150">
+						<w>á</w>
+						<w>meðan</w>
+						<w>hér</w>
+						<w>drekka</w>
+					</l>
+					<l n="151">
+						<w>dýrir</w>
+						<w>rekkar</w>
+						<pc>.</pc>
+					</l>
+					<l n="152">
+						<w>Það</w>
+						<w>er</w>
+						<w>eigi</w>
+						<w>kyn,</w>
+					</l>
+					<l n="153">
+						<w>þó</w>
+						<w>kerlíng</w>
+						<w>sú</w>
+					</l>
+					<l n="154">
+						<w>lítið</w>
+						<w>ynni</w>
+					</l>
+					<l n="155">
+						<w>lyddu</w>
+						<w>þinni,</w>
+					</l>
+					<l n="156">
+						<w>sú</w>
+						<w>sómdi</w>
+						<w>þér</w>
+					</l>
+					<l n="157">
+						<w>síður</w>
+						<w>en</w>
+						<w>ekki</w>
+					</l>
+					<l n="158">
+						<w>kerlíng,</w>
+						<w>er</w>
+						<w>var</w>
+					</l>
+					<l n="159">
+						<w>af</w>
+						<w>kyni</w>
+						<w>góðu</w>
+						<pc>.</pc>
+					</l>
+					<l n="160">
+						<w>Skundar</w>
+						<w>hún</w>
+						<w>síðan</w>
+					</l>
+					<l n="161">
+						<w>til</w>
+						<w>skipa</w>
+						<w>ofan</w>
+					</l>
+					<l n="162">
+						<w>þótti</w>
+						<w>firðum</w>
+					</l>
+					<l n="163">
+						<w>sem</w>
+						<w>á</w>
+						<w>flagð</w>
+						<w>sæi;</w>
+					</l>
+					<l n="164">
+						<w>greip</w>
+						<w>í</w>
+						<w>stafninn</w>
+					</l>
+					<l n="165">
+						<w>með</w>
+						<w>skyrkri</w>
+						<w>hendi</w>
+					</l>
+					<l n="166">
+						<w>og</w>
+						<w>á</w>
+						<w>land</w>
+						<w>kipti</w>
+					</l>
+					<l n="167">
+						<w>öllu</w>
+						<w>meingi</w>
+						<pc>.</pc>
+					</l>
+					<l n="168">
+						<w>Heim</w>
+						<w>bauð</w>
+						<w>hún</w>
+						<w>meingi</w>
+					</l>
+					<l n="169">
+						<w>hilmis</w>
+						<w>öllu</w>
+					</l>
+					<l n="170">
+						<w>og</w>
+						<w>Ásmundi</w>
+					</l>
+					<l n="171">
+						<w>allrafyrstum</w>
+						<pc>.</pc>
+					</l>
+					<l n="172">
+						<w>Einginn</w>
+						<w>þorði</w>
+					</l>
+					<l n="173">
+						<w>eftir</w>
+						<w>að</w>
+						<w>sitja</w>
+					</l>
+					<l n="174">
+						<w>né</w>
+						<w>gréttunni</w>
+						<w>þeirri</w>
+					</l>
+					<l n="175">
+						<w>gjöra</w>
+						<w>neitt</w>
+						<w>á</w>
+						<w>móti</w>
+						<pc>.</pc>
+					</l>
+					<l n="176">
+						<w>Geingu</w>
+						<w>rekkar</w>
+					</l>
+					<l n="177">
+						<w>um</w>
+						<w>götu</w>
+						<w>slétta</w>
+					</l>
+					<l n="178">
+						<w>og</w>
+						<w>til</w>
+						<w>húsa</w>
+						<w>hennar</w>
+					</l>
+					<l n="179">
+						<w>heim</w>
+						<w>að</w>
+						<w>kvöldi;</w>
+					</l>
+					<l n="180">
+						<w>setti</w>
+						<w>hún</w>
+						<w>Ásmund</w>
+					</l>
+					<l n="181">
+						<w>í</w>
+						<w>öndvegi,</w>
+					</l>
+					<l n="182">
+						<w>kunni</w>
+						<w>kerlíng</w>
+					</l>
+					<l n="183">
+						<w>við</w>
+						<w>kóng</w>
+						<w>að</w>
+						<w>ræða</w>
+						<pc>.</pc>
+					</l>
+					<l n="184">
+						<w>Þar</w>
+						<w>var</w>
+						<w>tvistnu</w>
+					</l>
+					<l n="185">
+						<w>tjaldið</w>
+						<w>líni</w>
+					</l>
+					<l n="186">
+						<w>og</w>
+						<w>rauðlitaðir</w>
+					</l>
+					<l n="187">
+						<w>reflar</w>
+						<w>héngu</w>
+						<pc>.</pc>
+					</l>
+					<l n="188">
+						<w>Svo</w>
+						<w>hafði</w>
+						<w>þá</w>
+						<w>kendan</w>
+					</l>
+					<l n="189">
+						<w>Kringilnefja</w>
+					</l>
+					<l n="190">
+						<w>flestan</w>
+						<w>verkshátt</w>
+					</l>
+					<l n="191">
+						<w>fóstru</w>
+						<w>sinni</w>
+						<pc>.</pc>
+					</l>
+					<l n="192">
+						<w>Gekk</w>
+						<w>fram</w>
+						<w>þaðan</w>
+					</l>
+					<l n="193">
+						<w>Kríngilnefja</w>
+					</l>
+					<l n="194">
+						<w>drós</w>
+						<w>að</w>
+						<w>finna</w>
+					</l>
+					<l n="195">
+						<w>dóttur</w>
+						<w>sína:</w>
+					</l>
+					<l n="196">
+						<w>Mey</w>
+						<w>skaltu</w>
+						<w>hafa</w>
+					</l>
+					<l n="197">
+						<w>mínar</w>
+						<w>gerðar,</w>
+					</l>
+					<l n="198">
+						<w>skarlatsklæði</w>
+					</l>
+					<l n="199">
+						<w>og</w>
+						<w>skikkju</w>
+						<w>ofna</w>
+						<pc>.</pc>
+					</l>
+					<l n="200">
+						<w>Hún</w>
+						<w>er</w>
+						<w>gullofin,</w>
+					</l>
+					<l n="201">
+						<w>gjörð</w>
+						<w>af</w>
+						<w>pelli,</w>
+					</l>
+					<l n="202">
+						<w>gakk</w>
+						<w>þú</w>
+						<w>þángað</w>
+					</l>
+					<l n="203">
+						<w>sem</w>
+						<w>glaðir</w>
+						<w>drekka;</w>
+					</l>
+					<l n="204">
+						<w>vertu</w>
+						<w>siðprúð</w>
+					</l>
+					<l n="205">
+						<w>sem</w>
+						<w>eg</w>
+						<w>ræði</w>
+						<pc>.</pc>
+					</l>
+					<l n="206">
+						<w>Svo</w>
+						<w>skal</w>
+						<w>gjöra,</w>
+					</l>
+					<l n="207">
+						<w>kvað</w>
+						<w>Gullinhöfða</w>
+						<pc>.</pc>
+					</l>
+					<l n="208">
+						<w>Fljóð</w>
+						<w>gekk</w>
+						<w>fram</w>
+						<w>á</w>
+						<w>gólf</w>
+					</l>
+					<l n="209">
+						<w>fagurbúið,</w>
+					</l>
+					<l n="210">
+						<w>fögur</w>
+						<w>sýndist</w>
+						<w>gumum</w>
+					</l>
+					<l n="211">
+						<w>Gullinhöfða,</w>
+					</l>
+					<l n="212">
+						<w>en</w>
+						<w>Ásmundur</w>
+					</l>
+					<l n="213">
+						<w>allra</w>
+						<w>mestur</w>
+					</l>
+					<l n="214">
+						<w>kastar</w>
+						<w>kveifi</w>
+					</l>
+					<l n="215">
+						<w>kvaðst</w>
+						<w>vilja</w>
+						<w>drekka</w>
+						<pc>.</pc>
+					</l>
+					<l n="216">
+						<w>Kom</w>
+						<w>og</w>
+						<w>sit</w>
+						<w>hjá</w>
+						<w>mér</w>
+					</l>
+					<l n="217">
+						<w>Kríngilnefja,</w>
+					</l>
+					<l n="218">
+						<w>kunna</w>
+						<w>muntu</w>
+						<w>segja</w>
+					</l>
+					<l n="219">
+						<w>af</w>
+						<w>konu</w>
+						<w>dýrri</w>
+						<pc>.</pc>
+					</l>
+					<l n="220">
+						<w>Hvort</w>
+						<w>er</w>
+						<w>hún</w>
+						<w>karlsbarn</w>
+					</l>
+					<l n="221">
+						<w>eða</w>
+						<w>kóngborin,</w>
+					</l>
+					<l n="222">
+						<w>snótin</w>
+						<w>sem</w>
+						<w>mér</w>
+					</l>
+					<l n="223">
+						<w>sútir</w>
+						<w>eykur</w>
+						<pc>.</pc>
+					</l>
+					<l n="224">
+						<w>Karl</w>
+						<w>hefir</w>
+						<w>alað</w>
+						<w>sér</w>
+					</l>
+					<l n="225">
+						<w>í</w>
+						<w>koti</w>
+						<w>sínu</w>
+					</l>
+					<l n="226">
+						<w>dóttur</w>
+						<w>þessa</w>
+					</l>
+					<l n="227">
+						<w>við</w>
+						<w>dýrri</w>
+						<w>konu</w>
+						<pc>.</pc>
+					</l>
+					<l n="228">
+						<w>Eg</w>
+						<w>hefi</w>
+						<w>fóstrað</w>
+					</l>
+					<l n="229">
+						<w>fagra</w>
+						<w>dömmu</w>
+					</l>
+					<l n="230">
+						<w>síðan</w>
+						<w>við</w>
+						<w>karl</w>
+						<w>minn</w>
+					</l>
+					<l n="231">
+						<w>komum</w>
+						<w>saman</w>
+						<pc>.</pc>
+					</l>
+					<l n="232">
+						<w>Því</w>
+						<w>hefi</w>
+						<w>eg</w>
+						<w>unnað</w>
+					</l>
+					<l n="233">
+						<w>úngri</w>
+						<w>brúður</w>
+					</l>
+					<l n="234">
+						<w>að</w>
+						<w>ég</w>
+						<w>var</w>
+						<w>meyjunnar</w>
+					</l>
+					<l n="235">
+						<w>móðursystir</w>
+						<pc>.</pc>
+					</l>
+					<l n="236">
+						<w>Nú</w>
+						<w>mun</w>
+						<w>álögum</w>
+					</l>
+					<l n="237">
+						<w>öllum</w>
+						<w>linna,</w>
+					</l>
+					<l n="238">
+						<w>en</w>
+						<w>eg</w>
+						<w>heiti</w>
+					</l>
+					<l n="239">
+						<w>Hildifríður</w>
+						<pc>.</pc>
+					</l>
+					<l n="240">
+						<w>Kóngsson</w>
+						<w>talar</w>
+					</l>
+					<l n="241">
+						<w>við</w>
+						<w>Kríngilnefju:</w>
+					</l>
+					<l n="242">
+						<w>Eg</w>
+						<w>vil</w>
+						<w>meyjuna</w>
+					</l>
+					<l n="243">
+						<w>mundi</w>
+						<w>kaupa</w>
+						<pc>.</pc>
+					</l>
+					<l n="244">
+						<w>Þú</w>
+						<w>skalt</w>
+						<w>með</w>
+						<w>oss</w>
+					</l>
+					<l n="245">
+						<w>til</w>
+						<w>minnar</w>
+						<w>hallar,</w>
+					</l>
+					<l n="246">
+						<w>þar</w>
+						<w>skal</w>
+						<w>virðuleg</w>
+					</l>
+					<l n="247">
+						<w>veizlan</w>
+						<w>standa</w>
+						<pc>.</pc>
+					</l>
+					<l n="248">
+						<w>Eg</w>
+						<w>á</w>
+						<w>mér</w>
+						<w>föður</w>
+					</l>
+					<l n="249">
+						<w>elliprúðan,</w>
+					</l>
+					<l n="250">
+						<w>horskan</w>
+						<w>mann</w>
+					</l>
+					<l n="251">
+						<w>og</w>
+						<w>heima</w>
+						<w>situr</w>
+						<pc>.</pc>
+					</l>
+					<l n="252">
+						<w>Honum</w>
+						<w>vil</w>
+						<w>eg</w>
+						<w>þig</w>
+					</l>
+					<l n="253">
+						<w>horskust</w>
+						<w>gipta</w>
+						<pc>.</pc>
+					</l>
+					<l n="254">
+						<w>Þú</w>
+						<w>ert,</w>
+						<w>Kringilnefja,</w>
+					</l>
+					<l n="255">
+						<w>kvenvalið</w>
+						<w>mæta</w>
+						<pc>.</pc>
+					</l>
+					<l n="256">
+						<w>Hilmir</w>
+						<w>sigldi</w>
+					</l>
+					<l n="257">
+						<w>heim</w>
+						<w>til</w>
+						<w>landa,</w>
+					</l>
+					<l n="258">
+						<w>fann</w>
+						<w>sinn</w>
+						<w>föður</w>
+					</l>
+					<l n="259">
+						<w>og</w>
+						<w>færði</w>
+						<w>honum</w>
+						<w>brúði,</w>
+					</l>
+					<l n="260">
+						<w>sagði</w>
+						<w>hann</w>
+						<w>honum</w>
+					</l>
+					<l n="261">
+						<w>sannast</w>
+						<w>af</w>
+						<w>öllu,</w>
+					</l>
+					<l n="262">
+						<w>að</w>
+						<w>hann</w>
+						<w>giptur</w>
+						<w>væri</w>
+					</l>
+					<l n="263">
+						<w>Gullinhöfðu</w>
+						<pc>.</pc>
+					</l>
+					<l n="264">
+						<w>Við</w>
+						<w>skulum,</w>
+						<w>sonur,</w>
+					</l>
+					<l n="265">
+						<w>sagði</w>
+						<w>konúngur,</w>
+					</l>
+					<l n="266">
+						<w>bæði</w>
+						<w>okkar</w>
+					</l>
+					<l n="267">
+						<w>bruðlaup</w>
+						<w>drekka,</w>
+					</l>
+					<l n="268">
+						<w>því</w>
+						<w>skal</w>
+						<w>stofna</w>
+					</l>
+					<l n="269">
+						<w>til</w>
+						<w>stórrar</w>
+						<w>veizlu</w>
+					</l>
+					<l n="270">
+						<w>og</w>
+						<w>bjóða</w>
+						<w>að</w>
+						<w>aptni</w>
+					</l>
+					<l n="271">
+						<w>miklum</w>
+						<w>mönnum</w>
+						<pc>.</pc>
+					</l>
+					<l n="272">
+						<w>Það</w>
+						<w>voru</w>
+						<w>gullkistur</w>
+					</l>
+					<l n="273">
+						<w>á</w>
+						<w>gólf</w>
+						<w>dregnar</w>
+					</l>
+					<l n="274">
+						<w>og</w>
+						<w>gefnar</w>
+						<w>háfur</w>
+					</l>
+					<l n="275">
+						<w>hverjum</w>
+						<w>einum,</w>
+					</l>
+					<l n="276">
+						<w>en</w>
+						<w>kötturinn</w>
+						<w>hljóp</w>
+					</l>
+					<l n="277">
+						<w>ofan</w>
+						<w>í</w>
+						<w>mýri,</w>
+					</l>
+					<l n="278">
+						<w>upp</w>
+						<w>setti</w>
+						<w>hann</w>
+						<w>stýri;</w>
+					</l>
+					<l n="279">
+						<w>úti</w>
+						<w>er</w>
+						<w>æfintýri</w>
+						<pc>.</pc>
+					</l>
+				</lg>
+				<!--Here ends the Transcription.-->
+			</div>
+		</body>
+	</text>
+</TEI>
+
