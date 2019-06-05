@@ -3,6 +3,7 @@
  */
 package ch.blandolt.turboTranscriber;
 
+import ch.blandolt.turboTranscriber.gui.MainGUI;
 import ch.blandolt.turboTranscriber.util.*;
 
 /**
@@ -19,9 +20,13 @@ public class TurboTranscriberMain {
 		Log.log("Log initialized.\n");
 		
 		//TODO Run Core here
+
+		// TEST: gui
+		MainGUI gui = new MainGUI();
+		gui.showMainGUI();
 		
-		Log.log("Requesting log shutdown...");
-		Log.terminate();
+//		Log.log("Requesting log shutdown...");
+//		Log.terminate();
 	}
 
 	{
