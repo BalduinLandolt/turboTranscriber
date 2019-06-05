@@ -5,6 +5,8 @@ import ch.blandolt.turboTranscriber.util.Loggable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainGUI extends JFrame  implements Loggable {
     private JTabbedPane mainTabbedPane;
@@ -13,7 +15,9 @@ public class MainGUI extends JFrame  implements Loggable {
     private JTextArea logTextArea;
     private JScrollPane logScroller;
     private JPanel imageContainer;
-    private JButton button1;
+    private JPanel controls;
+    private JButton cropSelected;
+    private JPanel thumbnailPanel;
 
     private CustomImagePanel imagePanel;
 
@@ -33,6 +37,9 @@ public class MainGUI extends JFrame  implements Loggable {
         // TODO: moves this to core application?
 
         Log.log("GUI set up.");
+        cropSelected.addActionListener(e -> {
+            // TODO: implement
+        });
     }
 
     public void showMainGUI(){
@@ -42,9 +49,6 @@ public class MainGUI extends JFrame  implements Loggable {
         setVisible(true);
 
         Log.log("Showing GUI.");
-
-        imagePanel = new CustomImagePanel();
-        imageContainer.add(imagePanel, BorderLayout.CENTER);
     }
 
     @Override

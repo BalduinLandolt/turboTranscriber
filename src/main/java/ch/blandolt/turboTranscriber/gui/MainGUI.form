@@ -33,12 +33,45 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="946c8" class="javax.swing.JButton" binding="button1" default-binding="true">
-                <constraints border-constraint="South"/>
-                <properties>
-                  <text value="Button"/>
-                </properties>
+              <component id="ac28b" class="ch.blandolt.turboTranscriber.gui.CustomImagePanel">
+                <constraints border-constraint="Center"/>
+                <properties/>
               </component>
+              <grid id="97f5" binding="controls" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints border-constraint="East"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="4319b" class="javax.swing.JButton" binding="cropSelected">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Crop Selection"/>
+                    </properties>
+                  </component>
+                  <vspacer id="92131">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                </children>
+              </grid>
+              <scrollpane id="a4f40">
+                <constraints border-constraint="South"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="83495" binding="thumbnailPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints/>
+                    <properties/>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                </children>
+              </scrollpane>
             </children>
           </grid>
           <grid id="13c21" binding="logPane" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
