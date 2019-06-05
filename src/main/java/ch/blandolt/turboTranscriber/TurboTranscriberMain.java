@@ -34,6 +34,8 @@ public class TurboTranscriberMain {
 		// TODO: Rework CustomImagePanel and ThumbnailPanel
 		// TODO: Add Comments to those
 		//
+		// TODO: Set up new GUI
+		//
 		// ...
 	}
 
