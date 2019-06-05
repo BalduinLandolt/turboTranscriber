@@ -55,6 +55,15 @@ public class CustomImagePanel extends JPanel implements MouseListener, MouseMoti
 
 	 */
 
+	public CustomImagePanel(){
+		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
+		this.addComponentListener(this);
+		this.setPreferredSize(new Dimension(100, 100));
+		panelImage = new BufferedImage(getPreferredSize().width, getPreferredSize().height, BufferedImage.TYPE_INT_ARGB);
+
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */

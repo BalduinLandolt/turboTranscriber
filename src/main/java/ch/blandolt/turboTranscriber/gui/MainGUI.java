@@ -12,6 +12,10 @@ public class MainGUI extends JFrame  implements Loggable {
     private JPanel logPane;
     private JTextArea logTextArea;
     private JScrollPane logScroller;
+    private JPanel imageContainer;
+    private JButton button1;
+
+    private CustomImagePanel imagePanel;
 
     public MainGUI(){
 
@@ -38,6 +42,9 @@ public class MainGUI extends JFrame  implements Loggable {
         setVisible(true);
 
         Log.log("Showing GUI.");
+
+        imagePanel = new CustomImagePanel();
+        imageContainer.add(imagePanel, BorderLayout.CENTER);
     }
 
     @Override
