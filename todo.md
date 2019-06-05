@@ -7,5 +7,7 @@
 ## Planned Features
 
 ## Long Term
+
+## General TODOs
 - Add Comments
 - Check old code from previous version

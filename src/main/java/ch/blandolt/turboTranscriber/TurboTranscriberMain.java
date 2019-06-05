@@ -24,4 +24,13 @@ public class TurboTranscriberMain {
 		Log.terminate();
 	}
 
+	{
+		// Collection of Tasks
+		// -------------------
+		//
+		// TODO: Rework Log
+		// TODO: Add comments to Log
+		// ...
+	}
+
 }
