@@ -18,6 +18,13 @@ public class MainGUI extends JFrame  implements Loggable {
     private JPanel controls;
     private JButton cropSelected;
     private JPanel thumbnailPanel;
+    private JPanel transcriptionContainer;
+    private JSplitPane splitpaneGeneral;
+    private JPanel leftPanel;
+    private JPanel rightPanel;
+    private JSplitPane splitterXMLStuff;
+    private JScrollPane xmlScroller;
+    private JScrollPane styledScroller;
 
     private CustomImagePanel imagePanel;
 
