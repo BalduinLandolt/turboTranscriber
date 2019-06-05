@@ -30,6 +30,10 @@ public class TurboTranscriberMain {
 		//
 		// TODO: Rework Log
 		// TODO: Add comments to Log
+		//
+		// TODO: Rework CustomImagePanel and ThumbnailPanel
+		// TODO: Add Comments to those
+		//
 		// ...
 	}
 
