@@ -1,9 +1,16 @@
-.project
+# Gitignore
+# ---------
 
+
+# Project Files (Eclipse, Inltellij)
+.project
+.settings
+.classpath
+.idea/*
+
+
+# Maven Target
 /target/
 
-.settings
-
-.classpath
-
+# Log
 log.txt

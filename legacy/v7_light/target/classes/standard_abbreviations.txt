@@ -1,5 +1,0 @@
-﻿*/standard abbreviations for XMLSpeedUP (created for V5)/*
-
-*/A file of this sort can be used to create abbreviation short cuts./*
-*/The usual syntax of XMLSpeedUP Abbreviations is: "(expansion;abbreviation_mark)"/*
-*//*
