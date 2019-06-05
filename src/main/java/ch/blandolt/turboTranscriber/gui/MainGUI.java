@@ -43,6 +43,8 @@ public class MainGUI extends JFrame  implements Loggable {
     }
 
     public void showMainGUI(){
+        // TODO: create Thumbnails
+
         pack();
         setExtendedState(MAXIMIZED_BOTH);
 
