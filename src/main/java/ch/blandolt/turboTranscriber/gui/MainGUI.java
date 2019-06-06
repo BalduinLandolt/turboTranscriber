@@ -25,8 +25,13 @@ public class MainGUI extends JFrame  implements Loggable {
     private JSplitPane splitterXMLStuff;
     private JScrollPane xmlScroller;
     private JScrollPane styledScroller;
+    private JTextField placeholder_transcription;
 
-    private CustomImagePanel imagePanel;
+    private JLabel picture;
+    private JScrollPane pictureScroller;
+    private JToolBar imageToolBar;
+    private JButton button1;
+    private JButton button2;
 
     // Menubar
     private JMenuBar menuBar;
@@ -46,6 +51,14 @@ public class MainGUI extends JFrame  implements Loggable {
 
     public MainGUI(){
 
+        // TODOs
+        // -----
+        //
+        // TODO: test if images display correctly
+        // TODO: finish transcription view
+        //     - TODO: Add Image Panel to transcription view.
+        // TODO: handle action listening
+
         super("Turbo Transcriber");
 
         Log.log("Setting up GUI...");
@@ -55,13 +68,18 @@ public class MainGUI extends JFrame  implements Loggable {
         setMinimumSize(new Dimension(600, 400));
 
         make_menubar();
-
-        // TODO: Add Listeners
+        handle_listeners();
 
         Log.addLoggable(this);
         // TODO: moves this to core application?
 
         Log.log("GUI set up.");
+    }
+
+    private void handle_listeners() {
+
+        // TODO: Add all necessary listeners
+
         cropSelected.addActionListener(e -> {
             // TODO: implement
         });
@@ -168,7 +186,19 @@ public class MainGUI extends JFrame  implements Loggable {
 
         setVisible(true);
 
+        adjustSplitters();
+
         Log.log("Showing GUI.");
+    }
+
+    private void adjustSplitters() {
+/*        if (splitPane_general == null)
+            return;
+
+        splitPane_general.setDividerLocation(0.6);
+        splitPane_xmlStuff.setDividerLocation(0.5);
+        splitPane_picVsTanscription.setDividerLocation(0.2);
+        splitPane_transVsRaw.setDividerLocation(0.4);*/
     }
 
     @Override
