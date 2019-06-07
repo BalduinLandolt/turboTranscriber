@@ -25,7 +25,6 @@ public class MainGUI extends JFrame  implements Loggable {
     private JSplitPane splitterXMLStuff;
     private JScrollPane xmlScroller;
     private JScrollPane styledScroller;
-    private JTextField placeholder_transcription;
 
     private JLabel picture;
     private JScrollPane pictureScroller;
