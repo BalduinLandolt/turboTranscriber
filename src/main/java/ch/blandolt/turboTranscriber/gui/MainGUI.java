@@ -73,6 +73,7 @@ public class MainGUI extends JFrame  implements Loggable {
 
         // TODO: Remove. Test only
         transcriptionSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
+        // TODO: Line numbers don't show. -> fix!
 
         make_menubar();
         handle_listeners();
