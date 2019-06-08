@@ -2,6 +2,9 @@ package ch.blandolt.turboTranscriber.gui;
 
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Loggable;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +34,8 @@ public class MainGUI extends JFrame  implements Loggable {
     private JToolBar imageToolBar;
     private JButton button1;
     private JButton button2;
+    private RSyntaxTextArea transcriptionSyntaxTextArea;
+    private RTextScrollPane syntaxScroller;
 
     // Menubar
     private JMenuBar menuBar;
@@ -65,6 +70,9 @@ public class MainGUI extends JFrame  implements Loggable {
         setContentPane(mainPanel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(600, 400));
+
+        // TODO: Remove. Test only
+        transcriptionSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
 
         make_menubar();
         handle_listeners();

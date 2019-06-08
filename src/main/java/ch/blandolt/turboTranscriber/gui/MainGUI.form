@@ -84,10 +84,23 @@
                           </toolbar>
                         </children>
                       </grid>
-                      <component id="9974d" class="org.fife.ui.rsyntaxtextarea.RSyntaxTextArea">
+                      <scrollpane id="54805" class="org.fife.ui.rtextarea.RTextScrollPane" binding="syntaxScroller">
                         <constraints border-constraint="Center"/>
-                        <properties/>
-                      </component>
+                        <properties>
+                          <foldIndicatorEnabled value="true"/>
+                          <lineNumbersEnabled value="true"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <component id="9974d" class="org.fife.ui.rsyntaxtextarea.RSyntaxTextArea" binding="transcriptionSyntaxTextArea">
+                            <constraints/>
+                            <properties>
+                              <codeFoldingEnabled value="true"/>
+                              <marginLineEnabled value="false"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </scrollpane>
                     </children>
                   </grid>
                   <grid id="8427e" binding="rightPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">

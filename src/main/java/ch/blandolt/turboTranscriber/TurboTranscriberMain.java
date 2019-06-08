@@ -6,6 +6,8 @@ package ch.blandolt.turboTranscriber;
 import ch.blandolt.turboTranscriber.gui.MainGUI;
 import ch.blandolt.turboTranscriber.util.*;
 
+import javax.swing.*;
+
 /**
  * @author Balduin Landolt
  *
@@ -22,8 +24,10 @@ public class TurboTranscriberMain {
 		//TODO Run Core here
 
 		// TEST: gui
-		MainGUI gui = new MainGUI();
-		gui.showMainGUI();
+		SwingUtilities.invokeLater(() -> {
+			MainGUI gui = new MainGUI();
+			gui.showMainGUI();
+		});
 		
 //		Log.log("Requesting log shutdown...");
 //		Log.terminate();
