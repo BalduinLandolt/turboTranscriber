@@ -118,19 +118,11 @@
                           </grid>
                         </constraints>
                         <properties>
-                          <dividerLocation value="300"/>
+                          <dividerLocation value="250"/>
                           <orientation value="0"/>
                         </properties>
                         <border type="none"/>
                         <children>
-                          <scrollpane id="2ec6b" binding="xmlScroller">
-                            <constraints>
-                              <splitpane position="left"/>
-                            </constraints>
-                            <properties/>
-                            <border type="none"/>
-                            <children/>
-                          </scrollpane>
                           <scrollpane id="50a97" binding="styledScroller">
                             <constraints>
                               <splitpane position="right"/>
@@ -138,6 +130,19 @@
                             <properties/>
                             <border type="none"/>
                             <children/>
+                          </scrollpane>
+                          <scrollpane id="e80f" class="org.fife.ui.rtextarea.RTextScrollPane" binding="xmlScroller">
+                            <constraints>
+                              <splitpane position="left"/>
+                            </constraints>
+                            <properties/>
+                            <border type="none"/>
+                            <children>
+                              <component id="35df3" class="org.fife.ui.rsyntaxtextarea.RSyntaxTextArea" binding="xmlArea">
+                                <constraints/>
+                                <properties/>
+                              </component>
+                            </children>
                           </scrollpane>
                         </children>
                       </splitpane>

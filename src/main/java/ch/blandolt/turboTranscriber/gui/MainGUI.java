@@ -26,7 +26,6 @@ public class MainGUI extends JFrame  implements Loggable {
     private JPanel leftPanel;
     private JPanel rightPanel;
     private JSplitPane splitterXMLStuff;
-    private JScrollPane xmlScroller;
     private JScrollPane styledScroller;
 
     private JLabel picture;
@@ -36,6 +35,8 @@ public class MainGUI extends JFrame  implements Loggable {
     private JButton button2;
     private RSyntaxTextArea transcriptionSyntaxTextArea;
     private RTextScrollPane syntaxScroller;
+    private RTextScrollPane xmlScroller;
+    private RSyntaxTextArea xmlArea;
 
     // Menubar
     private JMenuBar menuBar;
@@ -74,6 +75,8 @@ public class MainGUI extends JFrame  implements Loggable {
         // TODO: Remove. Test only
         transcriptionSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
         // FixMe: Line numbers don't show.
+
+        xmlArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
 
         make_menubar();
         handle_listeners();
