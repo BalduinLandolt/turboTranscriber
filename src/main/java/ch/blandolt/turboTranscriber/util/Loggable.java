@@ -3,10 +3,11 @@
  */
 package ch.blandolt.turboTranscriber.util;
 
-
-//TODO Import from older version. Check!
-
 /**
+ * Interface ensuring that a class can log information.
+ * <p>
+ * Every class implementing this interface can be passed to {@link Log} via {@link Log#addLoggable(Loggable)}
+ *
  * @author Balduin Landolt
  *
  */
