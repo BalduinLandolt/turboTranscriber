@@ -4,10 +4,6 @@
 package ch.blandolt.turboTranscriber;
 
 import ch.blandolt.turboTranscriber.core.TurboTranscribeCore;
-import ch.blandolt.turboTranscriber.gui.MainGUI;
-import ch.blandolt.turboTranscriber.util.*;
-
-import javax.swing.*;
 
 /**
  * Launcher Class for the application `TurboTranscriber`.
@@ -28,25 +24,15 @@ public class TurboTranscriberMain {
 	 * @param args ignored.
 	 */
 	public static void main(String[] args) {
-		Log.initialize();
-		Log.log("Log initialized.\n");
-
 		TurboTranscribeCore core = new TurboTranscribeCore();
 		core.run();
-		
-		//TODO Run Core here
 
-		// TEST: gui
-		SwingUtilities.invokeLater(() -> {
-			MainGUI gui = new MainGUI();
-			gui.showMainGUI();
-		});
 		
 //		Log.log("Requesting log shutdown...");
 //		Log.terminate();
 	}
 
-	{
+	static {
 		// Collection of Tasks
 		// -------------------
 		//

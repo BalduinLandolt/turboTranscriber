@@ -1,5 +1,6 @@
 package ch.blandolt.turboTranscriber.gui;
 
+import ch.blandolt.turboTranscriber.core.TurboTranscribeCore;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Loggable;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -8,13 +9,15 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  * Main GUI class of TurboTranscriber
  *
  * @author Balduin Landolt
  */
-public class MainGUI extends JFrame  implements Loggable {
+public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private JTabbedPane mainTabbedPane;
     private JPanel mainPanel;
     private JPanel logPane;
@@ -57,6 +60,8 @@ public class MainGUI extends JFrame  implements Loggable {
     private JMenuItem menuItem_edit_loadImages;
     private JMenu menu_settings;
 
+    private TurboTranscribeCore owner;
+
     /**
      * Constructor of the GUI.
      * <p>
@@ -65,8 +70,9 @@ public class MainGUI extends JFrame  implements Loggable {
      * <p>
      * Once this is done, the GUI can be shown by calling {@link MainGUI#showMainGUI()}.
      * </p>
+     * @param caller the {@link TurboTranscribeCore} that calls this constructor. Is stored as the owner.
      */
-    public MainGUI(){
+    public MainGUI(TurboTranscribeCore caller){
 
         // TODOs
         // -----
@@ -79,10 +85,13 @@ public class MainGUI extends JFrame  implements Loggable {
 
         super("Turbo Transcriber");
 
+        owner = caller;
+
         Log.log("Setting up GUI...");
 
         setContentPane(mainPanel);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(this);
         setMinimumSize(new Dimension(600, 400));
 
         // TODO: Remove. Test only
@@ -234,10 +243,35 @@ public class MainGUI extends JFrame  implements Loggable {
         splitterXMLStuff.setDividerLocation(0.5);
     }
 
+    /**
+     * Forces the GUI to close itself. Practically, that means disposing the frame, but not shutting down the app.
+     */
+    public void close() {
+        this.dispose();
+    }
+
     @Override
     public void log(String s) {
         logTextArea.append(Log.lineSep);
         logTextArea.append(s);
         logTextArea.setCaretPosition(logTextArea.getText().length());
     }
+
+    @Override
+    public void windowOpened(WindowEvent e) {}
+    @Override
+    public void windowClosing(WindowEvent e) {
+        Log.log("WindowClosing requested");
+        owner.prepareShutDown();
+    }
+    @Override
+    public void windowClosed(WindowEvent e) {}
+    @Override
+    public void windowIconified(WindowEvent e) {}
+    @Override
+    public void windowDeiconified(WindowEvent e) {}
+    @Override
+    public void windowActivated(WindowEvent e) {}
+    @Override
+    public void windowDeactivated(WindowEvent e) {}
 }
