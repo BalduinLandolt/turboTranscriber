@@ -219,19 +219,23 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
      * </p>
      */
     public void showMainGUI(){
+        Log.log("Showing GUI.");
+
         // TODO: create Thumbnails
 
-        pack();
-        setExtendedState(MAXIMIZED_BOTH);
-        Log.log("Frame Size: "+getWidth());
+        SwingUtilities.invokeLater(() -> {
+            pack();
+            setVisible(true);
+            setExtendedState(MAXIMIZED_BOTH);
+            Log.log("Is window displayable: "+isDisplayable());
+        });
+        SwingUtilities.invokeLater(() -> {
+            setPreferredSize(getSize());
+            pack();
+            mainPanel.setPreferredSize(getSize());
+        });
+        SwingUtilities.invokeLater(() -> adjustSplitters());
 
-        setVisible(true);
-        setPreferredSize(getSize());
-        pack();
-
-        adjustSplitters();
-
-        Log.log("Showing GUI.");
     }
 
     private void adjustSplitters() {
@@ -239,6 +243,11 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
             return;
         Log.log("Adjusting Splitters.");
 
+        Log.log(getWidth());
+        Log.log(mainPanel.getWidth());
+        Log.log(mainTabbedPane.getWidth());
+        Log.log(transcriptionContainer.getWidth());
+        Log.log(splitpaneGeneral.getWidth());
         splitpaneGeneral.setDividerLocation(0.6);
         splitterXMLStuff.setDividerLocation(0.5);
     }

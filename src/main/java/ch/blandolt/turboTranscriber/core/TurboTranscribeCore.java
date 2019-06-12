@@ -44,10 +44,8 @@ public class TurboTranscribeCore {
         // TODO: more?
 
         // Launch GUI
-        SwingUtilities.invokeLater(() -> {
-            gui = new MainGUI(this);
-            gui.showMainGUI();
-        });
+        SwingUtilities.invokeLater(() -> gui = new MainGUI(this));
+        SwingUtilities.invokeLater(() -> gui.showMainGUI());
     }
 
     /**

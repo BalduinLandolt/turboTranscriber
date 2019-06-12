@@ -12,7 +12,7 @@ package ch.blandolt.turboTranscriber.util;
  */
 public class Settings {
 	private static boolean openLogOnClose = false;
-	private static boolean askBeforeShutDown = true;
+	private static boolean askBeforeShutDown = false;
 	private static boolean autoOverwrite = true;
 	
 	public static boolean openLogOnClose() {
