@@ -46,11 +46,9 @@ public class TurboTranscriberMain {
 		// Collection of Tasks
 		// -------------------
 		//
-		// TODO: Rework Log
-		// TODO: Add comments to Log
+		// TODO: look at error logging
 		//
 		// TODO: Rework CustomImagePanel and ThumbnailPanel
-		// TODO: Add Comments to those
 		//
 		// TODO: Set up new GUI
 		//
@@ -61,6 +59,12 @@ public class TurboTranscriberMain {
 		// TODO: implement settings
 		//
 		// TODO: have a look at AbortException
+		//
+		// TODO: Comments
+		//       - Settings.java
+		//       - datastructure/*
+		//       - ThumbnailPanel
+		//       - CustomImagePanel
 		//
 		// ...
 	}

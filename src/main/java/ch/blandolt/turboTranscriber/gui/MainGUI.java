@@ -8,9 +8,12 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+/**
+ * Main GUI class of TurboTranscriber
+ *
+ * @author Balduin Landolt
+ */
 public class MainGUI extends JFrame  implements Loggable {
     private JTabbedPane mainTabbedPane;
     private JPanel mainPanel;
@@ -54,6 +57,15 @@ public class MainGUI extends JFrame  implements Loggable {
     private JMenuItem menuItem_edit_loadImages;
     private JMenu menu_settings;
 
+    /**
+     * Constructor of the GUI.
+     * <p>
+     * This sets up the entire GUI, creating the JFrame and all of its contents, including the menu bar.
+     * </p>
+     * <p>
+     * Once this is done, the GUI can be shown by calling {@link MainGUI#showMainGUI()}.
+     * </p>
+     */
     public MainGUI(){
 
         // TODOs
@@ -63,6 +75,7 @@ public class MainGUI extends JFrame  implements Loggable {
         // TODO: finish transcription view
         //     - TODO: Add Image Panel to transcription view.
         // TODO: handle action listening
+        // TODO: handle window resizing
 
         super("Turbo Transcriber");
 
@@ -189,13 +202,23 @@ public class MainGUI extends JFrame  implements Loggable {
         //TODO actually implement settings
     }
 
+    /**
+     * Shows the GUI.
+     * <p>
+     *     Can be called after the constructor is done. This function will make the JFrame visible,
+     *     maximize it and adjust the splitters to a reasonable position.
+     * </p>
+     */
     public void showMainGUI(){
         // TODO: create Thumbnails
 
         pack();
         setExtendedState(MAXIMIZED_BOTH);
+        Log.log("Frame Size: "+getWidth());
 
         setVisible(true);
+        setPreferredSize(getSize());
+        pack();
 
         adjustSplitters();
 
@@ -203,13 +226,12 @@ public class MainGUI extends JFrame  implements Loggable {
     }
 
     private void adjustSplitters() {
-/*        if (splitPane_general == null)
+        if (splitpaneGeneral == null)
             return;
+        Log.log("Adjusting Splitters.");
 
-        splitPane_general.setDividerLocation(0.6);
-        splitPane_xmlStuff.setDividerLocation(0.5);
-        splitPane_picVsTanscription.setDividerLocation(0.2);
-        splitPane_transVsRaw.setDividerLocation(0.4);*/
+        splitpaneGeneral.setDividerLocation(0.6);
+        splitterXMLStuff.setDividerLocation(0.5);
     }
 
     @Override
