@@ -12,5 +12,8 @@
 # Maven Target
 /target/
 
+# Javadoc
+/javadoc/
+
 # Log
 log.txt

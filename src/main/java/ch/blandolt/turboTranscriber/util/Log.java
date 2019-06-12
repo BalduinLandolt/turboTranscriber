@@ -23,10 +23,22 @@ import java.util.List;
 
 
 /**
+ * Logger for TurboTranscriber.
+ * <p>
+ * Is used to log whatever happens in the app.
+ * <p>
+ * The log generally prints everything to `System.out` and to a file `log.txt` in the project root.
+ * Furthermore, as many {@link Loggable} as wanted can be added via {@link Log#addLoggable(Loggable)},
+ * to which the whole log stream is printed as well.
+ *
  * @author Balduin Landolt
  *
  */
 public class Log {
+
+	/**
+	 * System specific line separator.
+	 */
 	public static final String lineSep = System.getProperty("line.separator");
 	
 	private static Log lastLog;
@@ -35,67 +47,161 @@ public class Log {
 	private LogStream logStream;
 	private LinkedList<Loggable> loggables;
 
+	/**
+	 * Generate an instance of {@link Log}
+	 *
+	 * @author Balduin Landolt
+	 */
 	public Log() {
 		createLogFile();
 		Log.lastLog = this;
 		logStream = new LogStream();
-		loggables = new LinkedList<Loggable>();
+		loggables = new LinkedList<>();
 		println("Log File created.");
 	}
-	
+
+
+	/**
+	 * Get last created instance of {@link Log}.
+	 *
+	 * @return The last instance of {@link Log} that has been created.
+	 */
 	public static Log getLatestLogInstance() {
 		return lastLog;
 	}
 
 
+	/**
+	 * Log a message String to the last created Log.
+	 * <p>
+	 * This method is thread safe.
+	 *
+	 * @param msg The message to be logged.
+	 */
 	public static synchronized void log(String msg){
 		if (lastLog == null){
 			new Log();
 		}
 		lastLog.println(msg);
 	}
+
+
+	/**
+	 * Log an Iterable to the last created Log.
+	 * <p>
+	 * This method is thread safe.
+	 *
+	 * @param i The iterable list to be logged.
+	 */
 	public static synchronized void log(Iterable<Object> i){
 		if (lastLog == null){
 			new Log();
 		}
 		lastLog.println(i);
 	}
+
+
+	/**
+	 * Log an Array of Objects to the last created Log.
+	 * <p>
+	 * This method is thread safe.
+	 *
+	 * @param oo The Array of Objects to be logged.
+	 */
 	public static synchronized void log(Object[] oo){
 		if (lastLog == null){
 			new Log();
 		}
 		lastLog.println(oo);
 	}
+
+
+	/**
+	 * Log an Object to the last created Log.
+	 * <p>
+	 * This method is thread safe.
+	 *
+	 * @param o The Object to be logged.
+	 */
 	public static synchronized void log(Object o){
 		if (lastLog == null){
 			new Log();
 		}
 		lastLog.println(o);
 	}
+
+
+	/**
+	 * Log an empty line to the last created Log.
+	 * <p>
+	 * This method is thread safe.
+	 *
+	 */
 	public static synchronized void log(){
 		if (lastLog == null){
 			new Log();
 		}
 		lastLog.println();
 	}
-	
 
 
+
+	/**
+	 * Print an empty line to all registered logging streams of this instance of Log.
+	 * <p>
+	 * This method is thread safe.
+	 */
 	public synchronized void println (){
 		println("");
 	}
+
+
+	/**
+	 * Print an Object to all registered logging streams of this instance of Log.
+	 * <p>
+	 * This method is thread safe.
+	 *
+	 * @param o The Object to be logged.
+	 */
 	public synchronized void println (Object o){
 		println(o.toString());
 	}
+
+
+	/**
+	 * Print all elements of an Array to all registered logging streams of this instance of Log.
+	 * <p>
+	 * This method is thread safe.
+	 *
+	 * @param oo The Array to be logged.
+	 */
 	public synchronized void println (Object[] oo){
 		println(Arrays.asList(oo));
 	}
+
+
+	/**
+	 * Print all elements of an Iterable to all registered logging streams of this instance of Log.
+	 * <p>
+	 * This method is thread safe.
+	 *
+	 * @param i The Iterable to be logged.
+	 */
 	public synchronized void println (Iterable<Object> i){
 		println(i.toString());
 		for (Object o: i) {
 			println("   "+o.toString());
 		}
 	}
+
+
+	/**
+	 * Print a message String to all registered logging streams of this instance of Log.
+	 * <p>
+	 * This method is thread safe.
+	 *
+	 * @param msg The message to be logged.
+	 */
 	public synchronized void println (String msg){
 		System.out.println(msg);
 		printStream.println(msg);
@@ -121,6 +227,13 @@ public class Log {
 			log.delete();
 		log.createNewFile();
 	}
+
+
+	/**
+	 * Close the log properly.
+	 *
+	 * @param b If true, the log file is automatically shown after termination.
+	 */
 	public void terminate(boolean b) {
 		println("Closing log...");
 		println("");
@@ -129,6 +242,10 @@ public class Log {
 		if (b)
 			displayLogFile();
 	}
+
+	/**
+	 * Display the log file.
+	 */
 	public void displayLogFile() {
 		if (Desktop.isDesktopSupported()){
 			Desktop d = Desktop.getDesktop();
@@ -141,14 +258,15 @@ public class Log {
 	}
 
 	/**
-	 * 
+	 * Static method that initializes the log by creating a first instance.
 	 */
 	public static void initialize() {
 		new Log();
 	}
 
 	/**
-	 * 
+	 * Static method that terminates the log by terminating the last instance.
+	 * Uses the flag {@link Settings#openLogOnClose()} as argument.
 	 */
 	public static void terminate() {
 		lastLog.terminate(Settings.openLogOnClose());
@@ -191,7 +309,11 @@ public class Log {
 	}
 
 	/**
-	 * @param gui
+	 * Add {@link Loggable} to last instance of Log.
+	 *
+	 * After that, everything that gets logged, will also be logged to {@link Loggable#log(String)} of the Loggable.
+	 *
+	 * @param l a Loggable.
 	 */
 	public static void addLoggable(Loggable l) {
 		lastLog.addLoggableToList(l);

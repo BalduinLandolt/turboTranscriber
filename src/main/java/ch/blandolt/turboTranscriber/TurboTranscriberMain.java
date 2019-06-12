@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package ch.blandolt.turboTranscriber;
 
@@ -9,13 +9,22 @@ import ch.blandolt.turboTranscriber.util.*;
 import javax.swing.*;
 
 /**
+ * Launcher Class for the application `TurboTranscriber`.
+ * <p>
+ * Contains only one method: `public static void main`, that does nothing but to launch the app.
+ * </p>
+ *
  * @author Balduin Landolt
  *
  */
 public class TurboTranscriberMain {
 
 	/**
-	 * @param args
+	 * Main method of the class {@link TurboTranscriberMain}.
+	 * <P>
+	 * This Method launches the application.</p>
+	 *
+	 * @param args ignored.
 	 */
 	public static void main(String[] args) {
 		Log.initialize();
@@ -37,13 +46,25 @@ public class TurboTranscriberMain {
 		// Collection of Tasks
 		// -------------------
 		//
-		// TODO: Rework Log
-		// TODO: Add comments to Log
+		// TODO: look at error logging
 		//
 		// TODO: Rework CustomImagePanel and ThumbnailPanel
-		// TODO: Add Comments to those
 		//
 		// TODO: Set up new GUI
+		//
+		// TODO: Implement core class
+		//
+		// TODO: integrate or remove MainDataSet class
+		//
+		// TODO: implement settings
+		//
+		// TODO: have a look at AbortException
+		//
+		// TODO: Comments
+		//       - Settings.java
+		//       - datastructure/*
+		//       - ThumbnailPanel
+		//       - CustomImagePanel
 		//
 		// ...
 	}
