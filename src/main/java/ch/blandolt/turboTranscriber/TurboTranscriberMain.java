@@ -3,6 +3,7 @@
  */
 package ch.blandolt.turboTranscriber;
 
+import ch.blandolt.turboTranscriber.core.TurboTranscribeCore;
 import ch.blandolt.turboTranscriber.gui.MainGUI;
 import ch.blandolt.turboTranscriber.util.*;
 
@@ -29,6 +30,9 @@ public class TurboTranscriberMain {
 	public static void main(String[] args) {
 		Log.initialize();
 		Log.log("Log initialized.\n");
+
+		TurboTranscribeCore core = new TurboTranscribeCore();
+		core.run();
 		
 		//TODO Run Core here
 

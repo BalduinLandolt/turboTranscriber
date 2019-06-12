@@ -13,5 +13,12 @@ package ch.blandolt.turboTranscriber.core;
  *
  */
 public class TurboTranscribeCore {
-// TODO: implement
+
+    public TurboTranscribeCore() {
+        // TODO: implement
+    }
+
+    public void run() {
+        // TODO: implement
+    }
 }
