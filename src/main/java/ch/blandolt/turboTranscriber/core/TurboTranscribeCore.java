@@ -75,4 +75,39 @@ public class TurboTranscribeCore {
         System.out.println("Log is gone. Exiting successfully.");
         System.exit(0);
     }
+
+    public void am_new_transcription() {
+        Log.log("Action: New Transcription");
+        // TODO: Implement
+    }
+
+    public void am_import_xml() {
+        Log.log("Action: Import XML");
+        // TODO: Implement
+    }
+
+    public void am_import_raw() {
+        Log.log("Action: Import Raw");
+        // TODO: Implement
+    }
+
+    public void am_save() {
+        Log.log("Action: Save");
+        // TODO: Implement
+    }
+
+    public void am_save_as() {
+        Log.log("Action: Save As");
+        // TODO: Implement
+    }
+
+    public void am_close() {
+        Log.log("Action: Close");
+        // TODO: Implement
+    }
+
+    public void am_load_images() {
+        Log.log("Action: Load Images");
+        // TODO: Implement
+    }
 }
