@@ -21,7 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-//import ch.unibas.landolt.balduin.XMLSpeedupV6.src.application.main.MainGUI;
 
 /**
  * @author Balduin Landolt
@@ -33,13 +32,13 @@ public class ThumbnailPanel extends JLabel implements MouseListener {
 	private Border activatedBorder;
 	private Border nonActivatedBorder;
 	private boolean isSelected;
-	//private MainGUI caller;
+	private MainGUI owner;
 
-	/**
+
 //	 * @param im
 //	 * @param caller
-	public ThumbnailPanel(BufferedImage im, MainGUI caller) {
-		this.caller = caller;
+	public ThumbnailPanel(BufferedImage im, MainGUI owner) {
+		this.owner = owner;
 		initialImage = im;
 		scaledImage = scale(im, 100);
 		activatedBorder = BorderFactory.createLineBorder(Color.GREEN, 5);
@@ -50,7 +49,7 @@ public class ThumbnailPanel extends JLabel implements MouseListener {
 		addMouseListener(this);
 		this.setToolTipText("Click me to get me to pop up.");
 	}
-	 */
+
 
 	/**
 	 * 
@@ -96,7 +95,7 @@ public class ThumbnailPanel extends JLabel implements MouseListener {
 	public void mouseClicked(MouseEvent arg0) {
 		Log.log("Thumbnail: I got Clicked!");
 		if (!isSelected) {
-			//caller.thumbnailRequestsActivation(this);
+			owner.thumbnailRequestsActivation(this);
 		}
 	}
 

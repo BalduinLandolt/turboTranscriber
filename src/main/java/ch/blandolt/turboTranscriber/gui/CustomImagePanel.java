@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -19,7 +18,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -39,7 +37,7 @@ public class CustomImagePanel extends JPanel implements MouseListener, MouseMoti
 	private BufferedImage loadedImage;
 	private BufferedImage scaledImage;
 	private Rectangle selection;
-	private Rectangle provisoricalSelection;
+	private Rectangle tempSelection;
 	private Point mouseDown;
 
 	/**
@@ -91,10 +89,10 @@ public class CustomImagePanel extends JPanel implements MouseListener, MouseMoti
 			g.setStroke(new BasicStroke(4));
 			g.drawRect(selection.x, selection.y, selection.width, selection.height);
 		}
-		if (provisoricalSelection != null) {
+		if (tempSelection != null) {
 			g.setColor(Color.GREEN);
 			g.setStroke(new BasicStroke(2));
-			g.drawRect(provisoricalSelection.x, provisoricalSelection.y, provisoricalSelection.width, provisoricalSelection.height);
+			g.drawRect(tempSelection.x, tempSelection.y, tempSelection.width, tempSelection.height);
 		}
 	}
 	private BufferedImage getPartiallyTransparentOverlay(BufferedImage im, Rectangle rect) {
@@ -127,7 +125,7 @@ public class CustomImagePanel extends JPanel implements MouseListener, MouseMoti
 	    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 	    Graphics2D g2 = resizedImg.createGraphics();
 
-	    g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+	    g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 	    g2.drawImage(srcImg, 0, 0, w, h, null);
 	    g2.dispose();
 
@@ -176,7 +174,7 @@ public class CustomImagePanel extends JPanel implements MouseListener, MouseMoti
 		int y = Math.min(mouseDown.y, e.getY());
 		int w = Math.abs(mouseDown.x - e.getX());
 		int h = Math.abs(mouseDown.y - e.getY());
-		provisoricalSelection = new Rectangle(x, y, w, h);
+		tempSelection = new Rectangle(x, y, w, h);
 		repaint();
 	}
 
@@ -219,7 +217,7 @@ public class CustomImagePanel extends JPanel implements MouseListener, MouseMoti
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		provisoricalSelection = null;
+		tempSelection = null;
 		int x = Math.min(mouseDown.x, e.getX());
 		int y = Math.min(mouseDown.y, e.getY());
 		int w = Math.abs(mouseDown.x - e.getX());

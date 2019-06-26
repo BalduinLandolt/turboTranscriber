@@ -13,6 +13,8 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * Main GUI class of TurboTranscriber
@@ -28,7 +30,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private JPanel imageContainer;
     private JPanel controls;
     private JButton cropSelected;
-    private JPanel thumbnailPanel;
+    private JPanel pThumbnails;
     private JPanel transcriptionContainer;
     private JSplitPane splitpaneGeneral;
     private JPanel leftPanel;
@@ -39,12 +41,14 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private JLabel picture;
     private JScrollPane pictureScroller;
     private JToolBar imageToolBar;
-    private JButton button2;
+    private JButton bt_zoomOut;
     private RSyntaxTextArea transcriptionSyntaxTextArea;
     private RTextScrollPane syntaxScroller;
     private RTextScrollPane xmlScroller;
     private RSyntaxTextArea xmlArea;
-    private JButton button1;
+    private JButton bt_zoomIn;
+    private CustomImagePanel imagePanel;
+    private JButton inspectImage;
 
     // Menubar
     private JMenuBar menuBar;
@@ -60,9 +64,13 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private JMenuItem menuItem_edit_undo;
     private JMenuItem menuItem_edit_redo;
     private JMenuItem menuItem_edit_loadImages;
+    private JMenuItem menuItem_edit_inspectSelectedImage;
     private JMenu menu_settings;
 
     private TurboTranscribeCore owner;
+
+    private BufferedImage loadedImage;
+    private float imageScaling = 0.4f;
 
     /**
      * Constructor of the GUI.
@@ -115,7 +123,11 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
 
         // TODO: Add all necessary listeners
 
-        cropSelected.addActionListener(e -> owner.a_crop_selected());
+        cropSelected.addActionListener(e -> owner.a_crop_selected(imagePanel.getCroppOfSelection()));
+        inspectImage.addActionListener(e -> owner.a_inspect_selected_image());
+
+        bt_zoomIn.addActionListener(e -> zoomIn());
+        bt_zoomOut.addActionListener(e -> zoomOut());
 
         transcriptionSyntaxTextArea.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
@@ -201,6 +213,10 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         menuItem_edit_loadImages.addActionListener(e -> owner.am_load_images());
         menu_edit.add(menuItem_edit_loadImages);
 
+        menuItem_edit_inspectSelectedImage = new JMenuItem("Inspect Selected Image");
+        menuItem_edit_inspectSelectedImage.addActionListener(e -> owner.a_inspect_selected_image());
+        menu_edit.add(menuItem_edit_inspectSelectedImage);
+
 
         //Menu: Settings
         menu_settings = new JMenu("Settings");
@@ -233,9 +249,33 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         });
         SwingUtilities.invokeLater(() -> {
             adjustSplitters();
-            refreshEnabledMenuItems();
+            refreshEnabledComponents();
+            createThumbnails();
         });
 
+    }
+
+    public void createThumbnails() {
+        if (pThumbnails == null) {
+            return;
+        }
+
+        ArrayList<BufferedImage> images = owner.getLoadedImages();
+
+        if (images.isEmpty()) {
+            ThumbnailPanel thp = new ThumbnailPanel(new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB), this);
+            pThumbnails.add(thp);
+            return;
+        }
+
+        pThumbnails.removeAll();
+
+        for (BufferedImage im: images) {
+            ThumbnailPanel tp = new ThumbnailPanel(im, this);
+            tp.setActivated(tp.hasSamePicture(loadedImage));
+            pThumbnails.add(tp);
+        }
+        repaint();
     }
 
     private void adjustSplitters() {
@@ -250,7 +290,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     /**
      * Enables and disables all menu items according to how they should be.
      */
-    public void refreshEnabledMenuItems(){
+    public void refreshEnabledComponents(){
         if (menuBar == null){
             return;
         }
@@ -265,9 +305,67 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         menuItem_edit_undo.setEnabled(transcriptionSyntaxTextArea.canUndo());
         menuItem_edit_redo.setEnabled(transcriptionSyntaxTextArea.canRedo());
         menuItem_edit_loadImages.setEnabled(true);
+        menuItem_edit_inspectSelectedImage.setEnabled(owner.getSelectedImage() != null);
+
+        cropSelected.setEnabled(owner.getSelectedImage() != null);
+        inspectImage.setEnabled(owner.getSelectedImage() != null);
+        bt_zoomIn.setEnabled(owner.getSelectedImage() != null);
+        bt_zoomOut.setEnabled(owner.getSelectedImage() != null);
 
         // TODO: settings
         // TODO: keep up to date
+    }
+
+    public void switchToImageView() {
+        mainTabbedPane.setSelectedComponent(imageContainer);
+    }
+
+    public void displayImage(BufferedImage activatedImage) {
+        if (activatedImage == null){
+            picture.setIcon(null);
+            imagePanel.setImage(null);
+            loadedImage = null;
+        } else {
+            loadedImage = activatedImage;
+            setImage();
+            imagePanel.setImage(loadedImage);
+        }
+        //activateImageToolbarButtons();
+    }
+
+    private void setImage() {
+
+        Rectangle viewRectOld = pictureScroller.getViewport().getViewRect();
+        Dimension wholeSizeOld = picture.getSize();
+        float xPart = (float) viewRectOld.x / (float)wholeSizeOld.width;
+        float yPart = (float) viewRectOld.y / (float)wholeSizeOld.height;
+
+        int w = (int) ((float)loadedImage.getWidth() * imageScaling);
+        int h = (int) ((float)loadedImage.getHeight() * imageScaling);
+
+        ImageIcon i = getScaledImage(loadedImage, w, h);
+        picture.setIcon(i);
+
+        Dimension wholeSizeNew = new Dimension(i.getIconWidth(), i.getIconHeight());
+
+        int x = (int)((float)wholeSizeNew.width * xPart);
+        int y = (int)((float)wholeSizeNew.height * yPart);
+        Point newPos = new Point(x, y);
+
+        pictureScroller.getViewport().setViewPosition(newPos);
+    }
+
+    private ImageIcon getScaledImage(Image srcImg, int w, int h){
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = resizedImg.createGraphics();
+
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2.drawImage(srcImg, 0, 0, w, h, null);
+        g2.dispose();
+
+        // TODO: optimize image quality
+
+        return new ImageIcon(resizedImg);
     }
 
     /**
@@ -301,4 +399,18 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     public void windowActivated(WindowEvent e) {}
     @Override
     public void windowDeactivated(WindowEvent e) {}
+
+    public void thumbnailRequestsActivation(ThumbnailPanel thumbnail) {
+        owner.thumbnailRequestsActivation(thumbnail);
+    }
+
+    private void zoomOut() {
+        imageScaling *= 0.9;
+        setImage();
+    }
+
+    private void zoomIn() {
+        imageScaling *= 1.1;
+        setImage();
+    }
 }

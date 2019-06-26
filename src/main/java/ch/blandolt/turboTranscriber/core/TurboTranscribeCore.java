@@ -4,10 +4,19 @@
 package ch.blandolt.turboTranscriber.core;
 
 import ch.blandolt.turboTranscriber.gui.MainGUI;
+import ch.blandolt.turboTranscriber.gui.ThumbnailPanel;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Settings;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Core class of TurboTranscribe.
@@ -20,6 +29,26 @@ import javax.swing.*;
  */
 public class TurboTranscribeCore {
     private MainGUI gui;
+    private Data data = new Data();
+
+    public void thumbnailRequestsActivation(ThumbnailPanel thumbnail) {
+        data.activatedImage = thumbnail.getInitialImage();
+        refreshGUI();
+    }
+
+    public void a_inspect_selected_image() {
+        popoutImage();
+    }
+
+    public BufferedImage getSelectedImage() {
+        return data.activatedImage;
+    }
+
+    // TODO: Rethink Data organisation!
+    private class Data {
+        LinkedList<BufferedImage> loadedImages = new LinkedList<>();
+        BufferedImage activatedImage = null;
+    }
 
     /**
      * Initialized the core of TurboTranscribe.
@@ -141,20 +170,108 @@ public class TurboTranscribeCore {
      */
     public void am_load_images() {
         Log.log("Action: Load Images");
-        // TODO: Implement
+
+        JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File("./sample_data"));
+        fc.setFileFilter(new FileNameExtensionFilter("images", "jpg", "jpeg"));
+        fc.setMultiSelectionEnabled(true);
+        int returnVal = fc.showOpenDialog(gui);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File[] ff = fc.getSelectedFiles();
+            if (ff.length < 1) {
+                return;
+            } else {
+                loadImages(ff);
+            }
+        } else {
+            Log.log("Aborted.");
+        }
+    }
+
+    private void loadImages(File[] files) {
+        LinkedList<BufferedImage> images = new LinkedList<BufferedImage>();
+        for (File f: files) {
+            BufferedImage im = loadImage(f);
+            if (im != null) {
+                images.add(im);
+            }
+        }
+        Log.log("Loaded Images: "+images.size());
+        for (BufferedImage img: images) {
+            data.loadedImages.add(img);
+        }
+        data.activatedImage = data.loadedImages.getFirst();
+        //addDataStage();
+        refreshGUI();
+        gui.switchToImageView();
+    }
+
+    private void refreshGUI() {
+        if (gui == null)
+            return;
+
+        Log.log("Refreshing GUI content.");
+
+        gui.displayImage(data.activatedImage);
+        gui.createThumbnails();
+        gui.refreshEnabledComponents();
+
+        // TODO: more?
+    }
+
+    private BufferedImage loadImage(File f) {
+        if (!f.exists())
+            return null;
+
+        try {
+            BufferedImage im = ImageIO.read(f);
+            return im;
+        } catch (IOException e) {
+            Log.log("Failed to load image.");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
      * Action (Button): crop selected area of image
+     * @param croppOfSelection
      */
-    public void a_crop_selected() {
+    public void a_crop_selected(BufferedImage croppOfSelection) {
         Log.log("Action: Crop Selected");
-        // TODO: Implement
+        data.loadedImages.add(croppOfSelection);
+        data.activatedImage = croppOfSelection;
+        refreshGUI();
     }
 
     public void a_xmlArea_state_changed() {
-        gui.refreshEnabledMenuItems();
+        gui.refreshEnabledComponents();
         // TODO: Do more things when it changes:
         //       - update xml and styled view with some delay
+    }
+
+    public ArrayList<BufferedImage> getLoadedImages() {
+        ArrayList<BufferedImage> res = new ArrayList<BufferedImage>(data.loadedImages);
+        return res;
+    }
+
+    public void popoutImage() {
+        JFrame f = new JFrame();
+        SwingUtilities.invokeLater(() -> {
+            f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            f.setMinimumSize(new Dimension(400,400));
+            f.pack();
+            f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            JPanel p = new JPanel(new BorderLayout());
+            f.setContentPane(p);
+            f.setVisible(true);
+            JLabel il = new JLabel(new ImageIcon(data.activatedImage));
+            JPanel inner = new JPanel();
+            inner.add(il);
+            JScrollPane scroller = new JScrollPane(inner);
+            scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            p.add(scroller, BorderLayout.CENTER);
+        });
     }
 }

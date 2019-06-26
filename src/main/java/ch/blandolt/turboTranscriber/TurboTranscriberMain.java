@@ -39,6 +39,7 @@ public class TurboTranscriberMain {
 		// TODO: look at error logging
 		//
 		// TODO: Rework CustomImagePanel and ThumbnailPanel
+		// TODO: Add option to remove images
 		//
 		// TODO: integrate or remove MainDataSet class
 		//
@@ -46,11 +47,17 @@ public class TurboTranscriberMain {
 		//
 		// TODO: have a look at AbortException
 		//
+		// TODO: no cropping, when selection is outide of raster or the entire image
+		//
+		// TODO: improve Popped out Image inspection view
+		// TODO: show image inspection view upon double klicking image panel in transcription view
+		//
 		// TODO: Comments
 		//       - Settings.java
 		//       - datastructure/*
 		//       - ThumbnailPanel
 		//       - CustomImagePanel
+		//		 - ... newly added functions
 		//
 		// ...
 	}
