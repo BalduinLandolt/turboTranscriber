@@ -243,11 +243,6 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
             return;
         Log.log("Adjusting Splitters.");
 
-        Log.log(getWidth());
-        Log.log(mainPanel.getWidth());
-        Log.log(mainTabbedPane.getWidth());
-        Log.log(transcriptionContainer.getWidth());
-        Log.log(splitpaneGeneral.getWidth());
         splitpaneGeneral.setDividerLocation(0.6);
         splitterXMLStuff.setDividerLocation(0.5);
     }
