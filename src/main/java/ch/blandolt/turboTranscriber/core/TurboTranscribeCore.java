@@ -15,8 +15,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Core class of TurboTranscribe.
@@ -142,7 +144,34 @@ public class TurboTranscribeCore {
      */
     public void am_import_raw() {
         Log.log("Action: Import Raw");
-        // TODO: Implement
+
+        // TODO: should that discard unsaved changes?
+
+        JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File("./sample_data"));
+        fc.setFileFilter(new FileNameExtensionFilter("Raw", "txt", "raw"));
+        fc.setMultiSelectionEnabled(false);
+        int returnVal = fc.showOpenDialog(gui);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();
+            List<String> lines_raw = loadRaw(f);
+            gui.setRaw(lines_raw);
+            refreshGUI();
+            // TODO: copy to project?
+        } else {
+            Log.log("Aborted.");
+        }
+    }
+
+    private List<String> loadRaw(File f) {
+        try {
+            List<String> lines = Files.readAllLines(f.toPath());
+            return lines;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.log("Error: Failed to read raw file.");
+            return null;
+        }
     }
 
     /**

@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main GUI class of TurboTranscriber
@@ -412,5 +413,14 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private void zoomIn() {
         imageScaling *= 1.1;
         setImage();
+    }
+
+    public void setRaw(List<String> lines) {
+        StringBuffer sb = new StringBuffer();
+        for (String l: lines) {
+            sb.append(l);
+            sb.append("\n");
+        }
+        transcriptionSyntaxTextArea.setText(sb.toString());
     }
 }
