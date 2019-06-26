@@ -425,4 +425,8 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         }
         transcriptionSyntaxTextArea.setText(sb.toString());
     }
+
+    public String getTranscriptionString() {
+        return transcriptionSyntaxTextArea.getText();
+    }
 }
