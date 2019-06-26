@@ -41,7 +41,7 @@ public class TurboTranscribeCore {
      * Runs the core of TurboTranscribe. This launches the GUI.
      */
     public void run() {
-        // TODO: more?
+        // TODO: more to do in core.run()?
 
         // Launch GUI
         SwingUtilities.invokeLater(() -> gui = new MainGUI(this));
@@ -52,7 +52,9 @@ public class TurboTranscribeCore {
      * Requests the program to shut down.
      */
     public void prepareShutDown() {
-        // TODO: Check for unsaved changes.
+        if (hasUnsavedChanges()) {
+            // TODO: Dialog, asking if changes should be saved before shutdown
+        }
 
 
         if (Settings.askBeforeShutDown()) {
@@ -74,6 +76,16 @@ public class TurboTranscribeCore {
         Log.terminate();
         System.out.println("Log is gone. Exiting successfully.");
         System.exit(0);
+    }
+
+    /**
+     * Checks, if there are any unsaved changes.
+     *
+     * @return True, if there are unsaved changes; false otherwise.
+     */
+    public boolean hasUnsavedChanges() {
+        // TODO: implement checking, if there are unsaved changes
+        return false;
     }
 
     /**
@@ -138,5 +150,11 @@ public class TurboTranscribeCore {
     public void a_crop_selected() {
         Log.log("Action: Crop Selected");
         // TODO: Implement
+    }
+
+    public void a_xmlArea_state_changed() {
+        gui.refreshEnabledMenuItems();
+        // TODO: Do more things when it changes:
+        //       - update xml and styled view with some delay
     }
 }
