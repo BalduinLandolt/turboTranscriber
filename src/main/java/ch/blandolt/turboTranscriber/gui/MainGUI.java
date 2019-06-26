@@ -104,7 +104,6 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         handle_listeners();
 
         Log.addLoggable(this);
-        // TODO: moves this to core application?
 
         Log.log("GUI set up.");
     }
@@ -117,7 +116,6 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     }
 
     private void make_menubar() {
-        // TODO: Add Listeners to Menu
 
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
