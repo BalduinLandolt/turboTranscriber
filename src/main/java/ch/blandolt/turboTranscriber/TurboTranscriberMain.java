@@ -47,6 +47,8 @@ public class TurboTranscriberMain {
 		//
 		// TODO: have a look at AbortException
 		//
+		// TODO: no cropping, when selection is outide of raster or the entire image
+		//
 		// TODO: Comments
 		//       - Settings.java
 		//       - datastructure/*

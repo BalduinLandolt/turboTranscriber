@@ -11,6 +11,7 @@ import ch.blandolt.turboTranscriber.util.Settings;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -244,5 +245,25 @@ public class TurboTranscribeCore {
     public ArrayList<BufferedImage> getLoadedImages() {
         ArrayList<BufferedImage> res = new ArrayList<BufferedImage>(data.loadedImages);
         return res;
+    }
+
+    public void popoutImage() {
+        JFrame f = new JFrame();
+        SwingUtilities.invokeLater(() -> {
+            f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            f.setMinimumSize(new Dimension(400,400));
+            f.pack();
+            f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            JPanel p = new JPanel(new BorderLayout());
+            f.setContentPane(p);
+            f.setVisible(true);
+            JLabel il = new JLabel(new ImageIcon(data.activatedImage));
+            JPanel inner = new JPanel();
+            inner.add(il);
+            JScrollPane scroller = new JScrollPane(inner);
+            scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            p.add(scroller, BorderLayout.CENTER);
+        });
     }
 }

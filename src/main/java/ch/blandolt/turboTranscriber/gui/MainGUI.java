@@ -68,7 +68,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private TurboTranscribeCore owner;
 
     private BufferedImage loadedImage;
-    private float imageScaling = 0.3f;
+    private float imageScaling = 0.4f;
 
     /**
      * Constructor of the GUI.
@@ -337,6 +337,8 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         Point newPos = new Point(x, y);
 
         pictureScroller.getViewport().setViewPosition(newPos);
+
+        owner.popoutImage(); //TODO: move to somewhere sensible
     }
 
     private ImageIcon getScaledImage(Image srcImg, int w, int h){
