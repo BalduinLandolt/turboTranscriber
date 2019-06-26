@@ -416,6 +416,8 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     }
 
     public void setRaw(List<String> lines) {
+        // TODO: Store carret position
+
         StringBuffer sb = new StringBuffer();
         for (String l: lines) {
             sb.append(l);

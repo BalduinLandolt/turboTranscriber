@@ -46,6 +46,18 @@ public class TurboTranscribeCore {
         return data.activatedImage;
     }
 
+    public void a_transcription_state_changed() {
+        Log.log("Transcription has changed.");
+
+        // TODO: tokenize transcription
+        // TODO: refresh gui with normalized representation of transcription
+        // TODO: build up internal representation from tokens
+        // TODO: generate XML
+        // TODO: transform XML to HTML
+
+        refreshGUI();
+    }
+
     // TODO: Rethink Data organisation!
     private class Data {
         LinkedList<BufferedImage> loadedImages = new LinkedList<>();
@@ -156,7 +168,8 @@ public class TurboTranscribeCore {
             File f = fc.getSelectedFile();
             List<String> lines_raw = loadRaw(f);
             gui.setRaw(lines_raw);
-            refreshGUI();
+            a_transcription_state_changed();
+            //refreshGUI();
             // TODO: copy to project?
         } else {
             Log.log("Aborted.");
