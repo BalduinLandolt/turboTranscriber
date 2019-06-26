@@ -220,7 +220,10 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
             pack();
             mainPanel.setPreferredSize(getSize());
         });
-        SwingUtilities.invokeLater(() -> adjustSplitters());
+        SwingUtilities.invokeLater(() -> {
+            adjustSplitters();
+            refreshEnabledMenuItems();
+        });
 
     }
 
@@ -231,6 +234,30 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
 
         splitpaneGeneral.setDividerLocation(0.6);
         splitterXMLStuff.setDividerLocation(0.5);
+    }
+
+    /**
+     * Enables and disables all menu items according to how they should be.
+     */
+    public void refreshEnabledMenuItems(){
+        if (menuBar == null){
+            return;
+        }
+        Log.log("Enabling/Disabling Menu Items.");
+
+        menuItem_file_newTranscription.setEnabled(true);
+        menuItem_file_importXML.setEnabled(true);
+        menuItem_file_importRaw.setEnabled(true);
+        menuItem_file_save.setEnabled(owner.hasUnsavedChanges());
+        menuItem_file_saveAs.setEnabled(true);
+        menuItem_file_close.setEnabled(false); // TODO: ?
+        menuItem_file_openFolder.setEnabled(false); // TODO: ?
+        menuItem_edit_undo.setEnabled(true); // TODO: only if I can
+        menuItem_edit_redo.setEnabled(true); // TODO: only if I can
+        menuItem_edit_loadImages.setEnabled(true);
+
+        // TODO: settings
+        // TODO: keep up to date
     }
 
     /**
