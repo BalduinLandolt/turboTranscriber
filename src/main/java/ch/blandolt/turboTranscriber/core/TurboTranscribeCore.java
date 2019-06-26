@@ -75,4 +75,68 @@ public class TurboTranscribeCore {
         System.out.println("Log is gone. Exiting successfully.");
         System.exit(0);
     }
+
+    /**
+     * Action (Menu): New Transcription
+     */
+    public void am_new_transcription() {
+        Log.log("Action: New Transcription");
+        // TODO: Implement
+    }
+
+    /**
+     * Action (Menu): Import XML
+     */
+    public void am_import_xml() {
+        Log.log("Action: Import XML");
+        // TODO: Implement
+    }
+
+    /**
+     * Action (Menu): Import Raw
+     */
+    public void am_import_raw() {
+        Log.log("Action: Import Raw");
+        // TODO: Implement
+    }
+
+    /**
+     * Action (Menu): Save
+     */
+    public void am_save() {
+        Log.log("Action: Save");
+        // TODO: Implement
+    }
+
+    /**
+     * Action (Menu): Save As
+     */
+    public void am_save_as() {
+        Log.log("Action: Save As");
+        // TODO: Implement
+    }
+
+    /**
+     * Action (Menu): Close
+     */
+    public void am_close() {
+        Log.log("Action: Close");
+        // TODO: Implement
+    }
+
+    /**
+     * Action (Menu): load images
+     */
+    public void am_load_images() {
+        Log.log("Action: Load Images");
+        // TODO: Implement
+    }
+
+    /**
+     * Action (Button): crop selected area of image
+     */
+    public void a_crop_selected() {
+        Log.log("Action: Crop Selected");
+        // TODO: Implement
+    }
 }
