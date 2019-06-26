@@ -58,9 +58,10 @@
                             </properties>
                             <border type="none"/>
                             <children>
-                              <component id="fb095" class="javax.swing.JButton" binding="button1" default-binding="true">
+                              <component id="fb095" class="javax.swing.JButton" binding="button1">
                                 <constraints/>
                                 <properties>
+                                  <enabled value="false"/>
                                   <text value="Button"/>
                                 </properties>
                               </component>
