@@ -233,8 +233,7 @@ public class TurboTranscribeCore {
     }
 
     public ArrayList<BufferedImage> getLoadedImages() {
-        ArrayList<BufferedImage> res = new ArrayList<BufferedImage>();
-        // TODO: Implement
+        ArrayList<BufferedImage> res = new ArrayList<BufferedImage>(data.loadedImages);
         return res;
     }
 }
