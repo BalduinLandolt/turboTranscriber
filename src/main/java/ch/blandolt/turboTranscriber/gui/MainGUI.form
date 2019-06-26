@@ -68,17 +68,19 @@
                                 </properties>
                                 <border type="none"/>
                                 <children>
-                                  <component id="fb095" class="javax.swing.JButton" binding="button1">
+                                  <component id="fb095" class="javax.swing.JButton" binding="bt_zoomIn">
                                     <constraints/>
                                     <properties>
-                                      <enabled value="false"/>
-                                      <text value="Button"/>
+                                      <enabled value="true"/>
+                                      <font name="Courier New"/>
+                                      <text value=" + "/>
                                     </properties>
                                   </component>
-                                  <component id="5be00" class="javax.swing.JButton" binding="button2" default-binding="true">
+                                  <component id="5be00" class="javax.swing.JButton" binding="bt_zoomOut">
                                     <constraints/>
                                     <properties>
-                                      <text value="Button"/>
+                                      <font name="Courier New"/>
+                                      <text value=" - "/>
                                     </properties>
                                   </component>
                                 </children>

@@ -41,12 +41,12 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private JLabel picture;
     private JScrollPane pictureScroller;
     private JToolBar imageToolBar;
-    private JButton button2;
+    private JButton bt_zoomOut;
     private RSyntaxTextArea transcriptionSyntaxTextArea;
     private RTextScrollPane syntaxScroller;
     private RTextScrollPane xmlScroller;
     private RSyntaxTextArea xmlArea;
-    private JButton button1;
+    private JButton bt_zoomIn;
     private CustomImagePanel imagePanel;
     private JButton inspectImage;
 
@@ -125,6 +125,9 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
 
         cropSelected.addActionListener(e -> owner.a_crop_selected(imagePanel.getCroppOfSelection()));
         inspectImage.addActionListener(e -> owner.a_inspect_selected_image());
+
+        bt_zoomIn.addActionListener(e -> zoomIn());
+        bt_zoomOut.addActionListener(e -> zoomOut());
 
         transcriptionSyntaxTextArea.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
@@ -306,6 +309,8 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
 
         cropSelected.setEnabled(owner.getSelectedImage() != null);
         inspectImage.setEnabled(owner.getSelectedImage() != null);
+        bt_zoomIn.setEnabled(owner.getSelectedImage() != null);
+        bt_zoomOut.setEnabled(owner.getSelectedImage() != null);
 
         // TODO: settings
         // TODO: keep up to date
@@ -358,6 +363,8 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         g2.drawImage(srcImg, 0, 0, w, h, null);
         g2.dispose();
 
+        // TODO: optimize image quality
+
         return new ImageIcon(resizedImg);
     }
 
@@ -395,5 +402,15 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
 
     public void thumbnailRequestsActivation(ThumbnailPanel thumbnail) {
         owner.thumbnailRequestsActivation(thumbnail);
+    }
+
+    private void zoomOut() {
+        imageScaling *= 0.9;
+        setImage();
+    }
+
+    private void zoomIn() {
+        imageScaling *= 1.1;
+        setImage();
     }
 }
