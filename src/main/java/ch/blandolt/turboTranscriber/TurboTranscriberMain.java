@@ -40,10 +40,6 @@ public class TurboTranscriberMain {
 		//
 		// TODO: Rework CustomImagePanel and ThumbnailPanel
 		//
-		// TODO: Set up new GUI
-		//
-		// TODO: Implement core class
-		//
 		// TODO: integrate or remove MainDataSet class
 		//
 		// TODO: implement settings
