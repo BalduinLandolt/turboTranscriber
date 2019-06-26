@@ -8,6 +8,8 @@ import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -99,6 +101,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         // FixMe: Line numbers don't show.
 
         xmlArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
+        xmlArea.setEditable(false);
 
         make_menubar();
         handle_listeners();
@@ -113,6 +116,12 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         // TODO: Add all necessary listeners
 
         cropSelected.addActionListener(e -> owner.a_crop_selected());
+
+        transcriptionSyntaxTextArea.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
+            public void removeUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
+            public void changedUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
+        });
     }
 
     private void make_menubar() {
@@ -173,13 +182,15 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         menuBar.add(menu_edit);
 
         menuItem_edit_undo = new JMenuItem("Undo");
-        menuItem_edit_undo.addActionListener(e -> {Log.log("Action: Undo"); xmlArea.undoLastAction();});
+        menuItem_edit_undo.addActionListener(e -> {Log.log("Action: Undo");
+                                                transcriptionSyntaxTextArea.undoLastAction();});
         menuItem_edit_undo.setEnabled(false);
         menuItem_edit_undo.setAccelerator(KeyStroke.getKeyStroke("control Z"));
         menu_edit.add(menuItem_edit_undo);
 
         menuItem_edit_redo = new JMenuItem("Redo");
-        menuItem_edit_redo.addActionListener(e -> {Log.log("Action: Redo"); xmlArea.redoLastAction();});
+        menuItem_edit_redo.addActionListener(e -> {Log.log("Action: Redo");
+                                                transcriptionSyntaxTextArea.redoLastAction();});
         menuItem_edit_redo.setEnabled(false);
         menuItem_edit_redo.setAccelerator(KeyStroke.getKeyStroke("control Y"));
         menu_edit.add(menuItem_edit_redo);
@@ -243,7 +254,6 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         if (menuBar == null){
             return;
         }
-        Log.log("Enabling/Disabling Menu Items.");
 
         menuItem_file_newTranscription.setEnabled(true);
         menuItem_file_importXML.setEnabled(true);
@@ -252,8 +262,8 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         menuItem_file_saveAs.setEnabled(true);
         menuItem_file_close.setEnabled(false); // TODO: ?
         menuItem_file_openFolder.setEnabled(false); // TODO: ?
-        menuItem_edit_undo.setEnabled(true); // TODO: only if I can
-        menuItem_edit_redo.setEnabled(true); // TODO: only if I can
+        menuItem_edit_undo.setEnabled(transcriptionSyntaxTextArea.canUndo());
+        menuItem_edit_redo.setEnabled(transcriptionSyntaxTextArea.canRedo());
         menuItem_edit_loadImages.setEnabled(true);
 
         // TODO: settings

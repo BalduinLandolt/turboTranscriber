@@ -151,4 +151,10 @@ public class TurboTranscribeCore {
         Log.log("Action: Crop Selected");
         // TODO: Implement
     }
+
+    public void a_xmlArea_state_changed() {
+        gui.refreshEnabledMenuItems();
+        // TODO: Do more things when it changes:
+        //       - update xml and styled view with some delay
+    }
 }
