@@ -54,6 +54,8 @@ public class TurboTranscriberMain {
 		// TODO: improve Popped out Image inspection view
 		// TODO: show image inspection view upon double klicking image panel in transcription view
 		//
+		// TODO: add things like "open recent"
+		//
 		// TODO: Comments
 		//       - Settings.java
 		//       - datastructure/*
