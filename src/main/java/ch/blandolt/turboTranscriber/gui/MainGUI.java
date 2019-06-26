@@ -13,6 +13,8 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * Main GUI class of TurboTranscriber
@@ -28,7 +30,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private JPanel imageContainer;
     private JPanel controls;
     private JButton cropSelected;
-    private JPanel thumbnailPanel;
+    private JPanel pThumbnails;
     private JPanel transcriptionContainer;
     private JSplitPane splitpaneGeneral;
     private JPanel leftPanel;
@@ -63,6 +65,9 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private JMenu menu_settings;
 
     private TurboTranscribeCore owner;
+
+    private BufferedImage loadedImage;
+    private float imageScaling = 0.3f;
 
     /**
      * Constructor of the GUI.
@@ -234,8 +239,32 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         SwingUtilities.invokeLater(() -> {
             adjustSplitters();
             refreshEnabledMenuItems();
+            createThumbnails();
         });
 
+    }
+
+    public void createThumbnails() {
+        if (pThumbnails == null) {
+            return;
+        }
+
+        ArrayList<BufferedImage> images = owner.getLoadedImages();
+
+        if (images.isEmpty()) {
+            ThumbnailPanel thp = new ThumbnailPanel(new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB), this);
+            pThumbnails.add(thp);
+            return;
+        }
+
+        pThumbnails.removeAll();
+
+        for (BufferedImage im: images) {
+            ThumbnailPanel tp = new ThumbnailPanel(im, this);
+            tp.setActivated(tp.hasSamePicture(loadedImage));
+            pThumbnails.add(tp);
+        }
+        repaint();
     }
 
     private void adjustSplitters() {

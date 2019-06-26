@@ -8,6 +8,8 @@ import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Settings;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * Core class of TurboTranscribe.
@@ -156,5 +158,11 @@ public class TurboTranscribeCore {
         gui.refreshEnabledMenuItems();
         // TODO: Do more things when it changes:
         //       - update xml and styled view with some delay
+    }
+
+    public ArrayList<BufferedImage> getLoadedImages() {
+        ArrayList<BufferedImage> res = new ArrayList<BufferedImage>();
+        // TODO: Implement
+        return res;
     }
 }
