@@ -47,6 +47,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private RTextScrollPane xmlScroller;
     private RSyntaxTextArea xmlArea;
     private JButton button1;
+    private CustomImagePanel imagePanel;
 
     // Menubar
     private JMenuBar menuBar;
@@ -297,6 +298,23 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
 
         // TODO: settings
         // TODO: keep up to date
+    }
+
+    public void switchToImageView() {
+        mainTabbedPane.setSelectedComponent(imageContainer);
+    }
+
+    public void displayImage(BufferedImage activatedImage) {
+        if (activatedImage == null){
+            picture.setIcon(null);
+            imagePanel.setImage(null);
+            loadedImage = null;
+        } else {
+            loadedImage = activatedImage;
+            // setImage(); // TODO: set image to main tab, image view
+            imagePanel.setImage(loadedImage);
+        }
+        //activateImageToolbarButtons();
     }
 
     /**

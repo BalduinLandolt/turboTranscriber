@@ -150,7 +150,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="ac28b" class="ch.blandolt.turboTranscriber.gui.CustomImagePanel">
+              <component id="ac28b" class="ch.blandolt.turboTranscriber.gui.CustomImagePanel" binding="imagePanel">
                 <constraints border-constraint="Center"/>
                 <properties/>
               </component>
