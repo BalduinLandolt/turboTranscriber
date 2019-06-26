@@ -226,10 +226,13 @@ public class TurboTranscribeCore {
 
     /**
      * Action (Button): crop selected area of image
+     * @param croppOfSelection
      */
-    public void a_crop_selected() {
+    public void a_crop_selected(BufferedImage croppOfSelection) {
         Log.log("Action: Crop Selected");
-        // TODO: Implement
+        data.loadedImages.add(croppOfSelection);
+        data.activatedImage = croppOfSelection;
+        refreshGUI();
     }
 
     public void a_xmlArea_state_changed() {

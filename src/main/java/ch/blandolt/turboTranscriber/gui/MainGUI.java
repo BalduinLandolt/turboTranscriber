@@ -121,7 +121,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
 
         // TODO: Add all necessary listeners
 
-        cropSelected.addActionListener(e -> owner.a_crop_selected());
+        cropSelected.addActionListener(e -> owner.a_crop_selected(imagePanel.getCroppOfSelection()));
 
         transcriptionSyntaxTextArea.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
