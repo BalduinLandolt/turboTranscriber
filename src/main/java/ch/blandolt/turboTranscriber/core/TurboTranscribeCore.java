@@ -61,9 +61,13 @@ public class TurboTranscribeCore {
         Log.initialize();
         Log.log("Log initialized.\n");
 
+        loadSettings();
+
+        // TODO: more?
+    }
+
+    private void loadSettings() {
         // TODO: implement
-        //         - settings
-        //         - ...?
     }
 
     /**
