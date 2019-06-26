@@ -311,10 +311,43 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
             loadedImage = null;
         } else {
             loadedImage = activatedImage;
-            // setImage(); // TODO: set image to main tab, image view
+            setImage();
             imagePanel.setImage(loadedImage);
         }
         //activateImageToolbarButtons();
+    }
+
+    private void setImage() {
+
+        Rectangle viewRectOld = pictureScroller.getViewport().getViewRect();
+        Dimension wholeSizeOld = picture.getSize();
+        float xPart = (float) viewRectOld.x / (float)wholeSizeOld.width;
+        float yPart = (float) viewRectOld.y / (float)wholeSizeOld.height;
+
+        int w = (int) ((float)loadedImage.getWidth() * imageScaling);
+        int h = (int) ((float)loadedImage.getHeight() * imageScaling);
+
+        ImageIcon i = getScaledImage(loadedImage, w, h);
+        picture.setIcon(i);
+
+        Dimension wholeSizeNew = new Dimension(i.getIconWidth(), i.getIconHeight());
+
+        int x = (int)((float)wholeSizeNew.width * xPart);
+        int y = (int)((float)wholeSizeNew.height * yPart);
+        Point newPos = new Point(x, y);
+
+        pictureScroller.getViewport().setViewPosition(newPos);
+    }
+
+    private ImageIcon getScaledImage(Image srcImg, int w, int h){
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = resizedImg.createGraphics();
+
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2.drawImage(srcImg, 0, 0, w, h, null);
+        g2.dispose();
+
+        return new ImageIcon(resizedImg);
     }
 
     /**

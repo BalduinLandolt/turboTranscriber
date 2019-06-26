@@ -33,65 +33,79 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <grid id="4195f" layout-manager="BorderLayout" hgap="0" vgap="0">
-                        <constraints border-constraint="North"/>
-                        <properties/>
+                      <splitpane id="10ee6">
+                        <constraints border-constraint="Center"/>
+                        <properties>
+                          <dividerLocation value="120"/>
+                          <orientation value="0"/>
+                        </properties>
                         <border type="none"/>
                         <children>
-                          <scrollpane id="70ec2" binding="pictureScroller">
-                            <constraints border-constraint="Center"/>
+                          <grid id="4195f" layout-manager="BorderLayout" hgap="0" vgap="0">
+                            <constraints>
+                              <splitpane position="left"/>
+                            </constraints>
                             <properties/>
                             <border type="none"/>
                             <children>
-                              <component id="2dd73" class="javax.swing.JLabel" binding="picture">
+                              <scrollpane id="70ec2" binding="pictureScroller">
+                                <constraints border-constraint="Center"/>
+                                <properties/>
+                                <border type="none"/>
+                                <children>
+                                  <component id="2dd73" class="javax.swing.JLabel" binding="picture">
+                                    <constraints/>
+                                    <properties>
+                                      <text value="Label"/>
+                                    </properties>
+                                  </component>
+                                </children>
+                              </scrollpane>
+                              <toolbar id="59007" binding="imageToolBar">
+                                <constraints border-constraint="East"/>
+                                <properties>
+                                  <orientation value="1"/>
+                                </properties>
+                                <border type="none"/>
+                                <children>
+                                  <component id="fb095" class="javax.swing.JButton" binding="button1">
+                                    <constraints/>
+                                    <properties>
+                                      <enabled value="false"/>
+                                      <text value="Button"/>
+                                    </properties>
+                                  </component>
+                                  <component id="5be00" class="javax.swing.JButton" binding="button2" default-binding="true">
+                                    <constraints/>
+                                    <properties>
+                                      <text value="Button"/>
+                                    </properties>
+                                  </component>
+                                </children>
+                              </toolbar>
+                            </children>
+                          </grid>
+                          <scrollpane id="54805" class="org.fife.ui.rtextarea.RTextScrollPane" binding="syntaxScroller">
+                            <constraints>
+                              <splitpane position="right"/>
+                            </constraints>
+                            <properties>
+                              <foldIndicatorEnabled value="false"/>
+                              <lineNumbersEnabled value="false"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="9974d" class="org.fife.ui.rsyntaxtextarea.RSyntaxTextArea" binding="transcriptionSyntaxTextArea">
                                 <constraints/>
                                 <properties>
-                                  <text value="Label"/>
+                                  <codeFoldingEnabled value="true"/>
+                                  <marginLineEnabled value="false"/>
                                 </properties>
                               </component>
                             </children>
                           </scrollpane>
-                          <toolbar id="59007" binding="imageToolBar">
-                            <constraints border-constraint="East"/>
-                            <properties>
-                              <orientation value="1"/>
-                            </properties>
-                            <border type="none"/>
-                            <children>
-                              <component id="fb095" class="javax.swing.JButton" binding="button1">
-                                <constraints/>
-                                <properties>
-                                  <enabled value="false"/>
-                                  <text value="Button"/>
-                                </properties>
-                              </component>
-                              <component id="5be00" class="javax.swing.JButton" binding="button2" default-binding="true">
-                                <constraints/>
-                                <properties>
-                                  <text value="Button"/>
-                                </properties>
-                              </component>
-                            </children>
-                          </toolbar>
                         </children>
-                      </grid>
-                      <scrollpane id="54805" class="org.fife.ui.rtextarea.RTextScrollPane" binding="syntaxScroller">
-                        <constraints border-constraint="Center"/>
-                        <properties>
-                          <foldIndicatorEnabled value="false"/>
-                          <lineNumbersEnabled value="false"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="9974d" class="org.fife.ui.rsyntaxtextarea.RSyntaxTextArea" binding="transcriptionSyntaxTextArea">
-                            <constraints/>
-                            <properties>
-                              <codeFoldingEnabled value="true"/>
-                              <marginLineEnabled value="false"/>
-                            </properties>
-                          </component>
-                        </children>
-                      </scrollpane>
+                      </splitpane>
                     </children>
                   </grid>
                   <grid id="8427e" binding="rightPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
