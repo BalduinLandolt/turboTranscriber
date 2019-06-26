@@ -36,6 +36,14 @@ public class TurboTranscribeCore {
         refreshGUI();
     }
 
+    public void a_inspect_selected_image() {
+        popoutImage();
+    }
+
+    public BufferedImage getSelectedImage() {
+        return data.activatedImage;
+    }
+
     // TODO: Rethink Data organisation!
     private class Data {
         LinkedList<BufferedImage> loadedImages = new LinkedList<>();
@@ -206,7 +214,7 @@ public class TurboTranscribeCore {
 
         gui.displayImage(data.activatedImage);
         gui.createThumbnails();
-        gui.refreshEnabledMenuItems();
+        gui.refreshEnabledComponents();
 
         // TODO: more?
     }
@@ -237,7 +245,7 @@ public class TurboTranscribeCore {
     }
 
     public void a_xmlArea_state_changed() {
-        gui.refreshEnabledMenuItems();
+        gui.refreshEnabledComponents();
         // TODO: Do more things when it changes:
         //       - update xml and styled view with some delay
     }

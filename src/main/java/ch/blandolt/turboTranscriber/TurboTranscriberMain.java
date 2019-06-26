@@ -49,6 +49,9 @@ public class TurboTranscriberMain {
 		//
 		// TODO: no cropping, when selection is outide of raster or the entire image
 		//
+		// TODO: improve Popped out Image inspection view
+		// TODO: show image inspection view upon double klicking image panel in transcription view
+		//
 		// TODO: Comments
 		//       - Settings.java
 		//       - datastructure/*

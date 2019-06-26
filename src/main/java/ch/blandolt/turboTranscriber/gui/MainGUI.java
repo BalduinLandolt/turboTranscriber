@@ -48,6 +48,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private RSyntaxTextArea xmlArea;
     private JButton button1;
     private CustomImagePanel imagePanel;
+    private JButton inspectImage;
 
     // Menubar
     private JMenuBar menuBar;
@@ -63,6 +64,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private JMenuItem menuItem_edit_undo;
     private JMenuItem menuItem_edit_redo;
     private JMenuItem menuItem_edit_loadImages;
+    private JMenuItem menuItem_edit_inspectSelectedImage;
     private JMenu menu_settings;
 
     private TurboTranscribeCore owner;
@@ -122,6 +124,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         // TODO: Add all necessary listeners
 
         cropSelected.addActionListener(e -> owner.a_crop_selected(imagePanel.getCroppOfSelection()));
+        inspectImage.addActionListener(e -> owner.a_inspect_selected_image());
 
         transcriptionSyntaxTextArea.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
@@ -207,6 +210,10 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         menuItem_edit_loadImages.addActionListener(e -> owner.am_load_images());
         menu_edit.add(menuItem_edit_loadImages);
 
+        menuItem_edit_inspectSelectedImage = new JMenuItem("Inspect Selected Image");
+        menuItem_edit_inspectSelectedImage.addActionListener(e -> owner.a_inspect_selected_image());
+        menu_edit.add(menuItem_edit_inspectSelectedImage);
+
 
         //Menu: Settings
         menu_settings = new JMenu("Settings");
@@ -239,7 +246,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         });
         SwingUtilities.invokeLater(() -> {
             adjustSplitters();
-            refreshEnabledMenuItems();
+            refreshEnabledComponents();
             createThumbnails();
         });
 
@@ -280,7 +287,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     /**
      * Enables and disables all menu items according to how they should be.
      */
-    public void refreshEnabledMenuItems(){
+    public void refreshEnabledComponents(){
         if (menuBar == null){
             return;
         }
@@ -295,6 +302,10 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         menuItem_edit_undo.setEnabled(transcriptionSyntaxTextArea.canUndo());
         menuItem_edit_redo.setEnabled(transcriptionSyntaxTextArea.canRedo());
         menuItem_edit_loadImages.setEnabled(true);
+        menuItem_edit_inspectSelectedImage.setEnabled(owner.getSelectedImage() != null);
+
+        cropSelected.setEnabled(owner.getSelectedImage() != null);
+        inspectImage.setEnabled(owner.getSelectedImage() != null);
 
         // TODO: settings
         // TODO: keep up to date
@@ -337,8 +348,6 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         Point newPos = new Point(x, y);
 
         pictureScroller.getViewport().setViewPosition(newPos);
-
-        owner.popoutImage(); //TODO: move to somewhere sensible
     }
 
     private ImageIcon getScaledImage(Image srcImg, int w, int h){
