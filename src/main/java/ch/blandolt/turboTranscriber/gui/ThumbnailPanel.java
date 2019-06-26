@@ -95,7 +95,7 @@ public class ThumbnailPanel extends JLabel implements MouseListener {
 	public void mouseClicked(MouseEvent arg0) {
 		Log.log("Thumbnail: I got Clicked!");
 		if (!isSelected) {
-			//caller.thumbnailRequestsActivation(this);
+			owner.thumbnailRequestsActivation(this);
 		}
 	}
 

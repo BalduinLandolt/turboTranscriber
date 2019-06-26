@@ -348,4 +348,8 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     public void windowActivated(WindowEvent e) {}
     @Override
     public void windowDeactivated(WindowEvent e) {}
+
+    public void thumbnailRequestsActivation(ThumbnailPanel thumbnail) {
+        owner.thumbnailRequestsActivation(thumbnail);
+    }
 }

@@ -4,6 +4,7 @@
 package ch.blandolt.turboTranscriber.core;
 
 import ch.blandolt.turboTranscriber.gui.MainGUI;
+import ch.blandolt.turboTranscriber.gui.ThumbnailPanel;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Settings;
 
@@ -28,6 +29,11 @@ import java.util.LinkedList;
 public class TurboTranscribeCore {
     private MainGUI gui;
     private Data data = new Data();
+
+    public void thumbnailRequestsActivation(ThumbnailPanel thumbnail) {
+        data.activatedImage = thumbnail.getInitialImage();
+        refreshGUI();
+    }
 
     // TODO: Rethink Data organisation!
     private class Data {
