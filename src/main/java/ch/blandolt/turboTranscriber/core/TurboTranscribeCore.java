@@ -131,4 +131,12 @@ public class TurboTranscribeCore {
         Log.log("Action: Load Images");
         // TODO: Implement
     }
+
+    /**
+     * Action (Button): crop selected area of image
+     */
+    public void a_crop_selected() {
+        Log.log("Action: Crop Selected");
+        // TODO: Implement
+    }
 }

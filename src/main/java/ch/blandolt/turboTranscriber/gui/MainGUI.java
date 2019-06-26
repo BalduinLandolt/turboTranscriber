@@ -37,12 +37,12 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private JLabel picture;
     private JScrollPane pictureScroller;
     private JToolBar imageToolBar;
-    private JButton button1;
     private JButton button2;
     private RSyntaxTextArea transcriptionSyntaxTextArea;
     private RTextScrollPane syntaxScroller;
     private RTextScrollPane xmlScroller;
     private RSyntaxTextArea xmlArea;
+    private JButton button1;
 
     // Menubar
     private JMenuBar menuBar;
@@ -113,9 +113,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
 
         // TODO: Add all necessary listeners
 
-        cropSelected.addActionListener(e -> {
-            // TODO: implement
-        });
+        cropSelected.addActionListener(e -> owner.a_crop_selected());
     }
 
     private void make_menubar() {
