@@ -36,6 +36,8 @@ public class TurboTranscriberMain {
 		// Collection of Tasks
 		// -------------------
 		//
+		// TODO: go through all legacy code
+		//
 		// TODO: look at error logging
 		//
 		// TODO: Rework CustomImagePanel and ThumbnailPanel
