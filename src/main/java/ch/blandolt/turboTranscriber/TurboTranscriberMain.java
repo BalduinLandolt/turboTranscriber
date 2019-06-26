@@ -39,6 +39,7 @@ public class TurboTranscriberMain {
 		// TODO: look at error logging
 		//
 		// TODO: Rework CustomImagePanel and ThumbnailPanel
+		// TODO: Add option to remove images
 		//
 		// TODO: integrate or remove MainDataSet class
 		//
@@ -51,6 +52,7 @@ public class TurboTranscriberMain {
 		//       - datastructure/*
 		//       - ThumbnailPanel
 		//       - CustomImagePanel
+		//		 - ... newly added functions
 		//
 		// ...
 	}
