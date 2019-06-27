@@ -142,6 +142,10 @@ public class Log {
 		if (lastLog == null){
 			new Log();
 		}
+
+		if (o instanceof List){lastLog.println((List)o);return;}
+		if (o instanceof Iterable){lastLog.println((Iterable<Object>) o);return;}
+
 		lastLog.println(o);
 	}
 
