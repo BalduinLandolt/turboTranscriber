@@ -1,8 +1,9 @@
 package ch.blandolt.turboTranscriber.util.datastructure;
 
-public class TranscriptionToken implements Tokenizable {
+public class TokenizableText implements Tokenizable {
     private String text;
-    public TranscriptionToken(String txt){
+
+    public TokenizableText(String txt){
         text = txt;
     }
 }

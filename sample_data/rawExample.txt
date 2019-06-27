@@ -1,5 +1,12 @@
 [miracle=155]
 
+# one line comment
+
+/*
+multi
+line
+comment
+*/
 
 [pb=303]
 

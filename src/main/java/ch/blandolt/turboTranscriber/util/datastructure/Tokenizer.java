@@ -4,21 +4,38 @@ import ch.blandolt.turboTranscriber.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Tokenizer {
     public static List<TranscriptionToken> tokenize(String text) {
-        List<String> lines = Arrays.asList(text.split("\\n"));
 
-        Log.log((List)lines);
+        Log.log("Tokenizing the following:");
+        Log.log(text);
+
+        List<Tokenizable> tokens = Tokenizer.extractMultilineComments(text);
 
 
-        List<TranscriptionToken> res = new ArrayList<>();
 
-        return res;
+        return null;
     }
-    public static List<TranscriptionToken> tokenize(List<String> lines) {
-        List<TranscriptionToken> res = new ArrayList<>();
+
+    private static List<Tokenizable> extractMultilineComments(String text) {
+        List<Tokenizable> res = new LinkedList<Tokenizable>();
+
+        text = text.replaceAll("/\\*", "/*££start_comment££");
+        text = text.replaceAll("\\*/", "/*");
+
+        String[] ss = text.split("/\\*");
+
+        for (String s: ss){
+            if (s.startsWith("££start_comment££")){
+                s = s.replace("££start_comment££", "");
+                res.add(new TokenTypeComment(s));
+            } else {
+                res.add(new TokenizableText(s));
+            }
+        }
 
         return res;
     }

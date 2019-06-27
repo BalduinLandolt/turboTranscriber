@@ -56,6 +56,8 @@ public class TurboTranscriberMain {
 		//
 		// TODO: add things like "open recent"
 		//
+		// TODO: auto TEI core(?)/minimal(?) schema check, to see, what elements are anchors/containers/...
+		//
 		// TODO: Comments
 		//       - Settings.java
 		//       - datastructure/*
