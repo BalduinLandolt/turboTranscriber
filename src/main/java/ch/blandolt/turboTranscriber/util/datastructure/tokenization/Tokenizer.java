@@ -30,6 +30,8 @@ They get extracted later on.
 
 6. Extract Punctuation
 
+7. Extract Linebreaks
+
 // TODO: Add XML to format.
     Maybe something like "$XML_<some weird construct>...</>$XML_"
 
@@ -47,10 +49,34 @@ public class Tokenizer {
         tokens = Tokenizer.extractAbbreviations(tokens);
         tokens = Tokenizer.extractGlyphs(tokens);
         tokens = Tokenizer.extractPunctuationCharacters(tokens);
+        tokens = Tokenizer.extractLinebreaks(tokens);
 
 
         Log.log(tokens);
         return null;
+    }
+
+    private static List<Tokenizable> extractLinebreaks(List<Tokenizable> tokens) {
+        List<Tokenizable> res = new LinkedList<Tokenizable>();
+
+        for (Tokenizable t: tokens) {
+            if (t instanceof TokenizableText) {
+                String s = t.getText();
+                s = s.replace("\n", "\n___linebreak___\n");
+                String[] ss = s.split("\n"); // TODO: does that work?
+                for (String substr: ss){
+                    if (substr.equals("___linebreak___")){
+                        res.add(new TokenTypeLinebreak("\n"));
+                    } else {
+                        res.add(new TokenizableText(substr));
+                    }
+                }
+            } else {
+                res.add(t);
+            }
+        }
+
+        return res;
     }
 
     private static List<Tokenizable> extractPunctuationCharacters(List<Tokenizable> tokens) {
