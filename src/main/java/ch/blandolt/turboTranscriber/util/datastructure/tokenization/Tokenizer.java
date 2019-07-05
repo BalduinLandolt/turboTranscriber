@@ -4,6 +4,8 @@ import ch.blandolt.turboTranscriber.util.Log;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
 Documentation:
@@ -26,6 +28,8 @@ They get extracted later on.
 
 5. Extract Glyphs
 
+6. Extract Punctuation
+
 // TODO: Add XML to format.
     Maybe something like "$XML_<some weird construct>...</>$XML_"
 
@@ -42,10 +46,55 @@ public class Tokenizer {
         tokens = Tokenizer.extractOpeningAndClosingTags(tokens);
         tokens = Tokenizer.extractAbbreviations(tokens);
         tokens = Tokenizer.extractGlyphs(tokens);
+        tokens = Tokenizer.extractPunctuationCharacters(tokens);
 
 
         Log.log(tokens);
         return null;
+    }
+
+    private static List<Tokenizable> extractPunctuationCharacters(List<Tokenizable> tokens) {
+        List<Tokenizable> res = new LinkedList<Tokenizable>();
+
+        for (Tokenizable t: tokens) {
+            if (t instanceof TokenizableText) {
+                String s = t.getText();
+                String rest = s;
+                String regex = "[\\.]";
+                // TODO: more potential allowed Punctuation Characters
+                // TODO: make allowed punctuation characters dynamic
+
+                Pattern.matches(regex, s);
+                Pattern p = Pattern.compile(regex);
+                Matcher m = p.matcher(s);
+
+                while (m.find()){
+                    int i = m.start();
+                    if (i > 0){
+                        String substr = rest.substring(0, i-1);
+                        res.add(new TokenizableText(substr));
+                    }
+                    String match = m.group();
+                    res.add(new TokenTypePunctuationCharacter(match));
+                    rest = rest.substring(match.length());
+                }
+                if (!rest.isEmpty()){
+                    res.add(new TokenizableText(rest));
+                }
+//
+//                String[] ss = s.split(regex); // FixMe: this removes the punctuation character.
+//                for (String substr: ss){
+//                    if (substr.matches(regex)){
+//                        res.add(new TokenTypePunctuationCharacter(substr));
+//                    } else {
+//                        res.add(new TokenizableText(substr));
+//                    }
+//                }
+            } else {
+                res.add(t);
+            }
+        }
+        return res;
     }
 
     private static List<Tokenizable> extractGlyphs(List<Tokenizable> tokens) {
