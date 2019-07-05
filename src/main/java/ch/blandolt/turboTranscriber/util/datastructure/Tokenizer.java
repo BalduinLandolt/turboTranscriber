@@ -2,8 +2,6 @@ package ch.blandolt.turboTranscriber.util.datastructure;
 
 import ch.blandolt.turboTranscriber.util.Log;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class Tokenizer {
         for (String s: ss){
             if (s.startsWith("££start_comment££")){
                 s = s.replace("££start_comment££", "");
-                res.add(new TokenTypeComment(s));
+                res.add(new TokenTypeMultilineComment(s));
             } else {
                 res.add(new TokenizableText(s));
             }
