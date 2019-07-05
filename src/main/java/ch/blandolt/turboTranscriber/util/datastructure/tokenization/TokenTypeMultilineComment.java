@@ -1,4 +1,4 @@
-package ch.blandolt.turboTranscriber.util.datastructure;
+package ch.blandolt.turboTranscriber.util.datastructure.tokenization;
 
 public class TokenTypeMultilineComment extends TranscriptionToken {
     public TokenTypeMultilineComment(String txt) {
