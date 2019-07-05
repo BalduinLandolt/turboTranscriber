@@ -5,4 +5,8 @@ public class TranscriptionToken implements Tokenizable {
     public TranscriptionToken(String txt){
         text = txt;
     }
+
+    public String getText() {
+        return text;
+    }
 }

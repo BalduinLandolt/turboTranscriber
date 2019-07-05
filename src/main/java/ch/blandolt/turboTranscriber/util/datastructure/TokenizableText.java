@@ -6,4 +6,9 @@ public class TokenizableText implements Tokenizable {
     public TokenizableText(String txt){
         text = txt;
     }
+
+    @Override
+    public String getText() {
+        return text;
+    }
 }
