@@ -299,7 +299,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         }
 
         menuItem_file_newTranscription.setEnabled(true);
-        menuItem_file_importXML.setEnabled(true);
+        menuItem_file_importXML.setEnabled(false);
         menuItem_file_importRaw.setEnabled(true);
         menuItem_file_save.setEnabled(owner.hasUnsavedChanges());
         menuItem_file_saveAs.setEnabled(true);
