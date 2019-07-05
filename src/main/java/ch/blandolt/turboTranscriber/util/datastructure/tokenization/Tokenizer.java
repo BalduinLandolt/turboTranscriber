@@ -21,7 +21,13 @@ Everything starting from '#' up to the next line break is treated as simple comm
 Tag hierarchy is ignored.
 
 4. Abbreviations are extracted.
-Glyphs in abbreviations are ignored for now
+Glyphs in abbreviations are treAted as "text" in the abbreviation for now.
+They get extracted later on.
+
+5. Extract Glyphs
+
+// TODO: Add XML to format.
+    Maybe something like "$XML_<some weird construct>...</>$XML_"
 
 */
 
@@ -35,10 +41,41 @@ public class Tokenizer {
         tokens = Tokenizer.extractSingleLineComments(tokens);
         tokens = Tokenizer.extractOpeningAndClosingTags(tokens);
         tokens = Tokenizer.extractAbbreviations(tokens);
+        tokens = Tokenizer.extractGlyphs(tokens);
 
 
         Log.log(tokens);
         return null;
+    }
+
+    private static List<Tokenizable> extractGlyphs(List<Tokenizable> tokens) {
+        List<Tokenizable> res = new LinkedList<Tokenizable>();
+
+        for (Tokenizable t: tokens) {
+            if (t instanceof TokenizableText) {
+                String s = t.getText();
+                if (s.contains("{")) {
+                    String[] ss = s.split("\\{", 2);
+                    if (!ss[0].isBlank()){
+                        res.add(new TokenizableText(ss[0]));
+                    }
+                    ss = ss[1].split("\\}", 2);
+                    res.add(new TokenTypeGlyph(ss[0]));
+                    if (ss.length == 2){
+                        TokenizableText rest = new TokenizableText(ss[1]);
+                        List<Tokenizable> l_rest = new LinkedList<>();
+                        l_rest.add(rest);
+                        res.addAll(extractGlyphs(l_rest));
+                    }
+                } else {
+                    res.add(t);
+                }
+            } else {
+                res.add(t);
+            }
+        }
+
+        return res;
     }
 
     private static List<Tokenizable> extractAbbreviations(List<Tokenizable> tokens) {
