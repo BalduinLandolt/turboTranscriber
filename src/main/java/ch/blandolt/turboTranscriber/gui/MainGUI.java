@@ -154,11 +154,13 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         menuItem_file_importXML = new JMenuItem("Import XML File");
         menuItem_file_importXML.addActionListener(e -> owner.am_import_xml());
         menuItem_file_importXML.setEnabled(false);
+        menuItem_file_importXML.setAccelerator(KeyStroke.getKeyStroke("control shift I"));
         menu_file.add(menuItem_file_importXML);
 
         menuItem_file_importRaw = new JMenuItem("Import Raw Transcription File");
         menuItem_file_importRaw.addActionListener(e -> owner.am_import_raw());
         menuItem_file_importRaw.setEnabled(false);
+        menuItem_file_importRaw.setAccelerator(KeyStroke.getKeyStroke("control I"));
         menu_file.add(menuItem_file_importRaw);
 
         menu_file.addSeparator();
