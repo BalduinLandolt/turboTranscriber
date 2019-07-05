@@ -9,4 +9,9 @@ public class TranscriptionToken implements Tokenizable {
     public String getText() {
         return text;
     }
+
+    public String toString(){
+        String s = super.toString();
+        return s + ": " + text;
+    }
 }
