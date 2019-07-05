@@ -51,8 +51,20 @@ public class Tokenizer {
         tokens = Tokenizer.extractPunctuationCharacters(tokens);
         tokens = Tokenizer.extractLinebreaks(tokens);
 
+        for (Tokenizable t: tokens) {
+            if (t instanceof TokenizableText){
+                Log.log("Left: "+t.getText());
+            }
+        }
+        int n = 0;
+        for (Tokenizable t: tokens) {
+            if (t instanceof TokenTypePunctuationCharacter){
+                n++;
+            }
+        }
+        Log.log("PC: "+n);
 
-        Log.log(tokens);
+        //Log.log(tokens);
         return null;
     }
 
@@ -90,6 +102,12 @@ public class Tokenizer {
                 // TODO: more potential allowed Punctuation Characters
                 // TODO: make allowed punctuation characters dynamic
 
+
+
+                // TODO: get this to work propperly
+
+
+
                 Pattern.matches(regex, s);
                 Pattern p = Pattern.compile(regex);
                 Matcher m = p.matcher(s);
@@ -101,13 +119,24 @@ public class Tokenizer {
                         res.add(new TokenizableText(substr));
                     }
                     String match = m.group();
+
+                    //TODO: remove
+                    Log.log("found: "+match);
+                    Log.log("in: "+rest);
+
                     res.add(new TokenTypePunctuationCharacter(match));
                     rest = rest.substring(match.length());
+
+                    Log.log("->: "+rest);
                 }
                 if (!rest.isEmpty()){
                     res.add(new TokenizableText(rest));
                 }
-//
+
+
+
+
+
 //                String[] ss = s.split(regex); // FixMe: this removes the punctuation character.
 //                for (String substr: ss){
 //                    if (substr.matches(regex)){
