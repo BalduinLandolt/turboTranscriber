@@ -20,6 +20,9 @@ Everything starting from '#' up to the next line break is treated as simple comm
 3. Opening Tags and Closing Tags are identified as such and extracted.
 Tag hierarchy is ignored.
 
+4. Abbreviations are extracted.
+Glyphs in abbreviations are ignored for now
+
 */
 
 public class Tokenizer {
@@ -31,10 +34,41 @@ public class Tokenizer {
         List<Tokenizable> tokens = Tokenizer.extractMultilineComments(text);
         tokens = Tokenizer.extractSingleLineComments(tokens);
         tokens = Tokenizer.extractOpeningAndClosingTags(tokens);
+        tokens = Tokenizer.extractAbbreviations(tokens);
 
 
         Log.log(tokens);
         return null;
+    }
+
+    private static List<Tokenizable> extractAbbreviations(List<Tokenizable> tokens) {
+        List<Tokenizable> res = new LinkedList<Tokenizable>();
+
+        for (Tokenizable t: tokens) {
+            if (t instanceof TokenizableText) {
+                String s = t.getText();
+                if (s.contains("(")) {
+                    String[] ss = s.split("\\(", 2);
+                    if (!ss[0].isBlank()){
+                        res.add(new TokenizableText(ss[0]));
+                    }
+                    ss = ss[1].split("\\)", 2);
+                    res.add(new TokenTypeAbbreviation(ss[0]));
+                    if (ss.length == 2){
+                        TokenizableText rest = new TokenizableText(ss[1]);
+                        List<Tokenizable> l_rest = new LinkedList<>();
+                        l_rest.add(rest);
+                        res.addAll(extractAbbreviations(l_rest));
+                    }
+                } else {
+                    res.add(t);
+                }
+            } else {
+                res.add(t);
+            }
+        }
+
+        return res;
     }
 
     private static List<Tokenizable> extractOpeningAndClosingTags(List<Tokenizable> tokens) {
