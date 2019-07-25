@@ -6,7 +6,6 @@ package ch.blandolt.turboTranscriber.util.datastructure;
 import java.util.LinkedList;
 
 import org.jdom2.Content;
-import org.jdom2.Namespace;
 
 /**
  * @author Balduin Landolt
@@ -21,7 +20,7 @@ public abstract class AbstractTranscriptionObject implements Cloneable {
 	public abstract String generateTextualRepresentation(String rawRepresentation);
 	
 	
-	public abstract AbstractTranscriptionObject clone();
+	public abstract AbstractAtomarTranscriptionSegment clone();
 
 
 	/**
@@ -67,7 +66,7 @@ public abstract class AbstractTranscriptionObject implements Cloneable {
 	 */
 
 	// TODO: implement this
-	public static AbstractTranscriptionObject getObject(String e) {
+	public static AbstractAtomarTranscriptionSegment getObject(String e) {
 //		if (PunctuationCharacter.isPunctuation(e)) {
 //			return new PunctuationCharacter(e);
 //		}

@@ -151,9 +151,9 @@ public class Tokenizer {
 
                 for (String substr: ss){
                     if (substr.matches(regex)){
-                        res.add(new TokenTypeWordborder(""));
+                        res.add(new TokenTypeWordborder("")); // TODO: make dynamically dependent (hyphens are not word borders!
                         res.add(new TokenTypePunctuationCharacter(substr));
-                        res.add(new TokenTypeWordborder(""));
+                        res.add(new TokenTypeWordborder("")); // TODO: dito
                     }  else {
                         res.add(new TokenizableText(substr));
                     }
