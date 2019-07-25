@@ -11,7 +11,8 @@ public class TranscriptionToken implements Tokenizable {
     }
 
     public String toString(){
-        String s = super.toString();
-        return s + ": " + text;
+        //String s = super.toString();
+        //return s + ": " + text;
+        return this.getClass().getSimpleName() + ": " + text;
     }
 }

@@ -45,11 +45,13 @@ public class Tokenizer {
 
         List<Tokenizable> tokens = Tokenizer.extractMultilineComments(text);
         tokens = Tokenizer.extractSingleLineComments(tokens);
+        // TODO: extract word borders (i.e. blank spaces, but also special signs eg. `aa_lande` for `á landi`)
         tokens = Tokenizer.extractOpeningAndClosingTags(tokens);
         tokens = Tokenizer.extractAbbreviations(tokens);
         tokens = Tokenizer.extractGlyphs(tokens);
         tokens = Tokenizer.extractPunctuationCharacters(tokens);
         tokens = Tokenizer.extractLinebreaks(tokens);
+        tokens = Tokenizer.extractTextFragments(tokens);
 
         for (Tokenizable t: tokens) {
             if (t instanceof TokenizableText){
@@ -64,8 +66,32 @@ public class Tokenizer {
         }
         Log.log("PC: "+n);
 
+        Log.log("\n\nTokens:\n");
+        Log.log(tokens);
+
         //Log.log(tokens);
         return null;
+    }
+
+    private static List<Tokenizable> extractTextFragments(List<Tokenizable> tokens) {
+        List<Tokenizable> res = new LinkedList<Tokenizable>();
+
+        for (Tokenizable t: tokens) {
+            if (t instanceof TokenizableText) {
+                String s = t.getText();
+                if (s.isBlank())
+                    continue;
+                s = s.strip();
+                String[] ss = s.split(" ");
+                for (String substr: ss){
+                    res.add(new TokenTypeTextFragment(substr));
+                }
+            } else {
+                res.add(t);
+            }
+        }
+
+        return res;
     }
 
     private static List<Tokenizable> extractLinebreaks(List<Tokenizable> tokens) {
