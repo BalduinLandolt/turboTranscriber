@@ -12,7 +12,7 @@ comment
 
 # one line comment with # in it
 
-[lb=6] [head] hv(er;er){slong}u t(il;isup) ko(m;bar) (con;condes)cep(t;bar)io. [/head]
+[lb=6] [head] hv(er;er){slong}u t(il;isup) ko(m;bar)/*multiple blanks following for test purposes*/         (con;condes)cep(t;bar)io. [/head]
 [p]
 
 /*here ends adjusted part*/

@@ -45,7 +45,7 @@ public class Tokenizer {
 
         List<Tokenizable> tokens = Tokenizer.extractMultilineComments(text);
         tokens = Tokenizer.extractSingleLineComments(tokens);
-        // TODO: extract word borders (i.e. blank spaces, but also special signs eg. `aa_lande` for `á landi`)
+        tokens = Tokenizer.extractWordborders(tokens); // TODO: implement special word-border-cases (e.g. `aa_lande` for `á landi`)
         tokens = Tokenizer.extractOpeningAndClosingTags(tokens);
         tokens = Tokenizer.extractAbbreviations(tokens);
         tokens = Tokenizer.extractGlyphs(tokens);
@@ -53,24 +53,36 @@ public class Tokenizer {
         tokens = Tokenizer.extractLinebreaks(tokens);
         tokens = Tokenizer.extractTextFragments(tokens);
 
-        for (Tokenizable t: tokens) {
-            if (t instanceof TokenizableText){
-                Log.log("Left: "+t.getText());
-            }
-        }
-        int n = 0;
-        for (Tokenizable t: tokens) {
-            if (t instanceof TokenTypePunctuationCharacter){
-                n++;
-            }
-        }
-        Log.log("PC: "+n);
-
         Log.log("\n\nTokens:\n");
         Log.log(tokens);
 
+        // TODO: remove unwanted word borders
+
         //Log.log(tokens);
         return null;
+    }
+
+    private static List<Tokenizable> extractWordborders(List<Tokenizable> tokens) {
+        List<Tokenizable> res = new LinkedList<Tokenizable>();
+
+        for (Tokenizable t: tokens) {
+            if (t instanceof TokenizableText) {
+                String s = t.getText();
+                s = s.replace(" ", " ___wordborder___ ");
+                String[] ss = s.split(" ");
+                for (String substr: ss){
+                    if (substr.equals("___wordborder___")){
+                        res.add(new TokenTypeWordborder(""));
+                    } else {
+                        res.add(new TokenizableText(substr));
+                    }
+                }
+            } else {
+                res.add(t);
+            }
+        }
+
+        return res;
     }
 
     private static List<Tokenizable> extractTextFragments(List<Tokenizable> tokens) {
@@ -104,7 +116,7 @@ public class Tokenizer {
                 String[] ss = s.split("\n"); // TODO: does that work?
                 for (String substr: ss){
                     if (substr.equals("___linebreak___")){
-                        res.add(new TokenTypeLinebreak("\n"));
+                        res.add(new TokenTypeLinebreak(""));
                     } else {
                         res.add(new TokenizableText(substr));
                     }
@@ -139,7 +151,9 @@ public class Tokenizer {
 
                 for (String substr: ss){
                     if (substr.matches(regex)){
+                        res.add(new TokenTypeWordborder(""));
                         res.add(new TokenTypePunctuationCharacter(substr));
+                        res.add(new TokenTypeWordborder(""));
                     }  else {
                         res.add(new TokenizableText(substr));
                     }
