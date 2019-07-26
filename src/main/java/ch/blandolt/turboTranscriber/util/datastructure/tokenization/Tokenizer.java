@@ -4,6 +4,11 @@ import ch.blandolt.turboTranscriber.util.Log;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,7 +43,11 @@ They get extracted later on.
 */
 
 public class Tokenizer {
-    public static List<TranscriptionToken> tokenize(String text) {
+    private static boolean IS_LOCKED = false;
+
+    public static synchronized List<TranscriptionToken> tokenize(String text) {
+
+        // TODO: long term: speed up performance of tokenization
 
         Log.log("Tokenizing the following:");
         Log.log(text);
@@ -59,7 +68,18 @@ public class Tokenizer {
         // TODO: remove unwanted word borders
 
         //Log.log(tokens);
+        long seconds = 2;
+
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+        Runnable unlock  = () -> Tokenizer.unlock();
+        ses.schedule(unlock , seconds, TimeUnit.SECONDS); // TODO: make duration dynamic
+
         return null;
+    }
+
+    private static void unlock() {
+        IS_LOCKED = false;
+        Log.log("Unlocked Tokenizer");
     }
 
     private static List<Tokenizable> extractWordborders(List<Tokenizable> tokens) {

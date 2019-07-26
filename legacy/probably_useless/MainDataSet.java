@@ -16,8 +16,7 @@ import org.jdom2.Element;
 import org.jdom2.Namespace;
 
 import ch.blandolt.turboTranscriber.util.Log;
-import ch.blandolt.turboTranscriber.util.datastructure.AbstractAtomarTranscriptionSegment;
-
+import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.AbstractAtomarTranscriptionSegment;
 
 /**
  * Class that collects all Data of the running program at a given time. <br/>
