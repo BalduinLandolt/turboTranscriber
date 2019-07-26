@@ -2,10 +2,7 @@ package ch.blandolt.turboTranscriber.util.datastructure.tokenization;
 
 import ch.blandolt.turboTranscriber.util.Log;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -63,8 +60,8 @@ public class Tokenizer {
         tokens = Tokenizer.extractLinebreaks(tokens);
         tokens = Tokenizer.extractTextFragments(tokens);
 
-        Log.log("\n\nTokens:\n");
-        Log.log(tokens);
+        //Log.log("\n\nTokens:\n");
+        //Log.log(tokens);
 
         // TODO: remove unwanted word borders
 
@@ -75,7 +72,7 @@ public class Tokenizer {
         Runnable unlock  = () -> Tokenizer.unlock();
         ses.schedule(unlock , seconds, TimeUnit.SECONDS); // TODO: make duration dynamic
 
-        LinkedList<TranscriptionToken> tokens_finished = (LinkedList<TranscriptionToken>) tokens
+        ArrayList<TranscriptionToken> tokens_finished = (ArrayList<TranscriptionToken>) tokens
                 .stream()
                 .filter(t -> t instanceof TranscriptionToken)
                 .map(t -> (TranscriptionToken) t)
