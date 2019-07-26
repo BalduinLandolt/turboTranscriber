@@ -7,7 +7,9 @@ import ch.blandolt.turboTranscriber.gui.MainGUI;
 import ch.blandolt.turboTranscriber.gui.ThumbnailPanel;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Settings;
+import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.DataFactory;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -50,7 +52,8 @@ public class TurboTranscribeCore {
     public void a_transcription_state_changed() {
         Log.log("Transcription has changed.");
 
-        Tokenizer.tokenize(gui.getTranscriptionString());
+        List<TranscriptionToken> tokens = Tokenizer.tokenize(gui.getTranscriptionString());
+        DataFactory.buildDatastructure(tokens);
 
         // TODO: tokenize transcription
         // TODO: refresh gui with normalized representation of transcription

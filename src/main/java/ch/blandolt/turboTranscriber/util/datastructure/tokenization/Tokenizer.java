@@ -11,6 +11,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /*
 Documentation:
@@ -74,7 +75,14 @@ public class Tokenizer {
         Runnable unlock  = () -> Tokenizer.unlock();
         ses.schedule(unlock , seconds, TimeUnit.SECONDS); // TODO: make duration dynamic
 
-        return null;
+        LinkedList<TranscriptionToken> tokens_finished = (LinkedList<TranscriptionToken>) tokens
+                .stream()
+                .filter(t -> t instanceof TranscriptionToken)
+                .map(t -> (TranscriptionToken) t)
+                .collect(Collectors.toList());
+
+
+        return tokens_finished;
     }
 
     private static void unlock() {
