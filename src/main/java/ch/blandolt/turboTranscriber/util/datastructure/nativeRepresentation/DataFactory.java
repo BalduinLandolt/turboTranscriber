@@ -13,11 +13,12 @@ public class DataFactory {
     public static List<AbstractTranscriptionObject> buildDatastructure(List<TranscriptionToken> tokens) {
         List<AbstractTranscriptionObject> res = new LinkedList<>();
 
+        List<Object> tmp = new LinkedList<>();
 
         for (TranscriptionToken t: tokens){
             if (t instanceof TokenTypeClosingTag) {
                 Log.log(t.getText() + " @ index: " + tokens.indexOf(t));
-                TranscriptionToken opener = findOpeningTag(tokens, t);
+                TokenTypeOpeningTag opener = findOpeningTag(tokens, t);
                 Log.log("Opened at: " + tokens.indexOf(opener) + ": " + opener.getText());
             }
         }
@@ -26,15 +27,16 @@ public class DataFactory {
         return null;
     }
 
-    private static TranscriptionToken findOpeningTag(List<TranscriptionToken> tokens, TranscriptionToken t) {
+    private static TokenTypeOpeningTag findOpeningTag(List<TranscriptionToken> tokens, TranscriptionToken t) {
         String name = t.getText().replace("/", "");
         List<TranscriptionToken> sublist = tokens.subList(0, tokens.indexOf(t));
+        sublist = new LinkedList<>(sublist);
         Collections.reverse(sublist); // FIXME: seems to manipulate the original list.
         for (TranscriptionToken sub: sublist){
             if (sub instanceof TokenTypeOpeningTag){
                 TokenTypeOpeningTag tag = (TokenTypeOpeningTag) sub;
                 if (tag.getTagName().equals(name)){
-                    return sub;
+                    return tag;
                 }
             }
         }
