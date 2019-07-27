@@ -385,4 +385,17 @@ public class Tokenizer {
         }
         return res;
     }
+
+    public static List<TranscriptionToken> tokenizeAbbreviationMark(TranscriptionToken am) {
+        List<Tokenizable> l = extractGlyphs(Arrays.asList(am));
+        l = extractTextFragments(l);
+
+        ArrayList<TranscriptionToken> tokens_finished = (ArrayList<TranscriptionToken>) l
+                .stream()
+                .filter(t -> t instanceof TranscriptionToken)
+                .map(t -> (TranscriptionToken) t)
+                .collect(Collectors.toList());
+
+        return tokens_finished;
+    }
 }
