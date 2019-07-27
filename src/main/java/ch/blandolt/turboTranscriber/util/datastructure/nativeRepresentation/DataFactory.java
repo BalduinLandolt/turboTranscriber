@@ -28,6 +28,8 @@ public class DataFactory {
             }
         }
 
+        // TODO: handle special cases from (future) list of special cases
+        //      can it be that a tag is not an anchor, but is closed by the next same opening tag?
         for (TranscriptionToken t: tokens){
             if (t instanceof TokenTypeOpeningTag){
                 TokenTypeOpeningTag opener = (TokenTypeOpeningTag) t;
