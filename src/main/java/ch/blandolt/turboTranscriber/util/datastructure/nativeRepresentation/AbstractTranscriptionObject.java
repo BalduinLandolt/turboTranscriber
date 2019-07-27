@@ -11,8 +11,7 @@ public abstract class AbstractTranscriptionObject {
             return TTGlyph.convertTokenClassSpecific((TokenTypeGlyph) t);
 
         if (t instanceof TokenTypeLinebreak)
-            //return TokenTypeLinebreak.convertToken((TokenTypeLinebreak) t);
-            return null; // TODO: handle line breaks
+            return new TTControlElement(TTControlElement.Type.LINEBREAK);
 
         if (t instanceof TokenTypeMultilineComment)
             return TTComment.convertTokenClassSpecific((TokenTypeMultilineComment) t);

@@ -1,3 +1,9 @@
+# testing stuff
+
+[lb=1] ok sagdi hon [lb=2] ek em [name=person]ma[hi=2]ri[/hi]a[name] modur guds.
+
+# here starts original-ish stuff
+
 [miracle=155]
 
 # one line comment

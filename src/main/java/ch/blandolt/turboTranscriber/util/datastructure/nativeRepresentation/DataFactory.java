@@ -1,6 +1,5 @@
 package ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation;
 
-import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeClosingTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeOpeningTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
@@ -18,7 +17,7 @@ public class DataFactory {
         // TODO: handle word borders somehow
 
         prepareTags(tokens);
-        LinkedList<AbstractTranscriptionObject> data = convertTags(tokens);
+        LinkedList<AbstractTranscriptionObject> data = convertTokens(tokens);
 
         //Log.log(data);
 
@@ -26,7 +25,7 @@ public class DataFactory {
         return null;
     }
 
-    private static LinkedList<AbstractTranscriptionObject> convertTags(List<TranscriptionToken> tokens) {
+    private static LinkedList<AbstractTranscriptionObject> convertTokens(List<TranscriptionToken> tokens) {
         LinkedList<AbstractTranscriptionObject> res = new LinkedList<>();
 
         for (TranscriptionToken t: tokens){
