@@ -6,6 +6,7 @@ import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeOpe
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,10 +15,23 @@ public class DataFactory {
     public static List<AbstractTranscriptionObject> buildDatastructure(List<TranscriptionToken> tokens) {
         List<AbstractTranscriptionObject> res = new LinkedList<>();
 
+        // TODO: handle word borders somehow
+
         prepareTags(tokens);
+        LinkedList<AbstractTranscriptionObject> data = convertTags(tokens);
 
         // TODO: return something
         return null;
+    }
+
+    private static LinkedList<AbstractTranscriptionObject> convertTags(List<TranscriptionToken> tokens) {
+        LinkedList<AbstractTranscriptionObject> res = new LinkedList<>();
+
+        for (TranscriptionToken t: tokens){
+            AbstractTranscriptionObject o = AbstractTranscriptionObject.convertToken(t);
+        }
+
+        return res;
     }
 
     private static void prepareTags(List<TranscriptionToken> tokens) {
@@ -35,6 +49,31 @@ public class DataFactory {
                 TokenTypeOpeningTag opener = (TokenTypeOpeningTag) t;
                 if (null == opener.getClosingTag()){
                     opener.setIsAnchor(true);
+                }
+            }
+        }
+
+        putContentInTags(tokens);
+    }
+
+    private static void putContentInTags(List<TranscriptionToken> tokens) {
+        Iterator i = tokens.iterator();
+        while (i.hasNext()){
+            TranscriptionToken t = (TranscriptionToken) i.next();
+            if (t instanceof TokenTypeOpeningTag){
+                TokenTypeOpeningTag opener = (TokenTypeOpeningTag) t;
+                if (!opener.isAnchor()){
+                    while (i.hasNext()) {
+                        TranscriptionToken next = (TranscriptionToken) i.next();
+                        if (next == opener.getClosingTag()) {
+                            opener.getContent().add(next);
+                            i.remove();
+                            break;
+                        }
+                        opener.getContent().add(next);
+                        i.remove();
+                    }
+                    putContentInTags(opener.getContent());
                 }
             }
         }

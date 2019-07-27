@@ -1,19 +1,21 @@
 package ch.blandolt.turboTranscriber.util.datastructure.tokenization;
 
+import java.util.LinkedList;
+
 public class TokenTypeOpeningTag extends TranscriptionToken {
     private String tagName;
     private boolean isAnchor = false;
-
-    public TokenTypeClosingTag getClosingTag() {
-        return closingTag;
-    }
-
+    private LinkedList<TranscriptionToken> content = new LinkedList<>();
     private TokenTypeClosingTag closingTag;
 
     public TokenTypeOpeningTag(String txt) {
         super(txt);
         String[] ss = txt.split("=");
         tagName = ss[0];
+    }
+
+    public TokenTypeClosingTag getClosingTag() {
+        return closingTag;
     }
 
     public String getTagName(){
@@ -30,5 +32,13 @@ public class TokenTypeOpeningTag extends TranscriptionToken {
 
     public boolean isAnchor() {
         return isAnchor;
+    }
+
+    public LinkedList<TranscriptionToken> getContent() {
+        return content;
+    }
+
+    public void setContent(LinkedList<TranscriptionToken> content) {
+        this.content = content;
     }
 }
