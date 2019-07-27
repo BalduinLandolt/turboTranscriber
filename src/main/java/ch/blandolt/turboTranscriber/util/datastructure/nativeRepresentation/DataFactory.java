@@ -10,21 +10,32 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DataFactory {
+
     public static List<AbstractTranscriptionObject> buildDatastructure(List<TranscriptionToken> tokens) {
         List<AbstractTranscriptionObject> res = new LinkedList<>();
 
-        List<Object> tmp = new LinkedList<>();
-
-        for (TranscriptionToken t: tokens){
-            if (t instanceof TokenTypeClosingTag) {
-                Log.log(t.getText() + " @ index: " + tokens.indexOf(t));
-                TokenTypeOpeningTag opener = findOpeningTag(tokens, t);
-                Log.log("Opened at: " + tokens.indexOf(opener) + ": " + opener.getText());
-            }
-        }
+        prepareTags(tokens);
 
         // TODO: return something
         return null;
+    }
+
+    private static void prepareTags(List<TranscriptionToken> tokens) {
+        for (TranscriptionToken t: tokens){
+            if (t instanceof TokenTypeClosingTag) {
+                TokenTypeOpeningTag opener = findOpeningTag(tokens, t);
+                opener.addClosingTag((TokenTypeClosingTag) t);
+            }
+        }
+
+        for (TranscriptionToken t: tokens){
+            if (t instanceof TokenTypeOpeningTag){
+                TokenTypeOpeningTag opener = (TokenTypeOpeningTag) t;
+                if (null == opener.getClosingTag()){
+                    opener.setIsAnchor(true);
+                }
+            }
+        }
     }
 
     private static TokenTypeOpeningTag findOpeningTag(List<TranscriptionToken> tokens, TranscriptionToken t) {
