@@ -1,6 +1,5 @@
 package ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation;
 
-import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeClosingTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeOpeningTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;

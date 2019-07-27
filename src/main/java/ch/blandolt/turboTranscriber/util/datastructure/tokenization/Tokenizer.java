@@ -376,4 +376,13 @@ public class Tokenizer {
 
         return res;
     }
+
+    public static List<TranscriptionToken> tokenizeAbbreviation(TokenTypeAbbreviation t) {
+        String[] ss = t.getText().split(";");
+        LinkedList<TranscriptionToken> res = new LinkedList<>();
+        for (String s: ss){
+            res.add(new TranscriptionToken(s));
+        }
+        return res;
+    }
 }
