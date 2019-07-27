@@ -52,8 +52,15 @@ public class TurboTranscribeCore {
     public void a_transcription_state_changed() {
         Log.log("Transcription has changed.");
 
+        long start = System.currentTimeMillis();
         List<TranscriptionToken> tokens = Tokenizer.tokenize(gui.getTranscriptionString());
+        long duration = System.currentTimeMillis() - start;
+        Log.log("Tokenizing took: " +  duration + "ms");
+
+        start = System.currentTimeMillis();
         DataFactory.buildDatastructure(tokens);
+        duration = System.currentTimeMillis() - start;
+        Log.log("Building Datastructure took: " +  duration + "ms");
 
         // TODO: tokenize transcription
         // TODO: refresh gui with normalized representation of transcription

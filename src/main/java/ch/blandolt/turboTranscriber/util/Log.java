@@ -183,7 +183,10 @@ public class Log {
 	 * @param o The Object to be logged.
 	 */
 	public synchronized void println (Object o){
-		println(o.toString());
+		if (null == o)
+			println("null");
+		else
+			println(o.toString());
 	}
 
 
@@ -223,7 +226,10 @@ public class Log {
 	public synchronized void println (List<Object> i){
 		println(i.toString());
 		for (Object o: i) {
-			println("   "+o.toString());
+			if (null == o)
+				println("   null");
+			else
+				println("   "+o.toString());
 		}
 	}
 

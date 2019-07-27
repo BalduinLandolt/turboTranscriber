@@ -47,8 +47,8 @@ public class Tokenizer {
 
         // TODO: long term: speed up performance of tokenization
 
-        Log.log("Tokenizing the following:");
-        Log.log(text);
+        //Log.log("Tokenizing the following:");
+        //Log.log(text);
 
         List<Tokenizable> tokens = Tokenizer.extractMultilineComments(text);
         tokens = Tokenizer.extractSingleLineComments(tokens);

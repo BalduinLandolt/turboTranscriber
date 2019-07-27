@@ -1,5 +1,6 @@
 package ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation;
 
+import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeClosingTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeOpeningTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
@@ -19,6 +20,8 @@ public class DataFactory {
         prepareTags(tokens);
         LinkedList<AbstractTranscriptionObject> data = convertTags(tokens);
 
+        //Log.log(data);
+
         // TODO: return something
         return null;
     }
@@ -28,6 +31,7 @@ public class DataFactory {
 
         for (TranscriptionToken t: tokens){
             AbstractTranscriptionObject o = AbstractTranscriptionObject.convertToken(t);
+            res.add(o);
         }
 
         return res;
