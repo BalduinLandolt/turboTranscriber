@@ -60,6 +60,10 @@ public class Tokenizer {
         tokens = Tokenizer.extractLinebreaks(tokens);
         tokens = Tokenizer.extractTextFragments(tokens);
 
+        tokens.add(new TokenTypeWordborder(""));
+        tokens.add(0, new TokenTypeWordborder(""));
+        tokens = Tokenizer.removeDoubleWordBorders(tokens);
+
         //Log.log("\n\nTokens:\n");
         //Log.log(tokens);
 
@@ -80,6 +84,25 @@ public class Tokenizer {
 
 
         return tokens_finished;
+    }
+
+    private static List<Tokenizable> removeDoubleWordBorders(List<Tokenizable> tokens) {
+        LinkedList<Tokenizable> res = new LinkedList<>();
+        ListIterator i = tokens.listIterator();
+        while (i.hasNext()){
+            Tokenizable current = (Tokenizable) i.next();
+            if (current instanceof TokenTypeWordborder && i.hasPrevious()){
+                Tokenizable prev = res.getLast();
+                if (prev instanceof TokenTypeWordborder){
+                    i.remove();
+                } else {
+                    res.add(current);
+                }
+            } else {
+                res.add(current);
+            }
+        }
+        return res;
     }
 
     private static void unlock() {
