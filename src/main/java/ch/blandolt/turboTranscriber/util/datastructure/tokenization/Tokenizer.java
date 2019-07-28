@@ -88,13 +88,12 @@ public class Tokenizer {
 
     private static List<Tokenizable> removeDoubleWordBorders(List<Tokenizable> tokens) {
         LinkedList<Tokenizable> res = new LinkedList<>();
-        ListIterator i = tokens.listIterator();
-        while (i.hasNext()){
-            Tokenizable current = (Tokenizable) i.next();
-            if (current instanceof TokenTypeWordborder && i.hasPrevious()){
+
+        for (Tokenizable current: tokens){
+            if (current instanceof TokenTypeWordborder && !res.isEmpty()){
                 Tokenizable prev = res.getLast();
                 if (prev instanceof TokenTypeWordborder){
-                    i.remove();
+                    continue;
                 } else {
                     res.add(current);
                 }
@@ -102,6 +101,7 @@ public class Tokenizer {
                 res.add(current);
             }
         }
+
         return res;
     }
 
