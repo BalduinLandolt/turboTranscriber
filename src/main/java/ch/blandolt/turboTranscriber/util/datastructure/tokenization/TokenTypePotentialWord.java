@@ -25,8 +25,14 @@ public class TokenTypePotentialWord extends TranscriptionToken {
 
 
     public boolean isLegit() {
-        // TODO: check, if this is an actual word.
-        return true;
+
+        for (Tokenizable t: contents){
+            if (t instanceof TokenTypeAbbreviation ||
+                t instanceof TokenTypeGlyph ||
+                t instanceof TokenTypeTextFragment)
+                return true;
+        }
+        return false;
     }
 
     public TokenTypeLegitWord getLegitWordRepresentation() {

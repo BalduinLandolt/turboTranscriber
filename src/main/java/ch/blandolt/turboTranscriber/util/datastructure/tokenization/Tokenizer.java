@@ -108,6 +108,8 @@ public class Tokenizer {
         }
 
         return res;
+
+        // TODO: find out, which tags can be in a word and which not
     }
 
     private static List<Tokenizable> segmentByWordborders(List<Tokenizable> tokens) {
