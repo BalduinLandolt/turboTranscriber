@@ -52,7 +52,9 @@ public class Tokenizer {
 
         List<Tokenizable> tokens = Tokenizer.extractMultilineComments(text);
         tokens = Tokenizer.extractSingleLineComments(tokens);
-        tokens = Tokenizer.extractWordborders(tokens); // TODO: implement special word-border-cases (e.g. `aa_lande` for `á landi`)
+        tokens = Tokenizer.extractWordborders(tokens);
+        // TODO: implement special word-border-cases (e.g. `aa_lande` for `á landi`)
+        // TODO: should Linebreaks (in raw, not the anchor [lb]) work as wordborders?
         tokens = Tokenizer.extractOpeningAndClosingTags(tokens);
         tokens = Tokenizer.extractAbbreviations(tokens);
         tokens = Tokenizer.extractGlyphs(tokens);
@@ -63,6 +65,8 @@ public class Tokenizer {
         tokens.add(new TokenTypeWordborder(""));
         tokens.add(0, new TokenTypeWordborder(""));
         tokens = Tokenizer.removeDoubleWordBorders(tokens);
+
+        tokens = Tokenizer.segmentByWordborders(tokens);
 
         //Log.log("\n\nTokens:\n");
         //Log.log(tokens);
@@ -84,6 +88,23 @@ public class Tokenizer {
 
 
         return tokens_finished;
+    }
+
+    private static List<Tokenizable> segmentByWordborders(List<Tokenizable> tokens) {
+        List<Tokenizable> res = new LinkedList<>();
+
+        TokenTypePotentialWord potentialWord = new TokenTypePotentialWord();
+
+        for (Tokenizable t: tokens){
+            if (t instanceof TokenTypeWordborder){
+                res.add(potentialWord);
+                potentialWord = new TokenTypePotentialWord();
+            } else {
+                potentialWord.add(t);
+            }
+        }
+
+        return res;
     }
 
     private static List<Tokenizable> removeDoubleWordBorders(List<Tokenizable> tokens) {
