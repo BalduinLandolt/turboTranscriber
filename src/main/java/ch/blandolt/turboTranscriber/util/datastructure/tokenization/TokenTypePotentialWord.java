@@ -24,4 +24,8 @@ public class TokenTypePotentialWord extends TranscriptionToken {
     }
 
 
+    public boolean isLegit() {
+        // TODO: check, if this is an actual word.
+        return true;
+    }
 }
