@@ -67,6 +67,7 @@ public class Tokenizer {
         tokens = Tokenizer.removeDoubleWordBorders(tokens);
 
         tokens = Tokenizer.segmentByWordborders(tokens);
+        tokens = Tokenizer.getLegitWords(tokens);
 
         //Log.log("\n\nTokens:\n");
         //Log.log(tokens);
@@ -88,6 +89,25 @@ public class Tokenizer {
 
 
         return tokens_finished;
+    }
+
+    private static List<Tokenizable> getLegitWords(List<Tokenizable> tokens) {
+        List<Tokenizable> res = new LinkedList<>();
+
+        for (Tokenizable t: tokens){
+            if (t instanceof TokenTypePotentialWord){
+                TokenTypePotentialWord potentialWord = (TokenTypePotentialWord) t;
+                if (potentialWord.isLegit()){
+                    res.add(potentialWord.getLegitWordRepresentation());
+                } else {
+                    res.addAll(potentialWord.getContents());
+                }
+            } else {
+                res.add(t);  // should never happen
+            }
+        }
+
+        return res;
     }
 
     private static List<Tokenizable> segmentByWordborders(List<Tokenizable> tokens) {

@@ -28,4 +28,10 @@ public class TokenTypePotentialWord extends TranscriptionToken {
         // TODO: check, if this is an actual word.
         return true;
     }
+
+    public TokenTypeLegitWord getLegitWordRepresentation() {
+        if (!isLegit())
+            return null;
+        return new TokenTypeLegitWord(this);
+    }
 }
