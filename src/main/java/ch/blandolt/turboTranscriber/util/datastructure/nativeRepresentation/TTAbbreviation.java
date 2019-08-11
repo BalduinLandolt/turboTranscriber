@@ -47,6 +47,23 @@ public class TTAbbreviation extends AbstractTranscriptionContainer {
         
         return abbreviation;
     }
+
+    public TTExpansion getExpansion(){
+        return (TTExpansion)getContent().get(0);
+    }
+
+    public TTTextSegment getInfix(){
+        return (TTTextSegment)getContent().get(1);
+    }
+
+    public TTAbbreviationMark getAbbreviationMark(){
+        return (TTAbbreviationMark)getContent().get(0);
+    }
+
+    public boolean hasInfix() {
+        TTTextSegment t = getInfix();
+        return t.toString().isBlank();
+    }
     // TODO: am, potential middle, ex
     //      - overload constructor
 }

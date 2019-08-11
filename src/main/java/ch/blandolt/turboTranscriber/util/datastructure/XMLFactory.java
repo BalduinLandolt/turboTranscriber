@@ -44,38 +44,47 @@ public class XMLFactory {
         text.addContent(body);
 
         for (AbstractTranscriptionObject tr: data){
-            Element e = null;
-            if (tr instanceof TTAbbreviation){
-                //
-            } else if (tr instanceof TTAbbreviationMark){
-                //
-            } else if (tr instanceof TTAnchor){ // TODO: existing?
-                //
-            } else if (tr instanceof TTComment){
-                //
-            } else if (tr instanceof TTControlElement){
-                //
-            } else if (tr instanceof TTExpansion){
-                //
-            } else if (tr instanceof TTGlyph){
-                //
-            } else if (tr instanceof TTNonGlyphPunctuation){
-                //
-            } else if (tr instanceof TTPunctuationCharacter){
-                //
-            } else if (tr instanceof TTTag){
-                //
-            } else if (tr instanceof TTTextSegment){
-                //
-            } else if (tr instanceof TTWord){
-                //
-            }
+            body.addContent(generateXMLFromTranscriptionObject(tr));
         }
 
 
         // TODO implement adding data
 
         return text;
+    }
+
+    private static Element generateXMLFromTranscriptionObject(AbstractTranscriptionObject tr) {
+        if (tr instanceof TTAbbreviation){
+            TTAbbreviation expan = (TTAbbreviation)tr;
+            Element e = new Element("expan", ns_TEI);
+            e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getExpansion()));
+            if (expan.hasInfix())
+                e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
+            e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getAbbreviationMark()));
+        } else if (tr instanceof TTAbbreviationMark){
+            //
+        } else if (tr instanceof TTAnchor){ // TODO: existing?
+            //
+        } else if (tr instanceof TTComment){
+            //
+        } else if (tr instanceof TTControlElement){
+            //
+        } else if (tr instanceof TTExpansion){
+            //
+        } else if (tr instanceof TTGlyph){
+            //
+        } else if (tr instanceof TTNonGlyphPunctuation){
+            //
+        } else if (tr instanceof TTPunctuationCharacter){
+            //
+        } else if (tr instanceof TTTag){
+            //
+        } else if (tr instanceof TTTextSegment){
+            //
+        } else if (tr instanceof TTWord){
+            //
+        }
+        return null; // should never happen
     }
 
     private static Element makeTEIHeader() {
