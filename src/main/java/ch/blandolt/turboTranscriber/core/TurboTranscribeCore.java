@@ -7,10 +7,12 @@ import ch.blandolt.turboTranscriber.gui.MainGUI;
 import ch.blandolt.turboTranscriber.gui.ThumbnailPanel;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Settings;
+import ch.blandolt.turboTranscriber.util.datastructure.XMLFactory;
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.AbstractTranscriptionObject;
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.DataFactory;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
+import org.jdom2.Document;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -51,6 +53,7 @@ public class TurboTranscribeCore {
     }
 
     public void a_transcription_state_changed() {
+        // TODO: should timer be blocking here?
         Log.log("Transcription has changed.");
 
         long start = System.currentTimeMillis();
@@ -63,7 +66,12 @@ public class TurboTranscribeCore {
         duration = System.currentTimeMillis() - start;
         Log.log("Building Datastructure took: " +  duration + "ms");
 
-        Log.log(data);
+        //Log.log(data);
+
+        start = System.currentTimeMillis();
+        Document document = XMLFactory.createXML(data);
+        duration = System.currentTimeMillis() - start;
+        Log.log("Building XML took: " +  duration + "ms");
 
         // TODO: generate XML
         // TODO: transform XML to HTML
