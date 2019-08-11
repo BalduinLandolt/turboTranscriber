@@ -431,4 +431,9 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     public String getTranscriptionString() {
         return transcriptionSyntaxTextArea.getText();
     }
+
+    public void setXML(String string){
+        xmlArea.setText(string);
+        // TODO: is there a better way, component-specific?
+    }
 }

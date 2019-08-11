@@ -13,6 +13,8 @@ import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.Data
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
 import org.jdom2.Document;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -70,6 +72,8 @@ public class TurboTranscribeCore {
 
         start = System.currentTimeMillis();
         Document document = XMLFactory.createXML(data);
+        XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+        gui.setXML(outputter.outputString(document));
         duration = System.currentTimeMillis() - start;
         Log.log("Building XML took: " +  duration + "ms");
 
