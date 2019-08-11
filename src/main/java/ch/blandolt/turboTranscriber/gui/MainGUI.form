@@ -92,8 +92,8 @@
                               <splitpane position="right"/>
                             </constraints>
                             <properties>
-                              <foldIndicatorEnabled value="false"/>
-                              <lineNumbersEnabled value="false"/>
+                              <foldIndicatorEnabled value="true"/>
+                              <lineNumbersEnabled value="true"/>
                             </properties>
                             <border type="none"/>
                             <children>
@@ -142,12 +142,19 @@
                             <constraints>
                               <splitpane position="left"/>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <focusable value="false"/>
+                              <foldIndicatorEnabled value="false"/>
+                              <iconRowHeaderEnabled value="false"/>
+                              <lineNumbersEnabled value="false"/>
+                            </properties>
                             <border type="none"/>
                             <children>
                               <component id="35df3" class="org.fife.ui.rsyntaxtextarea.RSyntaxTextArea" binding="xmlArea">
                                 <constraints/>
-                                <properties/>
+                                <properties>
+                                  <focusable value="true"/>
+                                </properties>
                               </component>
                             </children>
                           </scrollpane>
