@@ -57,7 +57,7 @@ public class TTAbbreviation extends AbstractTranscriptionContainer {
     }
 
     public TTAbbreviationMark getAbbreviationMark(){
-        return (TTAbbreviationMark)getContent().get(0);
+        return (TTAbbreviationMark)getContent().get(2);
     }
 
     public boolean hasInfix() {

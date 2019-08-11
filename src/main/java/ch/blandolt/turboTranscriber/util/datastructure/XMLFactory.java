@@ -4,6 +4,7 @@ import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.*;
 import org.jdom2.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class XMLFactory {
     private static Namespace ns_TEI = Namespace.getNamespace("http://www.tei-c.org/ns/1.0");
@@ -84,17 +85,39 @@ public class XMLFactory {
             e.addContent(new Text(ex.toString()));
             return e;
         } else if (tr instanceof TTGlyph){
-            //
+            TTGlyph g = (TTGlyph)tr;
+            Element e = new Element("g", ns_TEI);
+            e.setAttribute("ref", g.toString());
+            return e;
         } else if (tr instanceof TTNonGlyphPunctuation){
-            //
+            TTNonGlyphPunctuation p = (TTNonGlyphPunctuation)tr;
+            Text t = new Text(p.toString());
+            return t;
         } else if (tr instanceof TTPunctuationCharacter){
-            //
+            TTPunctuationCharacter p = (TTPunctuationCharacter)tr;
+            Element e = new Element("pc", ns_TEI);
+            e.addContent(XMLFactory.generateXMLFromTranscriptionObject(p.getContent().getFirst()));
+            return e;
         } else if (tr instanceof TTTag){
-            //
+            TTTag t = (TTTag)tr;
+            Element e = new Element(t.getTagName(), ns_TEI);
+            for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
+                e.setAttribute(attribute.getKey(),attribute.getValue());
+            }
+            return e;
         } else if (tr instanceof TTTextSegment){
-            //
+            TTTextSegment p = (TTTextSegment)tr;
+            Text t = new Text(p.toString());
+            return t;
         } else if (tr instanceof TTWord){
-            //
+            TTWord w = (TTWord)tr;
+            Element e = new Element("w", ns_TEI);
+            for (AbstractTranscriptionObject t: w.getContent()){
+                Content content = XMLFactory.generateXMLFromTranscriptionObject(t);
+                if (null != content)
+                    e.addContent(content);
+            }
+            return e;
         }
         return null; // should never happen
     }
