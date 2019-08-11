@@ -71,7 +71,7 @@ public class TurboTranscribeCore {
         //Log.log(data);
 
         start = System.currentTimeMillis();
-        Document document = XMLFactory.createXML(data);
+        Document document = XMLFactory.createTEIXML(data);
         XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
         gui.setXML(outputter.outputString(document));
         duration = System.currentTimeMillis() - start;
