@@ -28,9 +28,8 @@ public abstract class AbstractTranscriptionObject {
         if (t instanceof TokenTypeTextFragment)
             return TTTextSegment.convertTokenClassSpecific((TokenTypeTextFragment) t);
 
-        if (t instanceof TokenTypeWordborder)
-            //return TokenTypeAbbreviation.convertToken((TokenTypeAbbreviation) t);
-            return null; // TODO: handle word borders!
+        if (t instanceof TokenTypeLegitWord)
+            return TTWord.convertTokenClassSpecific((TokenTypeLegitWord) t);
 
         return null;
     }

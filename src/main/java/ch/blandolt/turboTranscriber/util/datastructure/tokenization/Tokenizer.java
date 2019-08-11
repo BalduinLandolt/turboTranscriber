@@ -68,6 +68,7 @@ public class Tokenizer {
 
         tokens = Tokenizer.segmentByWordborders(tokens);
         tokens = Tokenizer.getLegitWords(tokens);
+        tokens = Tokenizer.resolveLegitWords(tokens);
 
         //Log.log("\n\nTokens:\n");
         //Log.log(tokens);
@@ -76,19 +77,35 @@ public class Tokenizer {
 
         //Log.log(tokens);
         long seconds = 2;
+        startTimer(seconds);
+        // TODO: make duration dynamic
 
-        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
-        Runnable unlock  = () -> Tokenizer.unlock();
-        ses.schedule(unlock , seconds, TimeUnit.SECONDS); // TODO: make duration dynamic
+        ArrayList<TranscriptionToken> tokens_finished = castToTranscriptionTokens(tokens);
 
-        ArrayList<TranscriptionToken> tokens_finished = (ArrayList<TranscriptionToken>) tokens
+
+        return tokens_finished;
+    }
+
+    private static List<Tokenizable> resolveLegitWords(List<Tokenizable> tokens) {
+        List<Tokenizable> res = new LinkedList<>();
+
+        // TODO: fix shit
+
+        return res;
+    }
+
+    protected static ArrayList<TranscriptionToken> castToTranscriptionTokens(List<Tokenizable> tokens) {
+        return (ArrayList<TranscriptionToken>) tokens
                 .stream()
                 .filter(t -> t instanceof TranscriptionToken)
                 .map(t -> (TranscriptionToken) t)
                 .collect(Collectors.toList());
+    }
 
-
-        return tokens_finished;
+    private static void startTimer(long seconds) {
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+        Runnable unlock  = () -> Tokenizer.unlock();
+        ses.schedule(unlock , seconds, TimeUnit.SECONDS);
     }
 
     private static List<Tokenizable> getLegitWords(List<Tokenizable> tokens) {
@@ -456,11 +473,7 @@ public class Tokenizer {
         List<Tokenizable> l = extractGlyphs(Arrays.asList(am));
         l = extractTextFragments(l);
 
-        ArrayList<TranscriptionToken> tokens_finished = (ArrayList<TranscriptionToken>) l
-                .stream()
-                .filter(t -> t instanceof TranscriptionToken)
-                .map(t -> (TranscriptionToken) t)
-                .collect(Collectors.toList());
+        ArrayList<TranscriptionToken> tokens_finished = castToTranscriptionTokens(l);
 
         return tokens_finished;
     }
