@@ -27,6 +27,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Core class of TurboTranscribe.
@@ -38,6 +41,8 @@ import java.util.List;
  *
  */
 public class TurboTranscribeCore {
+    private boolean IS_LOCKED = false;
+    private boolean REQUESTED_REFRESH = false;
     private MainGUI gui;
     private Data data = new Data();
 
@@ -57,6 +62,12 @@ public class TurboTranscribeCore {
     public void a_transcription_state_changed() {
         // TODO: should timer be blocking here?
         Log.log("Transcription has changed.");
+
+        if (isLocked()){
+            Log.log("Tokenizing still locked.");
+            requestRefreshWhenUnlocked();
+            return;
+        }
 
         long start = System.currentTimeMillis();
         List<TranscriptionToken> tokens = Tokenizer.tokenize(gui.getTranscriptionString());
@@ -86,6 +97,34 @@ public class TurboTranscribeCore {
         // TODO: tidy up code
 
         refreshGUI();
+
+        long seconds = 2;
+        startTimer(seconds);
+        // TODO: make duration dynamic
+    }
+
+    private void startTimer(long seconds) {
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+        Runnable unlock  = () -> this.unlock();
+        ses.schedule(unlock , seconds, TimeUnit.SECONDS);
+    }
+
+    public void unlock() {
+        IS_LOCKED = false;
+        Log.log("Unlocked Tokenizer");
+        if (REQUESTED_REFRESH){
+            REQUESTED_REFRESH = false;
+            Log.log("Refresh has been requested. Reparsing.");
+            a_transcription_state_changed();
+        }
+    }
+
+    public boolean isLocked() {
+        return IS_LOCKED;
+    }
+
+    public void requestRefreshWhenUnlocked() {
+        REQUESTED_REFRESH = true;
     }
 
     // TODO: Rethink Data organisation!
