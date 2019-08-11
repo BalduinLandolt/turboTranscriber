@@ -76,10 +76,13 @@ public class XMLFactory {
             TTComment c = (TTComment) tr;
             Comment comment = new Comment(c.toString());
             return comment;
-        } else if (tr instanceof TTControlElement){
+        } else if (tr instanceof TTControlElement){ // TODO: what? ignore? comment?
             //
         } else if (tr instanceof TTExpansion){
-            //
+            TTExpansion ex = (TTExpansion)tr;
+            Element e = new Element("ex", ns_TEI);
+            e.addContent(new Text(ex.toString()));
+            return e;
         } else if (tr instanceof TTGlyph){
             //
         } else if (tr instanceof TTNonGlyphPunctuation){
