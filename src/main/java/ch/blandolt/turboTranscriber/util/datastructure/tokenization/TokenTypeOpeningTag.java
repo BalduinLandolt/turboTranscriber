@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 public class TokenTypeOpeningTag extends TranscriptionToken {
     private String tagName;
+    private String raw;
     private boolean isAnchor = false;
     private LinkedList<TranscriptionToken> content = new LinkedList<>();
     private TokenTypeClosingTag closingTag;
@@ -40,5 +41,9 @@ public class TokenTypeOpeningTag extends TranscriptionToken {
 
     public void setContent(LinkedList<TranscriptionToken> content) {
         this.content = content;
+    }
+
+    public String getRawRepresentation() {
+        return getText();
     }
 }

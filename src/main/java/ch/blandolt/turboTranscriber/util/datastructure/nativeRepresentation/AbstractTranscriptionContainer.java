@@ -9,8 +9,13 @@ public class AbstractTranscriptionContainer extends AbstractTranscriptionObject 
         this.content = content;
     }
 
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + ": " + content.toString();
+    }
+
+    protected LinkedList<AbstractTranscriptionObject> getContent() {
+        return content;
     }
 }

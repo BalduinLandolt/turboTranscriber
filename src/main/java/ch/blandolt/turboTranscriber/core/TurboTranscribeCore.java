@@ -65,11 +65,13 @@ public class TurboTranscribeCore {
 
         Log.log(data);
 
-        // TODO: tokenize transcription
-        // TODO: refresh gui with normalized representation of transcription
-        // TODO: build up internal representation from tokens
         // TODO: generate XML
         // TODO: transform XML to HTML
+
+        // TODO: some form of "normalisation" of input?
+
+        // TODO: add javadoc comments
+        // TODO: tidy up code
 
         refreshGUI();
     }
