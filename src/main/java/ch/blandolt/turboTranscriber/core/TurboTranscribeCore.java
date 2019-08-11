@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Core class of TurboTranscribe.
@@ -84,12 +86,14 @@ public class TurboTranscribeCore {
         start = System.currentTimeMillis();
         Document document = XMLFactory.createTEIXML(data);
         XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
-        gui.setXML(outputter.outputString(document));
+        gui.setXML(beautify(outputter.outputString(document)));
         duration = System.currentTimeMillis() - start;
         Log.log("Building XML took: " +  duration + "ms");
 
-        // TODO: generate XML
+        // FIXME: tags seem to kill their content.
+
         // TODO: transform XML to HTML
+        // TODO: export XML
 
         // TODO: some form of "normalisation" of input?
 
@@ -101,6 +105,26 @@ public class TurboTranscribeCore {
         long seconds = 2;
         startTimer(seconds);
         // TODO: make duration dynamic
+    }
+
+    private String beautify(String xml) {
+        String res = xml;
+        Pattern p = Pattern.compile("(?s)\\<w\\>.*?\\<\\/w\\>");
+        Matcher m = p.matcher(xml);
+
+        while (m.find()) {
+            String hit = m.group();
+            String replacement = hit.replaceAll("\n", "");
+            replacement = replacement.replaceAll("\\s+", " ");
+            replacement = replacement.replace("> ", ">");
+            replacement = replacement.replace(" <", "<");
+            Log.log(hit);
+            Log.log("---");
+            Log.log(replacement);
+            Log.log("\n\n----------------------------------\n\n");
+            res = res.replace(hit, replacement);
+        }
+        return res;
     }
 
     private void startTimer(long seconds) {
