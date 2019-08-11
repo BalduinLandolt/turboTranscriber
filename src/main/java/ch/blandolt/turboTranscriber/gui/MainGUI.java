@@ -59,6 +59,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private JMenuItem menuItem_file_importRaw;
     private JMenuItem menuItem_file_save;
     private JMenuItem menuItem_file_saveAs;
+    private JMenuItem menuItem_exportXML;
     private JMenuItem menuItem_file_close;
     private JMenuItem menuItem_file_openFolder;
     private JMenu menu_edit;
@@ -184,6 +185,12 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         menuItem_file_saveAs.setEnabled(false);
         menuItem_file_saveAs.setAccelerator(KeyStroke.getKeyStroke("control shift S"));
         menu_file.add(menuItem_file_saveAs);
+
+        menuItem_exportXML = new JMenuItem("Export XML to File");
+        menuItem_exportXML.addActionListener(e -> owner.am_export_xml());
+        menuItem_exportXML.setEnabled(false);
+        menuItem_exportXML.setAccelerator(KeyStroke.getKeyStroke("control E"));
+        menu_file.add(menuItem_exportXML);
 
         menu_file.addSeparator();
 
@@ -311,6 +318,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         menuItem_file_importRaw.setEnabled(true);
         menuItem_file_save.setEnabled(owner.hasUnsavedChanges());
         menuItem_file_saveAs.setEnabled(true);
+        menuItem_exportXML.setEnabled(!xmlArea.getText().isEmpty());
         menuItem_file_close.setEnabled(false); // TODO: ?
         menuItem_file_openFolder.setEnabled(false); // TODO: ?
         menuItem_edit_undo.setEnabled(transcriptionSyntaxTextArea.canUndo());
@@ -443,5 +451,9 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     public void setXML(String string){
         xmlArea.setText(string);
         // TODO: is there a better way, component-specific?
+    }
+
+    public String getXMLString() {
+        return xmlArea.getText();
     }
 }
