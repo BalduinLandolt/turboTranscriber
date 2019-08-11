@@ -1,5 +1,6 @@
 package ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation;
 
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeClosingTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeOpeningTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
 
@@ -15,7 +16,8 @@ public class TTTag extends AbstractTranscriptionContainer{
 
         // TODO: store other tag information (name, attributes, ...) too
         for (TranscriptionToken inner: t.getContent()){
-            c.add(AbstractTranscriptionObject.convertToken(inner));
+            if (!(inner instanceof TokenTypeClosingTag))
+                c.add(AbstractTranscriptionObject.convertToken(inner));
         }
 
         return new TTTag(c);
