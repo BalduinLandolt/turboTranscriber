@@ -7,10 +7,14 @@ import ch.blandolt.turboTranscriber.gui.MainGUI;
 import ch.blandolt.turboTranscriber.gui.ThumbnailPanel;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Settings;
+import ch.blandolt.turboTranscriber.util.datastructure.XMLFactory;
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.AbstractTranscriptionObject;
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.DataFactory;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
+import org.jdom2.Document;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,6 +27,11 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Core class of TurboTranscribe.
@@ -34,6 +43,8 @@ import java.util.List;
  *
  */
 public class TurboTranscribeCore {
+    private boolean IS_LOCKED = false;
+    private boolean REQUESTED_REFRESH = false;
     private MainGUI gui;
     private Data data = new Data();
 
@@ -51,7 +62,14 @@ public class TurboTranscribeCore {
     }
 
     public void a_transcription_state_changed() {
+        // TODO: should timer be blocking here?
         Log.log("Transcription has changed.");
+
+        if (isLocked()){
+            Log.log("Tokenizing still locked.");
+            requestRefreshWhenUnlocked();
+            return;
+        }
 
         long start = System.currentTimeMillis();
         List<TranscriptionToken> tokens = Tokenizer.tokenize(gui.getTranscriptionString());
@@ -63,10 +81,17 @@ public class TurboTranscribeCore {
         duration = System.currentTimeMillis() - start;
         Log.log("Building Datastructure took: " +  duration + "ms");
 
-        Log.log(data);
+        //Log.log(data);
 
-        // TODO: generate XML
+        start = System.currentTimeMillis();
+        Document document = XMLFactory.createTEIXML(data);
+        XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+        gui.setXML(beautify(outputter.outputString(document)));
+        duration = System.currentTimeMillis() - start;
+        Log.log("Building XML took: " +  duration + "ms");
+
         // TODO: transform XML to HTML
+        // TODO: export XML
 
         // TODO: some form of "normalisation" of input?
 
@@ -74,6 +99,54 @@ public class TurboTranscribeCore {
         // TODO: tidy up code
 
         refreshGUI();
+
+        long seconds = 2;
+        startTimer(seconds);
+        // TODO: make duration dynamic
+    }
+
+    private String beautify(String xml) {
+        String res = xml;
+        Pattern p = Pattern.compile("(?s)\\<w\\>.*?\\<\\/w\\>");
+        Matcher m = p.matcher(xml);
+
+        while (m.find()) {
+            String hit = m.group();
+            String replacement = hit.replaceAll("\n", "");
+            replacement = replacement.replaceAll("\\s+", " ");
+            replacement = replacement.replace("> ", ">");
+            replacement = replacement.replace(" <", "<");
+            Log.log(hit);
+            Log.log("---");
+            Log.log(replacement);
+            Log.log("\n\n----------------------------------\n\n");
+            res = res.replace(hit, replacement);
+        }
+        return res;
+    }
+
+    private void startTimer(long seconds) {
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+        Runnable unlock  = () -> this.unlock();
+        ses.schedule(unlock , seconds, TimeUnit.SECONDS);
+    }
+
+    public void unlock() {
+        IS_LOCKED = false;
+        Log.log("Unlocked Tokenizer");
+        if (REQUESTED_REFRESH){
+            REQUESTED_REFRESH = false;
+            Log.log("Refresh has been requested. Reparsing.");
+            a_transcription_state_changed();
+        }
+    }
+
+    public boolean isLocked() {
+        return IS_LOCKED;
+    }
+
+    public void requestRefreshWhenUnlocked() {
+        REQUESTED_REFRESH = true;
     }
 
     // TODO: Rethink Data organisation!

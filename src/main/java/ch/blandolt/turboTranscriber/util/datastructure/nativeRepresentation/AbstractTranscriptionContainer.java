@@ -15,7 +15,7 @@ public class AbstractTranscriptionContainer extends AbstractTranscriptionObject 
         return this.getClass().getSimpleName() + ": " + content.toString();
     }
 
-    protected LinkedList<AbstractTranscriptionObject> getContent() {
+    public LinkedList<AbstractTranscriptionObject> getContent() {
         return content;
     }
 }

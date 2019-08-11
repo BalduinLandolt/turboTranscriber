@@ -35,13 +35,14 @@ They get extracted later on.
 
 7. Extract Linebreaks
 
+// TODO: update
+
 // TODO: Add XML to format.
     Maybe something like "$XML_<some weird construct>...</>$XML_"
 
 */
 
 public class Tokenizer {
-    private static boolean IS_LOCKED = false;
 
     public static synchronized List<TranscriptionToken> tokenize(String text) {
 
@@ -68,42 +69,16 @@ public class Tokenizer {
 
         tokens = Tokenizer.segmentByWordborders(tokens);
         tokens = Tokenizer.getLegitWords(tokens);
-        //tokens = Tokenizer.resolveLegitWords(tokens);
 
-        //Log.log("\n\nTokens:\n");
-        //Log.log(tokens);
-
-        // TODO: remove unwanted word borders
-
-        //Log.log(tokens);
-        long seconds = 2;
-        startTimer(seconds);
-        // TODO: make duration dynamic
-
-        ArrayList<TranscriptionToken> tokens_finished = castToTranscriptionTokens(tokens);
-
-
-        return tokens_finished;
+        return castToTranscriptionTokens(tokens);
     }
 
-    private static List<Tokenizable> resolveLegitWords(List<Tokenizable> tokens) {
-        List<Tokenizable> res = new LinkedList<>();
-
-        return res;
-    }
-
-    protected static ArrayList<TranscriptionToken> castToTranscriptionTokens(List<Tokenizable> tokens) {
+    static ArrayList<TranscriptionToken> castToTranscriptionTokens(List<Tokenizable> tokens) {
         return (ArrayList<TranscriptionToken>) tokens
                 .stream()
                 .filter(t -> t instanceof TranscriptionToken)
                 .map(t -> (TranscriptionToken) t)
                 .collect(Collectors.toList());
-    }
-
-    private static void startTimer(long seconds) {
-        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
-        Runnable unlock  = () -> Tokenizer.unlock();
-        ses.schedule(unlock , seconds, TimeUnit.SECONDS);
     }
 
     private static List<Tokenizable> getLegitWords(List<Tokenizable> tokens) {
@@ -161,11 +136,6 @@ public class Tokenizer {
         }
 
         return res;
-    }
-
-    private static void unlock() {
-        IS_LOCKED = false;
-        Log.log("Unlocked Tokenizer");
     }
 
     private static List<Tokenizable> extractWordborders(List<Tokenizable> tokens) {

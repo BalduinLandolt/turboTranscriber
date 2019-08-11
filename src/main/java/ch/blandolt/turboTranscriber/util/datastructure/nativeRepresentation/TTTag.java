@@ -24,7 +24,7 @@ public class TTTag extends AbstractTranscriptionContainer{
             tagName = ss[0];
         } else if (ss.length == 2) { // exactly one attribute
             tagName = ss[0];
-            attributes.put("???", ss[1]);
+            attributes.put("XXXXX", ss[1]);
             // TODO: look up what the key for value is
         } else {
             // TODO handle multiple
@@ -45,5 +45,17 @@ public class TTTag extends AbstractTranscriptionContainer{
     @Override
     public String toString() {
         return getClass().getSimpleName() + ": '" + rawRepresentation + "'" + getContent().toString();
+    }
+
+    public String getRawRepresentation() {
+        return rawRepresentation;
+    }
+
+    public String getTagName() {
+        return tagName;
+    }
+
+    public HashMap<String, String> getAttributes() {
+        return attributes;
     }
 }

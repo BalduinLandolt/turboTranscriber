@@ -107,10 +107,18 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
 
         // TODO: Remove. Test only
         transcriptionSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
+        transcriptionSyntaxTextArea.setCodeFoldingEnabled(true);
+        syntaxScroller.setLineNumbersEnabled(true);
+        syntaxScroller.setFoldIndicatorEnabled(true);
+        syntaxScroller.setIconRowHeaderEnabled(true);
         // FixMe: Line numbers don't show.
 
         xmlArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
         xmlArea.setEditable(false);
+        xmlArea.setCodeFoldingEnabled(true);
+        xmlScroller.setFoldIndicatorEnabled(true);
+        xmlScroller.setLineNumbersEnabled(true);
+        xmlScroller.setIconRowHeaderEnabled(true);
 
         make_menubar();
         handle_listeners();
@@ -430,5 +438,10 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
 
     public String getTranscriptionString() {
         return transcriptionSyntaxTextArea.getText();
+    }
+
+    public void setXML(String string){
+        xmlArea.setText(string);
+        // TODO: is there a better way, component-specific?
     }
 }
