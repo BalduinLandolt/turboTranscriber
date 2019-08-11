@@ -1,6 +1,6 @@
 package ch.blandolt.turboTranscriber.util.datastructure;
 
-import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.AbstractTranscriptionObject;
+import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.*;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
@@ -39,6 +39,39 @@ public class XMLFactory {
 
     private static Element makeText(List<AbstractTranscriptionObject> data) {
         Element text = new Element("text", ns_TEI);
+
+        Element body = new Element("body", ns_TEI);
+        text.addContent(body);
+
+        for (AbstractTranscriptionObject tr: data){
+            Element e = null;
+            if (tr instanceof TTAbbreviation){
+                //
+            } else if (tr instanceof TTAbbreviationMark){
+                //
+            } else if (tr instanceof TTAnchor){ // TODO: existing?
+                //
+            } else if (tr instanceof TTComment){
+                //
+            } else if (tr instanceof TTControlElement){
+                //
+            } else if (tr instanceof TTExpansion){
+                //
+            } else if (tr instanceof TTGlyph){
+                //
+            } else if (tr instanceof TTNonGlyphPunctuation){
+                //
+            } else if (tr instanceof TTPunctuationCharacter){
+                //
+            } else if (tr instanceof TTTag){
+                //
+            } else if (tr instanceof TTTextSegment){
+                //
+            } else if (tr instanceof TTWord){
+                //
+            }
+        }
+
 
         // TODO implement adding data
 

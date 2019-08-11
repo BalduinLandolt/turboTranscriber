@@ -21,6 +21,7 @@ public abstract class AbstractTranscriptionObject {
 
         if (t instanceof TokenTypeOpeningTag)
             return TTTag.convertTokenClassSpecific((TokenTypeOpeningTag) t);
+        // TODO: how are anchors handled?
 
         if (t instanceof TokenTypePunctuationCharacter)
             return TTPunctuationCharacter.convertTokenClassSpecific((TokenTypePunctuationCharacter) t);
