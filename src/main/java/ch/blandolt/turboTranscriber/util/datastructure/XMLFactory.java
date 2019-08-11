@@ -61,8 +61,14 @@ public class XMLFactory {
             if (expan.hasInfix())
                 e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getAbbreviationMark()));
+            return e;
         } else if (tr instanceof TTAbbreviationMark){
-            //
+            TTAbbreviationMark am = (TTAbbreviationMark)tr;
+            Element e = new Element("am", ns_TEI);
+            for (AbstractTranscriptionObject t: am.getContent()){
+                e.addContent(XMLFactory.generateXMLFromTranscriptionObject(t));
+            }
+            return e;
         } else if (tr instanceof TTAnchor){ // TODO: existing?
             //
         } else if (tr instanceof TTComment){

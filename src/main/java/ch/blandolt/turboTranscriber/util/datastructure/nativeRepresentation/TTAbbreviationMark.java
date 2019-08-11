@@ -19,4 +19,8 @@ public class TTAbbreviationMark extends AbstractTranscriptionContainer {
         }
         return res;
     }
+
+    public LinkedList<AbstractTranscriptionObject> getContent(){
+        return super.getContent();
+    }
 }
