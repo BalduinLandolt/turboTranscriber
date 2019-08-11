@@ -1,10 +1,7 @@
 package ch.blandolt.turboTranscriber.util.datastructure;
 
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.*;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.Namespace;
-import org.jdom2.ProcessingInstruction;
+import org.jdom2.*;
 
 import java.util.List;
 
@@ -53,7 +50,7 @@ public class XMLFactory {
         return text;
     }
 
-    private static Element generateXMLFromTranscriptionObject(AbstractTranscriptionObject tr) {
+    private static Content generateXMLFromTranscriptionObject(AbstractTranscriptionObject tr) {
         if (tr instanceof TTAbbreviation){
             TTAbbreviation expan = (TTAbbreviation)tr;
             Element e = new Element("expan", ns_TEI);
@@ -72,7 +69,9 @@ public class XMLFactory {
         } else if (tr instanceof TTAnchor){ // TODO: existing?
             //
         } else if (tr instanceof TTComment){
-            //
+            TTComment c = (TTComment) tr;
+            Comment comment = new Comment(c.toString());
+            return comment;
         } else if (tr instanceof TTControlElement){
             //
         } else if (tr instanceof TTExpansion){
