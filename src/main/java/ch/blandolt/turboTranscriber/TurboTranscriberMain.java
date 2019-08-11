@@ -36,6 +36,8 @@ public class TurboTranscriberMain {
 		// Collection of Tasks
 		// -------------------
 		//
+		// TODO: go through all legacy code
+		//
 		// TODO: look at error logging
 		//
 		// TODO: Image-Related:
@@ -54,6 +56,10 @@ public class TurboTranscriberMain {
 		// TODO: have a look at AbortException
 		//
 		// TODO: Settle for file-based or project-based working
+		//
+		// TODO: add things like "open recent"
+		//
+		// TODO: auto TEI core(?)/minimal(?) schema check, to see, what elements are anchors/containers/...
 		//
 		// TODO: Comments
 		//       - Settings.java

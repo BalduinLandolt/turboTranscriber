@@ -14,12 +14,9 @@ import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
-import org.jdom2.Parent;
 
 import ch.blandolt.turboTranscriber.util.Log;
-import ch.blandolt.turboTranscriber.gui.ThumbnailPanel;
-import ch.blandolt.turboTranscriber.util.datastructure.AbstractTranscriptionObject;
-
+import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.AbstractAtomarTranscriptionSegment;
 
 /**
  * Class that collects all Data of the running program at a given time. <br/>
@@ -48,7 +45,7 @@ public class MainDataSet implements Cloneable {
 	private File rawFile;
 	private Document jdomDocument;
 	private ArrayList<String> rawData;
-	private ArrayList<AbstractTranscriptionObject> internalData;
+	private ArrayList<AbstractAtomarTranscriptionSegment> internalData;
 	private SimpleEntry<Element, Integer> insertionIndex;
 
 	/**
@@ -64,7 +61,7 @@ public class MainDataSet implements Cloneable {
 		parent = speedUP;
 		loadedImages = new ArrayList<BufferedImage>();
 		rawData = new ArrayList<String>();
-		internalData = new ArrayList<AbstractTranscriptionObject>();
+		internalData = new ArrayList<AbstractAtomarTranscriptionSegment>();
 		currentLocation = null;
 		xmlFile = null;
 		rawFile = null;
@@ -80,7 +77,7 @@ public class MainDataSet implements Cloneable {
 		MainDataSet clone = new MainDataSet(parent);
 		for (BufferedImage im: loadedImages) {clone.addLoadedImage(im);}
 		for (String s: rawData) {clone.addLineRaw(s);}
-		for (AbstractTranscriptionObject o: internalData) {clone.addTranscriptionElement(o.clone());}
+		for (AbstractAtomarTranscriptionSegment o: internalData) {clone.addTranscriptionElement(o.clone());}
 		clone.image = image;
 		if (currentLocation != null) clone.currentLocation = new File(currentLocation.getAbsolutePath());
 		if (xmlFile != null) clone.xmlFile = new File(xmlFile.getAbsolutePath());
@@ -130,18 +127,18 @@ public class MainDataSet implements Cloneable {
 
 
 	/**
-	 * Adds an {@link AbstractTranscriptionObject} at the end of the List of stored {@link AbstractTranscriptionObject}.
+	 * Adds an {@link AbstractAtomarTranscriptionSegment} at the end of the List of stored {@link AbstractAtomarTranscriptionSegment}.
 	 * @param o the Object that is added to the List
 	 */
-	public void addTranscriptionElement(AbstractTranscriptionObject o) {
+	public void addTranscriptionElement(AbstractAtomarTranscriptionSegment o) {
 		internalData.add(o);
 	}
 	
 	/**
-	 * Gets the List of {@link AbstractTranscriptionObject} stored in this Data Set.
-	 * @return the List of {@link AbstractTranscriptionObject}
+	 * Gets the List of {@link AbstractAtomarTranscriptionSegment} stored in this Data Set.
+	 * @return the List of {@link AbstractAtomarTranscriptionSegment}
 	 */
-	public ArrayList<AbstractTranscriptionObject> getInternalDataList(){
+	public ArrayList<AbstractAtomarTranscriptionSegment> getInternalDataList(){
 		return internalData;
 	}
 

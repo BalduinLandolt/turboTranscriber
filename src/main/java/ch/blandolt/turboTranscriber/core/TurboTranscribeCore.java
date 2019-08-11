@@ -7,6 +7,10 @@ import ch.blandolt.turboTranscriber.gui.MainGUI;
 import ch.blandolt.turboTranscriber.gui.ThumbnailPanel;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Settings;
+import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.AbstractTranscriptionObject;
+import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.DataFactory;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,8 +19,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Core class of TurboTranscribe.
@@ -44,6 +50,32 @@ public class TurboTranscribeCore {
         return data.activatedImage;
     }
 
+    public void a_transcription_state_changed() {
+        Log.log("Transcription has changed.");
+
+        long start = System.currentTimeMillis();
+        List<TranscriptionToken> tokens = Tokenizer.tokenize(gui.getTranscriptionString());
+        long duration = System.currentTimeMillis() - start;
+        Log.log("Tokenizing took: " +  duration + "ms");
+
+        start = System.currentTimeMillis();
+        List<AbstractTranscriptionObject> data = DataFactory.buildDatastructure(tokens);
+        duration = System.currentTimeMillis() - start;
+        Log.log("Building Datastructure took: " +  duration + "ms");
+
+        Log.log(data);
+
+        // TODO: generate XML
+        // TODO: transform XML to HTML
+
+        // TODO: some form of "normalisation" of input?
+
+        // TODO: add javadoc comments
+        // TODO: tidy up code
+
+        refreshGUI();
+    }
+
     // TODO: Rethink Data organisation!
     private class Data {
         LinkedList<BufferedImage> loadedImages = new LinkedList<>();
@@ -61,9 +93,13 @@ public class TurboTranscribeCore {
         Log.initialize();
         Log.log("Log initialized.\n");
 
+        loadSettings();
+
+        // TODO: more?
+    }
+
+    private void loadSettings() {
         // TODO: implement
-        //         - settings
-        //         - ...?
     }
 
     /**
@@ -138,7 +174,35 @@ public class TurboTranscribeCore {
      */
     public void am_import_raw() {
         Log.log("Action: Import Raw");
-        // TODO: Implement
+
+        // TODO: should that discard unsaved changes?
+
+        JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File("./sample_data"));
+        fc.setFileFilter(new FileNameExtensionFilter("Raw", "txt", "raw"));
+        fc.setMultiSelectionEnabled(false);
+        int returnVal = fc.showOpenDialog(gui);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();
+            List<String> lines_raw = loadRaw(f);
+            gui.setRaw(lines_raw);
+            a_transcription_state_changed();
+            //refreshGUI();
+            // TODO: copy to project?
+        } else {
+            Log.log("Aborted.");
+        }
+    }
+
+    private List<String> loadRaw(File f) {
+        try {
+            List<String> lines = Files.readAllLines(f.toPath());
+            return lines;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.log("Error: Failed to read raw file.");
+            return null;
+        }
     }
 
     /**

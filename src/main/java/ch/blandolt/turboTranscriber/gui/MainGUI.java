@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main GUI class of TurboTranscriber
@@ -153,11 +154,13 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         menuItem_file_importXML = new JMenuItem("Import XML File");
         menuItem_file_importXML.addActionListener(e -> owner.am_import_xml());
         menuItem_file_importXML.setEnabled(false);
+        menuItem_file_importXML.setAccelerator(KeyStroke.getKeyStroke("control shift I"));
         menu_file.add(menuItem_file_importXML);
 
         menuItem_file_importRaw = new JMenuItem("Import Raw Transcription File");
         menuItem_file_importRaw.addActionListener(e -> owner.am_import_raw());
         menuItem_file_importRaw.setEnabled(false);
+        menuItem_file_importRaw.setAccelerator(KeyStroke.getKeyStroke("control I"));
         menu_file.add(menuItem_file_importRaw);
 
         menu_file.addSeparator();
@@ -296,7 +299,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         }
 
         menuItem_file_newTranscription.setEnabled(true);
-        menuItem_file_importXML.setEnabled(true);
+        menuItem_file_importXML.setEnabled(false);
         menuItem_file_importRaw.setEnabled(true);
         menuItem_file_save.setEnabled(owner.hasUnsavedChanges());
         menuItem_file_saveAs.setEnabled(true);
@@ -412,5 +415,20 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
     private void zoomIn() {
         imageScaling *= 1.1;
         setImage();
+    }
+
+    public void setRaw(List<String> lines) {
+        // TODO: Store carret position
+
+        StringBuffer sb = new StringBuffer();
+        for (String l: lines) {
+            sb.append(l);
+            sb.append("\n");
+        }
+        transcriptionSyntaxTextArea.setText(sb.toString());
+    }
+
+    public String getTranscriptionString() {
+        return transcriptionSyntaxTextArea.getText();
     }
 }

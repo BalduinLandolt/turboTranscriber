@@ -102,6 +102,21 @@ public class Log {
 
 
 	/**
+	 * Log a List to the last created Log.
+	 * <p>
+	 * This method is thread safe.
+	 *
+	 * @param i The List list to be logged.
+	 */
+	public static synchronized void log(List<Object> i){
+		if (lastLog == null){
+			new Log();
+		}
+		lastLog.println(i);
+	}
+
+
+	/**
 	 * Log an Array of Objects to the last created Log.
 	 * <p>
 	 * This method is thread safe.
@@ -127,6 +142,10 @@ public class Log {
 		if (lastLog == null){
 			new Log();
 		}
+
+		if (o instanceof List){lastLog.println((List)o);return;}
+		if (o instanceof Iterable){lastLog.println((Iterable<Object>) o);return;}
+
 		lastLog.println(o);
 	}
 
@@ -164,7 +183,10 @@ public class Log {
 	 * @param o The Object to be logged.
 	 */
 	public synchronized void println (Object o){
-		println(o.toString());
+		if (null == o)
+			println("null");
+		else
+			println(o.toString());
 	}
 
 
@@ -191,6 +213,23 @@ public class Log {
 		println(i.toString());
 		for (Object o: i) {
 			println("   "+o.toString());
+		}
+	}
+
+	/**
+	 * Print all elements of a List to all registered logging streams of this instance of Log.
+	 * <p>
+	 * This method is thread safe.
+	 *
+	 * @param i The List to be logged.
+	 */
+	public synchronized void println (List<Object> i){
+		println(i.toString());
+		for (Object o: i) {
+			if (null == o)
+				println("   null");
+			else
+				println("   "+o.toString());
 		}
 	}
 
