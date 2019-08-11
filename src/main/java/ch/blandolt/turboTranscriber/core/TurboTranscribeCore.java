@@ -7,6 +7,7 @@ import ch.blandolt.turboTranscriber.gui.MainGUI;
 import ch.blandolt.turboTranscriber.gui.ThumbnailPanel;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Settings;
+import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.AbstractTranscriptionObject;
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.DataFactory;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
@@ -58,9 +59,11 @@ public class TurboTranscribeCore {
         Log.log("Tokenizing took: " +  duration + "ms");
 
         start = System.currentTimeMillis();
-        DataFactory.buildDatastructure(tokens);
+        List<AbstractTranscriptionObject> data = DataFactory.buildDatastructure(tokens);
         duration = System.currentTimeMillis() - start;
         Log.log("Building Datastructure took: " +  duration + "ms");
+
+        Log.log(data);
 
         // TODO: tokenize transcription
         // TODO: refresh gui with normalized representation of transcription

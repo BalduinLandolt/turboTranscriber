@@ -8,4 +8,9 @@ public class AbstractTranscriptionContainer extends AbstractTranscriptionObject 
     public AbstractTranscriptionContainer(LinkedList<AbstractTranscriptionObject> content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + ": " + content.toString();
+    }
 }

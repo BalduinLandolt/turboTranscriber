@@ -13,4 +13,9 @@ public abstract class AbstractAtomarTranscriptionSegment extends AbstractTranscr
     public AbstractAtomarTranscriptionSegment(TTPlainTextSegment content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return content.getTextContent();
+    }
 }

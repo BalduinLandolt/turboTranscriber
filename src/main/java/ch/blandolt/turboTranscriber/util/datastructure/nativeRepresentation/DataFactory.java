@@ -22,7 +22,7 @@ public class DataFactory {
         //Log.log(data);
 
         // TODO: return something
-        return null;
+        return data;
     }
 
     private static LinkedList<AbstractTranscriptionObject> convertTokens(List<TranscriptionToken> tokens) {

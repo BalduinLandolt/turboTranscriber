@@ -13,6 +13,7 @@ public class TTTag extends AbstractTranscriptionContainer{
     public static TTTag convertTokenClassSpecific(TokenTypeOpeningTag t) {
         LinkedList<AbstractTranscriptionObject> c = new LinkedList<>();
 
+        // TODO: store other tag information (name, attributes, ...) too
         for (TranscriptionToken inner: t.getContent()){
             c.add(AbstractTranscriptionObject.convertToken(inner));
         }

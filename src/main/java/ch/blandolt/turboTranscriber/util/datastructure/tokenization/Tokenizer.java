@@ -68,7 +68,7 @@ public class Tokenizer {
 
         tokens = Tokenizer.segmentByWordborders(tokens);
         tokens = Tokenizer.getLegitWords(tokens);
-        tokens = Tokenizer.resolveLegitWords(tokens);
+        //tokens = Tokenizer.resolveLegitWords(tokens);
 
         //Log.log("\n\nTokens:\n");
         //Log.log(tokens);
@@ -88,8 +88,6 @@ public class Tokenizer {
 
     private static List<Tokenizable> resolveLegitWords(List<Tokenizable> tokens) {
         List<Tokenizable> res = new LinkedList<>();
-
-        // TODO: fix shit
 
         return res;
     }
