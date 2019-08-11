@@ -90,8 +90,6 @@ public class TurboTranscribeCore {
         duration = System.currentTimeMillis() - start;
         Log.log("Building XML took: " +  duration + "ms");
 
-        // FIXME: tags seem to kill their content.
-
         // TODO: transform XML to HTML
         // TODO: export XML
 

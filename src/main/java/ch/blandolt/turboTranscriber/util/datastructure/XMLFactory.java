@@ -104,6 +104,9 @@ public class XMLFactory {
             for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
                 e.setAttribute(attribute.getKey(),attribute.getValue());
             }
+            for (AbstractTranscriptionObject o: t.getContent()){
+                e.addContent(XMLFactory.generateXMLFromTranscriptionObject(o));
+            }
             return e;
         } else if (tr instanceof TTTextSegment){
             TTTextSegment p = (TTTextSegment)tr;
