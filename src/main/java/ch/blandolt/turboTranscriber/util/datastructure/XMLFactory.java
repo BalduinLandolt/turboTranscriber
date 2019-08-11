@@ -41,7 +41,9 @@ public class XMLFactory {
         text.addContent(body);
 
         for (AbstractTranscriptionObject tr: data){
-            body.addContent(generateXMLFromTranscriptionObject(tr));
+            Content content = XMLFactory.generateXMLFromTranscriptionObject(tr);
+            if (null != content)
+                body.addContent(content);
         }
 
 
@@ -63,7 +65,9 @@ public class XMLFactory {
             TTAbbreviationMark am = (TTAbbreviationMark)tr;
             Element e = new Element("am", ns_TEI);
             for (AbstractTranscriptionObject t: am.getContent()){
-                e.addContent(XMLFactory.generateXMLFromTranscriptionObject(t));
+                Content content = XMLFactory.generateXMLFromTranscriptionObject(t);
+                if (null != content)
+                    e.addContent(content);
             }
             return e;
         } else if (tr instanceof TTAnchor){ // TODO: existing?
