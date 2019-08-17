@@ -15,13 +15,15 @@ public class RawTokenMaker extends AbstractTokenMaker {
     private static final int COMMENT_MULTILINE = Token.COMMENT_MULTILINE;
     private static final int TAG_NAME = Token.MARKUP_TAG_NAME;
     private static final int TEXT = Token.IDENTIFIER;
-    private static final int GLYPH = Token.LITERAL_STRING_DOUBLE_QUOTE; // TODO
+    private static final int GLYPH = Token.LITERAL_STRING_DOUBLE_QUOTE;
 
     private int currentTokenStart;
     private int currentTokenType;
     private boolean tag_open = false;
     private boolean abbreviation_open = false;
     private boolean glyph_open = false;
+
+    // TODO: highlight comments after abbreviations/glyphs
 
     @Override
     public TokenMap getWordsToHighlight() {
