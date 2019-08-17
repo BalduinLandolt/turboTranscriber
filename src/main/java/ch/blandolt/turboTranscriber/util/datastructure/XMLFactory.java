@@ -103,6 +103,8 @@ public class XMLFactory {
             return e;
         } else if (tr instanceof TTTag){ // TODO: special cases! should result in <div type="miracle" n="000">, not <miracle XXXXX="000">
             TTTag t = (TTTag)tr;
+            if (t == null || t.getTagName().isEmpty())
+                return null;
             Element e = new Element(t.getTagName(), ns_TEI);
             for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
                 e.setAttribute(attribute.getKey(),attribute.getValue());
