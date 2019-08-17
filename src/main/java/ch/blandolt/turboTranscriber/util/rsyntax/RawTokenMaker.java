@@ -12,6 +12,7 @@ public class RawTokenMaker extends AbstractTokenMaker {
     public static final int TEXT = 2;
     public static final int DELIMITER = 3;
     public static final int COMMENT_INLINE = 4;
+    public static final int COMMENT_MULTI = 5;
     public static final int OTHERS = 99; // TODO: expand (glyph, abbreviation, ...)
 
     private int currentTokenStart;
@@ -68,6 +69,12 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             currentTokenType = COMMENT_INLINE;
                             break;
 
+                        case '/':
+                            if (i+1 < array.length && array[i+1] == '*') {
+                                currentTokenType = COMMENT_MULTI;
+                            }
+                            break;
+
                         case '{':
                         case '[':
                         case '(':
@@ -105,6 +112,14 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             currentTokenType = COMMENT_INLINE;
+                            break;
+
+                        case '/':
+                            if (i+1 < array.length && array[i+1] == '*') {
+                                addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
+                                currentTokenStart = i;
+                                currentTokenType = COMMENT_MULTI;
+                            }
                             break;
 
                         case '{':
@@ -154,6 +169,14 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             currentTokenType = COMMENT_INLINE;
+                            break;
+
+                        case '/':
+                            if (i+1 < array.length && array[i+1] == '*') {
+                                addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
+                                currentTokenStart = i;
+                                currentTokenType = COMMENT_MULTI;
+                            }
                             break;
 
                         case '{':
@@ -206,6 +229,14 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             currentTokenType = COMMENT_INLINE;
                             break;
 
+                        case '/':
+                            if (i+1 < array.length && array[i+1] == '*') {
+                                addToken(text, currentTokenStart,i-1, DELIMITER, newStartOffset+currentTokenStart);
+                                currentTokenStart = i;
+                                currentTokenType = COMMENT_MULTI;
+                            }
+                            break;
+
                         case '{':
                         case '[':
                         case '(':
@@ -243,6 +274,54 @@ public class RawTokenMaker extends AbstractTokenMaker {
                     currentTokenType = Token.NULL;
                     break;
 
+                case COMMENT_MULTI:
+                    if (c != '/' && i > 1 && array[i-1]=='/' && array[i-2]=='*'){
+                        addToken(text, currentTokenStart,i-1, COMMENT_MULTI, newStartOffset+currentTokenStart);
+                        currentTokenStart = i;
+                        switch (c) {
+
+                            case ' ':
+                            case '\t':
+                                currentTokenType = WHITESPACE;
+                                break;
+
+                            case '#':
+                                currentTokenType = COMMENT_INLINE;
+                                break;
+
+                            case '/':
+                                if (i+1 < array.length && array[i+1] == '*') {
+                                    currentTokenType = COMMENT_MULTI;
+                                }
+                                break;
+
+                            case '{':
+                            case '[':
+                            case '(':
+                                currentTokenType = DELIMITER;
+                                delimiter_open++;
+                                break;
+
+                            case '}':
+                            case ']':
+                            case ')':
+                                currentTokenType = DELIMITER;
+                                delimiter_open--;
+                                break;
+
+                            default:
+                                if (delimiter_open > 0) {
+                                    currentTokenType = OTHERS;
+                                } else {
+                                    currentTokenType = TEXT;
+                                }
+                                break;
+
+                        } // End of switch (c).
+                    } else {
+                    }
+                    break;
+
                 case OTHERS:
 
 
@@ -259,6 +338,14 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             addToken(text, currentTokenStart,i-1, OTHERS, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             currentTokenType = COMMENT_INLINE;
+                            break;
+
+                        case '/':
+                            if (i+1 < array.length && array[i+1] == '*') {
+                                addToken(text, currentTokenStart,i-1, OTHERS, newStartOffset+currentTokenStart);
+                                currentTokenStart = i;
+                                currentTokenType = COMMENT_MULTI;
+                            }
                             break;
 
                         case '{':
@@ -300,12 +387,12 @@ public class RawTokenMaker extends AbstractTokenMaker {
         switch (currentTokenType) {
 
             // Remember what token type to begin the next line with.
-            case Token.COMMENT_MULTILINE:
+            case COMMENT_MULTI:
                 addToken(text, currentTokenStart,end-1, currentTokenType, newStartOffset+currentTokenStart);
                 break;
 
             // Do nothing if everything was okay.
-            case Token.NULL:
+            case NONE:
                 addNullToken();
                 break;
 
@@ -332,6 +419,8 @@ public class RawTokenMaker extends AbstractTokenMaker {
             case DELIMITER: tokenType = Token.MARKUP_TAG_DELIMITER;
                 break;
             case COMMENT_INLINE: tokenType = Token.COMMENT_EOL;
+                break;
+            case COMMENT_MULTI: tokenType = Token.COMMENT_MULTILINE;
                 break;
             default: tokenType = Token.MARKUP_TAG_NAME;
                 break;
