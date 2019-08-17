@@ -15,7 +15,8 @@ public class TTAbbreviation extends AbstractTranscriptionContainer {
     }
 
     public TTAbbreviation(TranscriptionToken ex, TranscriptionToken infix, TranscriptionToken am) {
-        super(new LinkedList<AbstractTranscriptionObject>(Arrays.asList(
+        // TODO: fix. logic of what is atomar and what not, seems messed up
+        this(new LinkedList<AbstractTranscriptionObject>(Arrays.asList(
                 new TTExpansion(new TTPlainTextSegment(ex.getText())),
                 new TTTextSegment(new TTPlainTextSegment(infix.getText())),
                 new TTAbbreviationMark(TTAbbreviationMark.convertTokenClassSpecific(am)))));
