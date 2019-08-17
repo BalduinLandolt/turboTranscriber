@@ -451,6 +451,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
             sb.append("\n");
         }
         transcriptionSyntaxTextArea.setText(sb.toString());
+        // TODO: enusre it's undoable -> is it?
     }
 
     public String getTranscriptionString() {
