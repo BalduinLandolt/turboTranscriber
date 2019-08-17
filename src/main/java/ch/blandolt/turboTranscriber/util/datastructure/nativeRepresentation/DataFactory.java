@@ -40,6 +40,8 @@ public class DataFactory {
         for (TranscriptionToken t: tokens){
             if (t instanceof TokenTypeClosingTag) {
                 TokenTypeOpeningTag opener = findOpeningTag(tokens, t);
+                if (opener == null)
+                    return;
                 opener.addClosingTag((TokenTypeClosingTag) t);
             }
         }
