@@ -1,5 +1,6 @@
 package ch.blandolt.turboTranscriber.util.datastructure;
 
+import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.*;
 import org.jdom2.*;
 
@@ -32,6 +33,8 @@ public class XMLFactory {
         Element text = makeText(data);
         root.addContent(text);
 
+        Log.log("Generated TEI XML");
+
         return res;
     }
 
@@ -48,7 +51,7 @@ public class XMLFactory {
         }
 
 
-        // TODO implement adding data
+        // TODO make TEI correct!
 
         return text;
     }
@@ -98,7 +101,7 @@ public class XMLFactory {
             Element e = new Element("pc", ns_TEI);
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(p.getContent().getFirst()));
             return e;
-        } else if (tr instanceof TTTag){
+        } else if (tr instanceof TTTag){ // TODO: special cases! should result in <div type="miracle" n="000">, not <miracle XXXXX="000">
             TTTag t = (TTTag)tr;
             Element e = new Element(t.getTagName(), ns_TEI);
             for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){

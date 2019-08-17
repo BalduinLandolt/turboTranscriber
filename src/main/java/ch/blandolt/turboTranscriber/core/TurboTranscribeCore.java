@@ -23,7 +23,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -86,7 +88,8 @@ public class TurboTranscribeCore {
         start = System.currentTimeMillis();
         Document document = XMLFactory.createTEIXML(data);
         XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
-        gui.setXML(beautify(outputter.outputString(document)));
+        String s = beautify(outputter.outputString(document));
+        gui.setXML(s);
         duration = System.currentTimeMillis() - start;
         Log.log("Building XML took: " +  duration + "ms");
 
@@ -116,10 +119,6 @@ public class TurboTranscribeCore {
             replacement = replacement.replaceAll("\\s+", " ");
             replacement = replacement.replace("> ", ">");
             replacement = replacement.replace(" <", "<");
-            Log.log(hit);
-            Log.log("---");
-            Log.log(replacement);
-            Log.log("\n\n----------------------------------\n\n");
             res = res.replace(hit, replacement);
         }
         return res;
@@ -242,6 +241,38 @@ public class TurboTranscribeCore {
         // TODO: Implement
     }
 
+    public void am_export_xml() {
+        Log.log("Action: Export XML");
+        String s = gui.getXMLString();
+
+        JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File("./sample_data"));
+        fc.setFileFilter(new FileNameExtensionFilter("XML", "xml"));
+        fc.setMultiSelectionEnabled(false);
+        int returnVal = fc.showSaveDialog(gui);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();
+            if (!f.getName().endsWith(".xml"))
+                f = new File(f.getPath() + ".xml");
+            try {
+                Files.write(Paths.get(f.toURI()), s.getBytes());
+                // TODO: make this optional
+                if (Desktop.isDesktopSupported()) {
+                    Desktop d = Desktop.getDesktop();
+                    d.open(f);
+                }
+                Log.log("Exported XML to File: "+f.getPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.log(e.getStackTrace());
+            }
+
+            // TODO: handle overwrite etc.
+        } else {
+            Log.log("Aborted.");
+        }
+    }
+
     /**
      * Action (Menu): Import Raw
      */
@@ -249,6 +280,8 @@ public class TurboTranscribeCore {
         Log.log("Action: Import Raw");
 
         // TODO: should that discard unsaved changes?
+
+        // TODO: should add a new data stage to text area
 
         JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("./sample_data"));
