@@ -1,5 +1,6 @@
 package ch.blandolt.turboTranscriber.util.datastructure;
 
+import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.*;
 import org.jdom2.*;
 
@@ -32,6 +33,8 @@ public class XMLFactory {
         Element text = makeText(data);
         root.addContent(text);
 
+        Log.log("Generated TEI XML");
+
         return res;
     }
 
@@ -48,7 +51,7 @@ public class XMLFactory {
         }
 
 
-        // TODO implement adding data
+        // TODO make TEI correct!
 
         return text;
     }

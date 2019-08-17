@@ -119,10 +119,6 @@ public class TurboTranscribeCore {
             replacement = replacement.replaceAll("\\s+", " ");
             replacement = replacement.replace("> ", ">");
             replacement = replacement.replace(" <", "<");
-            Log.log(hit);
-            Log.log("---");
-            Log.log(replacement);
-            Log.log("\n\n----------------------------------\n\n");
             res = res.replace(hit, replacement);
         }
         return res;
@@ -260,10 +256,12 @@ public class TurboTranscribeCore {
                 f = new File(f.getPath() + ".xml");
             try {
                 Files.write(Paths.get(f.toURI()), s.getBytes());
+                // TODO: make this optional
                 if (Desktop.isDesktopSupported()) {
                     Desktop d = Desktop.getDesktop();
                     d.open(f);
                 }
+                Log.log("Exported XML to File: "+f.getPath());
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.log(e.getStackTrace());
