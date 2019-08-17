@@ -64,6 +64,7 @@ public class XMLFactory {
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getExpansion()));
             if (expan.hasInfix())
                 e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
+            // TODO: infix does not seem to work correctly
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getAbbreviationMark()));
             return e;
         } else if (tr instanceof TTAbbreviationMark){
@@ -86,7 +87,9 @@ public class XMLFactory {
         } else if (tr instanceof TTExpansion){
             TTExpansion ex = (TTExpansion)tr;
             Element e = new Element("ex", ns_TEI);
-            e.addContent(new Text(ex.toString()));
+            for (AbstractTranscriptionObject o: ex.getContent()){
+                e.addContent(XMLFactory.generateXMLFromTranscriptionObject(o));
+            }
             return e;
         } else if (tr instanceof TTGlyph){
             TTGlyph g = (TTGlyph)tr;
