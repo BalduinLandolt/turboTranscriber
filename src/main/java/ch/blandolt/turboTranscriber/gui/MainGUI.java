@@ -3,8 +3,11 @@ package ch.blandolt.turboTranscriber.gui;
 import ch.blandolt.turboTranscriber.core.TurboTranscribeCore;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Loggable;
+import ch.blandolt.turboTranscriber.util.rsyntax.RawTokenMaker;
+import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
@@ -106,12 +109,15 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         setMinimumSize(new Dimension(600, 400));
 
         // TODO: Remove. Test only
-        transcriptionSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
+        //transcriptionSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
         transcriptionSyntaxTextArea.setCodeFoldingEnabled(true);
         syntaxScroller.setLineNumbersEnabled(true);
         syntaxScroller.setFoldIndicatorEnabled(true);
         syntaxScroller.setIconRowHeaderEnabled(true);
         // FixMe: Line numbers don't show.
+        AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
+        atmf.putMapping("text/raw", RawTokenMaker.class.getName());
+        transcriptionSyntaxTextArea.setSyntaxEditingStyle("text/raw");
 
         xmlArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
         xmlArea.setEditable(false);
