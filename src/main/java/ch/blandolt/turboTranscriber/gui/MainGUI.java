@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @author Balduin Landolt
  */
-public class MainGUI extends JFrame  implements Loggable, WindowListener {
+public class MainGUI extends JFrame  implements Loggable, WindowListener, DocumentListener {
     private JTabbedPane mainTabbedPane;
     private JPanel mainPanel;
     private JPanel logPane;
@@ -122,6 +122,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         Font prev = transcriptionSyntaxTextArea.getFont();
         transcriptionSyntaxTextArea.setFont(new Font(prev.getName(), prev.getStyle(), prev.getSize()+4));
         // TODO make setting
+        transcriptionSyntaxTextArea.getDocument().addDocumentListener(this);
 
         xmlArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
         xmlArea.setEditable(false);
@@ -465,5 +466,20 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
 
     public String getXMLString() {
         return xmlArea.getText();
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        owner.a_transcription_state_changed();
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        owner.a_transcription_state_changed();
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        owner.a_transcription_state_changed();
     }
 }
