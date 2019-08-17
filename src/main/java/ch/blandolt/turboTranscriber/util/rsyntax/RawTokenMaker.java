@@ -7,10 +7,21 @@ import org.fife.ui.rsyntaxtextarea.TokenMap;
 import javax.swing.text.Segment;
 
 public class RawTokenMaker extends AbstractTokenMaker {
+    private static final int NULL = Token.NULL;
+    private static final int WHITESPACE = Token.WHITESPACE;
+    private static final int TAG_DELIMITER = Token.MARKUP_TAG_DELIMITER;
+    private static final int ABBREVIATION = Token.REGEX;
+    private static final int COMMENT_EOL = Token.COMMENT_EOL;
+    private static final int COMMENT_MULTILINE = Token.COMMENT_MULTILINE;
+    private static final int TAG_NAME = Token.MARKUP_TAG_NAME;
+    private static final int TEXT = Token.IDENTIFIER;
+    private static final int GLYPH = Token.LITERAL_STRING_DOUBLE_QUOTE; // TODO
 
     private int currentTokenStart;
     private int currentTokenType;
-    private int delimiter_open = 0;
+    private boolean tag_open = false;
+    private boolean abbreviation_open = false;
+    private boolean glyph_open = false;
 
     @Override
     public TokenMap getWordsToHighlight() {
@@ -47,7 +58,7 @@ public class RawTokenMaker extends AbstractTokenMaker {
 
             switch (currentTokenType) {
 
-                case Token.NULL:
+                case NULL:
 
                     currentTokenStart = i;   // Starting a new token here.
 
@@ -55,45 +66,43 @@ public class RawTokenMaker extends AbstractTokenMaker {
 
                         case ' ':
                         case '\t':
-                            currentTokenType = Token.WHITESPACE;
+                            currentTokenType = WHITESPACE;
                             break;
 
                         case '#':
-                            currentTokenType = Token.COMMENT_EOL;
+                            currentTokenType = COMMENT_EOL;
                             break;
 
                         case '/':
                             if (i+1 < array.length && array[i+1] == '*') {
-                                currentTokenType = Token.COMMENT_MULTILINE;
+                                currentTokenType = COMMENT_MULTILINE;
                             }
                             break;
 
-                        case '{':
                         case '[':
-                        case '(':
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open++;
+                            currentTokenType = TAG_DELIMITER;
+                            tag_open = true;
                             break;
 
-                        case '}':
-                        case ']':
-                        case ')':
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open--;
+                        case '(':
+                            currentTokenType = ABBREVIATION;
+                            abbreviation_open = true;
+                            break;
+
+                        case '{':
+                            currentTokenType = GLYPH;
+                            glyph_open = true;
                             break;
 
                         default:
-                            if (delimiter_open > 0)
-                                currentTokenType = Token.MARKUP_TAG_NAME;
-                            else
-                                currentTokenType = Token.IDENTIFIER;
+                            currentTokenType = TEXT;
                             break;
 
                     } // End of switch (c).
 
                     break;
 
-                case Token.WHITESPACE:
+                case WHITESPACE:
 
                     switch (c) {
 
@@ -102,44 +111,54 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             break; // still whitespace
 
                         case '#':
-                            addToken(text, currentTokenStart,i-1, Token.WHITESPACE, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.COMMENT_EOL;
+                            currentTokenType = COMMENT_EOL;
                             break;
 
                         case '/':
                             if (i+1 < array.length && array[i+1] == '*') {
-                                addToken(text, currentTokenStart,i-1, Token.WHITESPACE, newStartOffset+currentTokenStart);
+                                addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
                                 currentTokenStart = i;
-                                currentTokenType = Token.COMMENT_MULTILINE;
+                                currentTokenType = COMMENT_MULTILINE;
                             }
                             break;
 
-                        case '{':
                         case '[':
-                        case '(':
-                            addToken(text, currentTokenStart,i-1, Token.WHITESPACE, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open++;
+                            currentTokenType = TAG_DELIMITER;
+                            tag_open = true;
                             break;
 
-                        case '}':
                         case ']':
-                        case ')':
-                            addToken(text, currentTokenStart,i-1, Token.WHITESPACE, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open--;
+                            currentTokenType = TAG_DELIMITER;
+                            tag_open = false;
+                            break;
+
+                        case '(':
+                            addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
+                            currentTokenStart = i;
+                            currentTokenType = ABBREVIATION;
+                            abbreviation_open = true;
+                            break;
+
+                        case '{':
+                            addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
+                            currentTokenStart = i;
+                            currentTokenType = GLYPH;
+                            glyph_open = true;
                             break;
 
                         default:
-                            addToken(text, currentTokenStart,i-1, Token.WHITESPACE, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            if (delimiter_open > 0)
-                                currentTokenType = Token.MARKUP_TAG_NAME;
+                            if (tag_open)
+                                currentTokenType = TAG_NAME;
                             else
-                                currentTokenType = Token.IDENTIFIER;
+                                currentTokenType = TEXT;
                             break;
 
                     } // End of switch (c).
@@ -147,54 +166,64 @@ public class RawTokenMaker extends AbstractTokenMaker {
                     break;
 
                 default: // Should never happen
-                case Token.IDENTIFIER:
+                case TEXT:
 
                     switch (c) {
 
                         case ' ':
                         case '\t':
-                            addToken(text, currentTokenStart,i-1, Token.IDENTIFIER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.WHITESPACE;
+                            currentTokenType = WHITESPACE;
                             break;
 
                         case '#':
-                            addToken(text, currentTokenStart,i-1, Token.IDENTIFIER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.COMMENT_EOL;
+                            currentTokenType = COMMENT_EOL;
                             break;
 
                         case '/':
                             if (i+1 < array.length && array[i+1] == '*') {
-                                addToken(text, currentTokenStart,i-1, Token.IDENTIFIER, newStartOffset+currentTokenStart);
+                                addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
                                 currentTokenStart = i;
-                                currentTokenType = Token.COMMENT_MULTILINE;
+                                currentTokenType = COMMENT_MULTILINE;
                             }
                             break;
 
-                        case '{':
                         case '[':
-                        case '(':
-                            addToken(text, currentTokenStart,i-1, Token.IDENTIFIER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open++;
+                            currentTokenType = TAG_DELIMITER;
+                            tag_open = true;
                             break;
 
-                        case '}':
                         case ']':
-                        case ')':
-                            addToken(text, currentTokenStart,i-1, Token.IDENTIFIER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open--;
+                            currentTokenType = TAG_DELIMITER;
+                            tag_open = false;
+                            break;
+
+                        case '(':
+                            addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
+                            currentTokenStart = i;
+                            currentTokenType = ABBREVIATION;
+                            abbreviation_open = true;
+                            break;
+
+                        case '{':
+                            addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
+                            currentTokenStart = i;
+                            currentTokenType = GLYPH;
+                            glyph_open = true;
                             break;
 
                         default:
-                            if (delimiter_open > 0) {
-                                addToken(text, currentTokenStart, i - 1, Token.IDENTIFIER, newStartOffset + currentTokenStart);
+                            if (tag_open) {
+                                addToken(text, currentTokenStart, i - 1, TEXT, newStartOffset + currentTokenStart);
                                 currentTokenStart = i;
-                                currentTokenType = Token.MARKUP_TAG_NAME;
+                                currentTokenType = TAG_NAME;
                             }
                             else
                                 break;//still text
@@ -205,64 +234,67 @@ public class RawTokenMaker extends AbstractTokenMaker {
 
                     break;
 
-                case Token.MARKUP_TAG_DELIMITER:
+                case TAG_DELIMITER:
 
                     switch (c) {
 
                         case ' ':
                         case '\t':
-                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.WHITESPACE;
+                            currentTokenType = WHITESPACE;
                             break;
 
                         case '#':
-                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.COMMENT_EOL;
+                            currentTokenType = COMMENT_EOL;
                             break;
 
                         case '/':
                             if (i+1 < array.length && array[i+1] == '*') {
-                                addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_DELIMITER, newStartOffset+currentTokenStart);
+                                addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
                                 currentTokenStart = i;
-                                currentTokenType = Token.COMMENT_MULTILINE;
+                                currentTokenType = COMMENT_MULTILINE;
                             }
                             break;
 
                         case ';':
                         case ':':
                         case '=':
-                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             currentTokenType = Token.OPERATOR;
                             break;
 
-                        case '{':
-                        case '[':
-                        case '(':
-                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_DELIMITER, newStartOffset+currentTokenStart);
+                        case ']':
+                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open++;
+                            currentTokenType = TAG_DELIMITER;
+                            tag_open = false;
                             break;
 
-                        case '}':
-                        case ']':
-                        case ')':
-                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_DELIMITER, newStartOffset+currentTokenStart);
+                        case '(':
+                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open--;
+                            currentTokenType = ABBREVIATION;
+                            abbreviation_open = true;
+                            break;
+
+                        case '{':
+                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            currentTokenStart = i;
+                            currentTokenType = GLYPH;
+                            glyph_open = true;
                             break;
 
                         default:
-                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            if (delimiter_open > 0)
-                                currentTokenType = Token.MARKUP_TAG_NAME;
+                            if (tag_open)
+                                currentTokenType = TAG_NAME;
                             else
-                                currentTokenType = Token.IDENTIFIER;
+                                currentTokenType = TEXT;
                             break;
 
                     } // End of switch (c).
@@ -277,88 +309,100 @@ public class RawTokenMaker extends AbstractTokenMaker {
 
                         case '/':
                             if (i+1 < array.length && array[i+1] == '*') {
-                                currentTokenType = Token.COMMENT_MULTILINE;
+                                currentTokenType = COMMENT_MULTILINE;
                             }
                             break;
 
-                        case '{':
                         case '[':
-                        case '(':
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open++;
+                            currentTokenType = TAG_DELIMITER;
+                            tag_open = true;
                             break;
 
-                        case '}':
                         case ']':
-                        case ')':
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open--;
+                            currentTokenType = TAG_DELIMITER;
+                            tag_open = false;
+                            break;
+
+                        case '(':
+                            currentTokenType = ABBREVIATION;
+                            abbreviation_open = true;
+                            break;
+
+                        case '{':
+                            currentTokenType = GLYPH;
+                            glyph_open = true;
                             break;
 
                         default:
-                            if (delimiter_open > 0)
-                                currentTokenType = Token.MARKUP_TAG_NAME;
+                            if (tag_open)
+                                currentTokenType = TAG_NAME;
                             else
-                                currentTokenType = Token.IDENTIFIER;
+                                currentTokenType = TEXT;
                             break;
 
                     } // End of switch (c).
                     break;
 
-                case Token.COMMENT_EOL:
+                case COMMENT_EOL:
                     i = end - 1;
                     addToken(text, currentTokenStart,i, currentTokenType, newStartOffset+currentTokenStart);
                     // We need to set token type to null so at the bottom we don't add one more token.
-                    currentTokenType = Token.NULL;
+                    currentTokenType = NULL;
                     break;
 
-                case Token.COMMENT_MULTILINE:
+                case COMMENT_MULTILINE:
                     if (c == '/' && i > 0 && array[i-1]=='*'){
                         i++;
-                        addToken(text, currentTokenStart,i-1, Token.COMMENT_MULTILINE, newStartOffset+currentTokenStart);
+                        addToken(text, currentTokenStart,i-1, COMMENT_MULTILINE, newStartOffset+currentTokenStart);
                         currentTokenStart = i;
                         if (array.length>i){
                             c = array[i];
                         } else {
-                            currentTokenType = Token.COMMENT_MULTILINE;
+                            currentTokenType = COMMENT_MULTILINE;
                             break;
                         }
                         switch (c) {
 
                             case ' ':
                             case '\t':
-                                currentTokenType = Token.WHITESPACE;
+                                currentTokenType = WHITESPACE;
                                 break;
 
                             case '#':
-                                currentTokenType = Token.COMMENT_EOL;
+                                currentTokenType = COMMENT_EOL;
                                 break;
 
                             case '/':
                                 if (i+1 < array.length && array[i+1] == '*') {
-                                    currentTokenType = Token.COMMENT_MULTILINE;
+                                    currentTokenType = COMMENT_MULTILINE;
                                 }
                                 break;
 
-                            case '{':
                             case '[':
-                            case '(':
-                                currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                                delimiter_open++;
+                                currentTokenType = TAG_DELIMITER;
+                                tag_open = true;
                                 break;
 
-                            case '}':
                             case ']':
-                            case ')':
-                                currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                                delimiter_open--;
+                                currentTokenType = TAG_DELIMITER;
+                                tag_open = false;
+                                break;
+
+                            case '(':
+                                currentTokenType = ABBREVIATION;
+                                abbreviation_open = true;
+                                break;
+
+                            case '{':
+                                currentTokenType = GLYPH;
+                                glyph_open = true;
                                 break;
 
                             default:
-                                if (delimiter_open > 0) {
-                                    currentTokenType = Token.MARKUP_TAG_NAME;
+                                if (tag_open) {
+                                    currentTokenType = TAG_NAME;
                                 } else {
-                                    currentTokenType = Token.IDENTIFIER;
+                                    currentTokenType = TEXT;
                                 }
                                 break;
 
@@ -367,66 +411,142 @@ public class RawTokenMaker extends AbstractTokenMaker {
                     }
                     break;
 
-                case Token.MARKUP_TAG_NAME:
+                case TAG_NAME:
 
 
                     switch (c) {
 
                         case ' ':
                         case '\t':
-                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_NAME, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, TAG_NAME, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.WHITESPACE;
+                            currentTokenType = WHITESPACE;
                             break;
 
                         case ';':
                         case ':':
                         case '=':
-                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_NAME, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, TAG_NAME, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             currentTokenType = Token.OPERATOR;
                             break;
 
                         case '#':
-                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_NAME, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, TAG_NAME, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.COMMENT_EOL;
+                            currentTokenType = COMMENT_EOL;
                             break;
 
                         case '/':
                             if (i+1 < array.length && array[i+1] == '*') {
-                                addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_NAME, newStartOffset+currentTokenStart);
+                                addToken(text, currentTokenStart,i-1, TAG_NAME, newStartOffset+currentTokenStart);
                                 currentTokenStart = i;
-                                currentTokenType = Token.COMMENT_MULTILINE;
+                                currentTokenType = COMMENT_MULTILINE;
+                            }
+                            break;
+
+                        case ']':
+                            addToken(text, currentTokenStart,i-1, TAG_NAME, newStartOffset+currentTokenStart);
+                            currentTokenStart = i;
+                            currentTokenType = TAG_DELIMITER;
+                            tag_open = false;
+                            break;
+
+                        default:
+                            if (tag_open)
+                                break;
+                            else {
+                                addToken(text, currentTokenStart,i-1, TAG_NAME, newStartOffset+currentTokenStart);
+                                currentTokenStart = i;
+                                currentTokenType = TEXT;
+                            }
+                            break;
+
+                    } // End of switch (c).
+                    break;
+
+                case ABBREVIATION: // abbreviation
+
+
+                    switch (c) {
+
+                        case '/':
+                            if (i+1 < array.length && array[i+1] == '*') {
+                                addToken(text, currentTokenStart,i-1, ABBREVIATION, newStartOffset+currentTokenStart);
+                                currentTokenStart = i;
+                                currentTokenType = COMMENT_MULTILINE;
                             }
                             break;
 
                         case '{':
-                        case '[':
-                        case '(':
-                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_NAME, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, ABBREVIATION, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open++;
+                            currentTokenType = GLYPH;
                             break;
 
-                        case '}':
-                        case ']':
                         case ')':
-                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_NAME, newStartOffset+currentTokenStart);
+                            i++;
+                            addToken(text, currentTokenStart,i-1, ABBREVIATION, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
-                            delimiter_open--;
+                            abbreviation_open= false;
+                            if (array.length <= i){
+                                currentTokenType = NULL;
+                                break;
+                            } else {
+                                c = array[i];
+                                switch (c){
+                                    case '[':
+                                        currentTokenType = TAG_DELIMITER;
+                                        break;
+                                    default:
+                                        currentTokenType = TEXT;
+                                } // end switch c
+                            }
                             break;
 
                         default:
-                            if (delimiter_open > 0)
-                                break;
-                            else {
-                                addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_NAME, newStartOffset+currentTokenStart);
+                            break;
+
+                    } // End of switch (c).
+                    break;
+
+                case GLYPH: // abbreviation
+
+
+                    switch (c) {
+
+                        case '/':
+                            if (i+1 < array.length && array[i+1] == '*') {
+                                addToken(text, currentTokenStart,i-1, GLYPH, newStartOffset+currentTokenStart);
                                 currentTokenStart = i;
-                                currentTokenType = Token.IDENTIFIER;
+                                currentTokenType = COMMENT_MULTILINE;
                             }
+                            break;
+
+                        case '}':
+                            i++;
+                            addToken(text, currentTokenStart,i-1, GLYPH, newStartOffset+currentTokenStart);
+                            currentTokenStart = i;
+                            glyph_open = false;
+                            if (array.length <= i){
+                                currentTokenType = NULL;
+                                break;
+                            } else {
+                                c = array[i];
+                                switch (c){
+                                    case '[':
+                                        currentTokenType = TAG_DELIMITER;
+                                        break;
+                                    default:
+                                        if (abbreviation_open)
+                                            currentTokenType = ABBREVIATION;
+                                        else
+                                            currentTokenType = TEXT;
+                                } // end switch c
+                            }
+                            break;
+
+                        default:
                             break;
 
                     } // End of switch (c).
@@ -440,12 +560,12 @@ public class RawTokenMaker extends AbstractTokenMaker {
         switch (currentTokenType) {
 
             // Remember what token type to begin the next line with.
-            case Token.COMMENT_MULTILINE:
+            case COMMENT_MULTILINE:
                 addToken(text, currentTokenStart,end-1, currentTokenType, newStartOffset+currentTokenStart);
                 break;
 
             // Do nothing if everything was okay.
-            case Token.NULL:
+            case NULL:
                 addNullToken();
                 break;
 
