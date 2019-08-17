@@ -92,8 +92,8 @@
                               <splitpane position="right"/>
                             </constraints>
                             <properties>
-                              <foldIndicatorEnabled value="true"/>
-                              <lineNumbersEnabled value="true"/>
+                              <foldIndicatorEnabled value="false"/>
+                              <lineNumbersEnabled value="false"/>
                             </properties>
                             <border type="none"/>
                             <children>
@@ -101,7 +101,9 @@
                                 <constraints/>
                                 <properties>
                                   <codeFoldingEnabled value="true"/>
+                                  <currentLineHighlightColor color="-196656"/>
                                   <marginLineEnabled value="false"/>
+                                  <paintMatchedBracketPair value="false"/>
                                 </properties>
                               </component>
                             </children>

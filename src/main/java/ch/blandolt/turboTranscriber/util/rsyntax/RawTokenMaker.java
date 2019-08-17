@@ -230,6 +230,14 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             }
                             break;
 
+                        case ';':
+                        case ':':
+                        case '=':
+                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            currentTokenStart = i;
+                            currentTokenType = Token.OPERATOR;
+                            break;
+
                         case '{':
                         case '[':
                         case '(':
@@ -251,6 +259,43 @@ public class RawTokenMaker extends AbstractTokenMaker {
                         default:
                             addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_DELIMITER, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
+                            if (delimiter_open > 0)
+                                currentTokenType = Token.MARKUP_TAG_NAME;
+                            else
+                                currentTokenType = Token.IDENTIFIER;
+                            break;
+
+                    } // End of switch (c).
+                    break;
+
+                case Token.OPERATOR:
+                    addToken(text, currentTokenStart,i-1, Token.OPERATOR, newStartOffset+currentTokenStart);
+                    currentTokenStart = i;
+
+
+                    switch (c) {
+
+                        case '/':
+                            if (i+1 < array.length && array[i+1] == '*') {
+                                currentTokenType = Token.COMMENT_MULTILINE;
+                            }
+                            break;
+
+                        case '{':
+                        case '[':
+                        case '(':
+                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
+                            delimiter_open++;
+                            break;
+
+                        case '}':
+                        case ']':
+                        case ')':
+                            currentTokenType = Token.MARKUP_TAG_DELIMITER;
+                            delimiter_open--;
+                            break;
+
+                        default:
                             if (delimiter_open > 0)
                                 currentTokenType = Token.MARKUP_TAG_NAME;
                             else
@@ -332,6 +377,14 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_NAME, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             currentTokenType = Token.WHITESPACE;
+                            break;
+
+                        case ';':
+                        case ':':
+                        case '=':
+                            addToken(text, currentTokenStart,i-1, Token.MARKUP_TAG_NAME, newStartOffset+currentTokenStart);
+                            currentTokenStart = i;
+                            currentTokenType = Token.OPERATOR;
                             break;
 
                         case '#':

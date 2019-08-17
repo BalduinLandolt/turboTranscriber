@@ -118,6 +118,9 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener {
         AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
         atmf.putMapping("text/raw", RawTokenMaker.class.getName());
         transcriptionSyntaxTextArea.setSyntaxEditingStyle("text/raw");
+        Font prev = transcriptionSyntaxTextArea.getFont();
+        transcriptionSyntaxTextArea.setFont(new Font(prev.getName(), prev.getStyle(), prev.getSize()+4));
+        // TODO make setting
 
         xmlArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
         xmlArea.setEditable(false);
