@@ -2,6 +2,7 @@ package ch.blandolt.turboTranscriber.util.datastructure;
 
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.*;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
 import org.jdom2.*;
 
 import java.util.List;

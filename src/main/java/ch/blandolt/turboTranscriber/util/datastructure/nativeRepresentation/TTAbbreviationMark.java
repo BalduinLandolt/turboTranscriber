@@ -12,11 +12,18 @@ public class TTAbbreviationMark extends AbstractTranscriptionContainer {
     }
 
     public static LinkedList<AbstractTranscriptionObject> convertTokenClassSpecific(TranscriptionToken am) {
-        List<TranscriptionToken> tokens = Tokenizer.tokenizeAbbreviationMark(am);
         LinkedList<AbstractTranscriptionObject> res = new LinkedList<>();
-        for (TranscriptionToken t: tokens){
-            res.add(AbstractTranscriptionObject.convertToken(t));
-        }
+        res.add(new TTGlyph(new TTPlainTextSegment(am.getText())));
         return res;
     }
+
+
+//    public static LinkedList<AbstractTranscriptionObject> convertTokenClassSpecific(TranscriptionToken am) {
+//        List<TranscriptionToken> tokens = Tokenizer.tokenizeAbbreviationMark(am);
+//        LinkedList<AbstractTranscriptionObject> res = new LinkedList<>();
+//        for (TranscriptionToken t: tokens){
+//            res.add(AbstractTranscriptionObject.convertToken(t));
+//        }
+//        return res;
+//    }
 }

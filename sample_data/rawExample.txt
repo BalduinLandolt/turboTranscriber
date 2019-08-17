@@ -60,7 +60,7 @@ comment
 
 [pb=305]
 
-[lb=1] þitt l(an;)d(;combcurl). {slong}k(al;bar)tu jata m(er;er) j G(uds;us) vitni at þu {slong}k(al;bar)t hall
+[lb=1] þitt l(an;d;combcurl). {slong}k(al;bar)tu jata m(er;er) j G(uds;us) vitni at þu {slong}k(al;bar)t hall
 [lb=2] da hatidliga getnad(ar;rsup) dag mod(ur;ur) k(ri;isup){slong}t{ezh}. Abotin(n;nleg)
 [lb=3] {slong}ua{rrot}(ar;rsup). hv(er;er){slong}u {slong}k(al;bar) ek þ(at;bar) g(er;er)a eda {aalig} hv(er;er)iu(m;bar) degi. b(isku;bar)p
 [lb=4] in {slong}u(ar;ar)ar. {slong}etta jd(us;us) decemb(ri;isup)s. {slong}k(al;bar)tu fy{rscap}{slong}agda
