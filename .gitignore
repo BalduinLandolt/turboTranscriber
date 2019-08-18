@@ -17,3 +17,7 @@
 
 # Log
 log.txt
+
+# Builds
+*.jar
+*.MF
