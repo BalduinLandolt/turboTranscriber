@@ -3,7 +3,7 @@
  */
 package ch.blandolt.turboTranscriber.core;
 
-import ch.blandolt.turboTranscriber.gui.MainGUI;
+import ch.blandolt.turboTranscriber.gui.MainGUIManuallyCreated;
 import ch.blandolt.turboTranscriber.gui.ThumbnailPanel;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Settings;
@@ -47,7 +47,7 @@ import java.util.regex.Pattern;
 public class TurboTranscribeCore {
     private boolean IS_LOCKED = false;
     private boolean REQUESTED_REFRESH = false;
-    private MainGUI gui;
+    private MainGUIManuallyCreated gui;
     private Data data = new Data();
 
     public void thumbnailRequestsActivation(ThumbnailPanel thumbnail) {
@@ -180,7 +180,7 @@ public class TurboTranscribeCore {
     public void run() {
         // TODO: more to do in core.run()?
 
-        gui = new MainGUI(this);
+        gui = new MainGUIManuallyCreated(this);
         // Launch GUI
         SwingUtilities.invokeLater(() -> {
             gui.showMainGUI();

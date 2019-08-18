@@ -6,7 +6,6 @@ package ch.blandolt.turboTranscriber.gui;
 import ch.blandolt.turboTranscriber.util.Log;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
@@ -18,7 +17,6 @@ import java.awt.image.WritableRaster;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 
@@ -32,12 +30,12 @@ public class ThumbnailPanel extends JLabel implements MouseListener {
 	private Border activatedBorder;
 	private Border nonActivatedBorder;
 	private boolean isSelected;
-	private MainGUI owner;
+	private MainGUIManuallyCreated owner;
 
 
 //	 * @param im
 //	 * @param caller
-	public ThumbnailPanel(BufferedImage im, MainGUI owner) {
+	public ThumbnailPanel(BufferedImage im, MainGUIManuallyCreated owner) {
 		this.owner = owner;
 		initialImage = im;
 		scaledImage = scale(im, 100);
