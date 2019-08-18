@@ -72,6 +72,10 @@ public class TurboTranscribeCore {
             requestRefreshWhenUnlocked();
             return;
         }
+        IS_LOCKED = true;
+        REQUESTED_REFRESH = false;
+        long seconds = 5;
+        startTimer(seconds);
 
         long start = System.currentTimeMillis();
         List<TranscriptionToken> tokens = Tokenizer.tokenize(gui.getTranscriptionString());
@@ -94,7 +98,6 @@ public class TurboTranscribeCore {
         Log.log("Building XML took: " +  duration + "ms");
 
         // TODO: transform XML to HTML
-        // TODO: export XML
 
         // TODO: some form of "normalisation" of input?
 
@@ -102,13 +105,10 @@ public class TurboTranscribeCore {
         // TODO: tidy up code
 
         refreshGUI();
-
-        long seconds = 2;
-        startTimer(seconds);
         // TODO: make duration dynamic
     }
 
-    private String beautify(String xml) {
+    private String beautify(String xml) { // TODO: do something with LB and PB
         String res = xml;
         Pattern p = Pattern.compile("(?s)\\<w\\>.*?\\<\\/w\\>");
         Matcher m = p.matcher(xml);
@@ -294,7 +294,7 @@ public class TurboTranscribeCore {
             File f = fc.getSelectedFile();
             List<String> lines_raw = loadRaw(f);
             gui.setRaw(lines_raw);
-            a_transcription_state_changed();
+            //a_transcription_state_changed();
             //refreshGUI();
             // TODO: copy to project?
         } else {

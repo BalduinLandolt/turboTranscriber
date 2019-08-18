@@ -25,6 +25,8 @@ import java.util.List;
  *
  * @author Balduin Landolt
  */
+
+//  TODO: rename eventually
 public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowListener, DocumentListener {
     private JTabbedPane mainTabbedPane;
     private JPanel mainPanel;
@@ -225,12 +227,6 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
 
         bt_zoomIn.addActionListener(e -> zoomIn());
         bt_zoomOut.addActionListener(e -> zoomOut());
-
-        transcriptionSyntaxTextArea.getDocument().addDocumentListener(new DocumentListener() {
-            public void insertUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
-            public void removeUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
-            public void changedUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
-        });
         transcriptionSyntaxTextArea.getDocument().addDocumentListener(this);
         // TODO this is clearly double!
     }
@@ -544,12 +540,12 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        owner.a_transcription_state_changed();
+//        owner.a_transcription_state_changed();
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        owner.a_transcription_state_changed();
+        //owner.a_transcription_state_changed();
     }
 
     @Override
