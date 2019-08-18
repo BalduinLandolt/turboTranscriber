@@ -328,25 +328,16 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
     public void showMainGUI(){
         Log.log("Showing GUI.");
 
-        // TODO: create Thumbnails
-
-        SwingUtilities.invokeLater(() -> {
-            pack();
-            setVisible(true);
-            setExtendedState(MAXIMIZED_BOTH);
-            Log.log("Is window displayable: "+isDisplayable());
-        });
-        SwingUtilities.invokeLater(() -> {
-            setPreferredSize(getSize());
-            pack();
-            mainPanel.setPreferredSize(getSize());
-        });
-        SwingUtilities.invokeLater(() -> {
-            adjustSplitters();
-            refreshEnabledComponents();
-            createThumbnails();
-        });
-
+        pack();
+        setVisible(true);
+        setExtendedState(MAXIMIZED_BOTH);
+        Log.log("Is window displayable: "+isDisplayable());
+        setPreferredSize(getSize());
+        pack();
+        mainPanel.setPreferredSize(getSize());
+        refreshEnabledComponents();
+        createThumbnails();
+        SwingUtilities.invokeLater(() -> adjustSplitters());
     }
 
     public void createThumbnails() {
@@ -376,9 +367,13 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         if (splitpaneGeneral == null)
             return;
         Log.log("Adjusting Splitters.");
+        pack();
 
         splitpaneGeneral.setDividerLocation(0.6);
         splitterXMLStuff.setDividerLocation(0.5);
+        Log.log("Window size: "+getSize());
+        Log.log(splitpaneGeneral.getSize());
+        Log.log(splitpaneGeneral.getDividerLocation());
     }
 
     /**
