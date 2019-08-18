@@ -124,7 +124,7 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         logScroller = new JScrollPane();
         imageContainer = new CustomImagePanel();
         controls = new CustomImagePanel();
-        cropSelected = new JButton();
+        cropSelected = new JButton("Crop Selection");
         pThumbnails = new CustomImagePanel();
         transcriptionContainer = new JPanel();
         leftPanel = new JPanel();
@@ -139,7 +139,7 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         xmlArea = new RSyntaxTextArea();
         bt_zoomIn = new JButton(" + ");
         imagePanel = new CustomImagePanel();
-        inspectImage = new JButton();
+        inspectImage = new JButton("Inspect Image");
 
         // Set Up Window Structure
         setContentPane(mainPanel);
@@ -200,7 +200,20 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         xmlScroller.setLineNumbersEnabled(true);
         xmlScroller.setIconRowHeaderEnabled(true);
 
-        // TODO: image and log view
+        // Build Image Tab
+        imageContainer.setLayout(new BorderLayout());
+        imageContainer.add(imagePanel, BorderLayout.CENTER);
+        imageContainer.add(controls, BorderLayout.EAST);
+        controls.add(cropSelected);
+        controls.add(inspectImage);
+        JScrollPane scrlTmp = new JScrollPane(pThumbnails);
+        imageContainer.add(scrlTmp, BorderLayout.SOUTH);
+        // TODO: beautify at some point
+
+        // Build Log Tab
+        logScroller = new JScrollPane(logTextArea);
+        logPane.setLayout(new BorderLayout());
+        logPane.add(logScroller, BorderLayout.CENTER);
     }
 
     private void handle_listeners() {
