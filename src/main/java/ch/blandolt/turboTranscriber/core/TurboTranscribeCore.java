@@ -121,6 +121,11 @@ public class TurboTranscribeCore {
             replacement = replacement.replace(" <", "<");
             res = res.replace(hit, replacement);
         }
+
+        res = res.replaceAll("[^\\S\\n]*\\<pb ", "\n\n <pb ");
+        res = res.replaceAll("[^\\S\\n]*\\<cb ", "\n  <cb ");
+        res = res.replaceAll("[^\\S\\n]*\\<lb ", "   <lb ");
+
         return res;
     }
 

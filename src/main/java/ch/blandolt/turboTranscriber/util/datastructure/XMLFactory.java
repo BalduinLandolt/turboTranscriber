@@ -10,6 +10,9 @@ import java.util.Map;
 public class XMLFactory {
     private static Namespace ns_TEI = Namespace.getNamespace("http://www.tei-c.org/ns/1.0");
 
+    // FIXME: <lb> often ends up in word tag
+    // FIXME: if a tag surrounds a word (e.g. [name]...[/name]), it ends up in <w>, not around.
+
     // TODO: implement menota
 
     public static Document createTEIXML(List<AbstractTranscriptionObject> data) {
@@ -104,7 +107,9 @@ public class XMLFactory {
             Element e = new Element("pc", ns_TEI);
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(p.getContent().getFirst()));
             return e;
-        } else if (tr instanceof TTTag){ // TODO: special cases! should result in <div type="miracle" n="000">, not <miracle XXXXX="000">
+        } else if (tr instanceof TTTag){
+            // TODO: special cases! should result in <div type="miracle" n="000">, not <miracle XXXXX="000">
+            //      - probably better to move look-up to the TTTag construction
             TTTag t = (TTTag)tr;
             if (t == null || t.getTagName().isEmpty())
                 return null;
