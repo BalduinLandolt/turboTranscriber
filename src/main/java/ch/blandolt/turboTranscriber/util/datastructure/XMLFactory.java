@@ -2,7 +2,6 @@ package ch.blandolt.turboTranscriber.util.datastructure;
 
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.*;
-import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
 import org.jdom2.*;
 
 import java.util.List;
@@ -111,7 +110,8 @@ public class XMLFactory {
                 return null;
             Element e = new Element(t.getTagName(), ns_TEI);
             for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
-                e.setAttribute(attribute.getKey(),attribute.getValue());
+                Map.Entry<String, String> attr_lookedup = XMLLookup.lookUpAttribute(t.getTagName(), attribute);
+                e.setAttribute(attr_lookedup.getKey(),attr_lookedup.getValue());
             }
             for (AbstractTranscriptionObject o: t.getContent()){
                 e.addContent(XMLFactory.generateXMLFromTranscriptionObject(o));
