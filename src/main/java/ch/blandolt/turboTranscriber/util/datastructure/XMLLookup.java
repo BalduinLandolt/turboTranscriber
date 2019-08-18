@@ -30,6 +30,18 @@ public class XMLLookup {
                     key = "n";
                 break;
 
+            case "supplied":
+                key = "reason";
+                break;
+
+            case "hi":
+                key = "rend";
+                break;
+
+            case "name":
+                key = "type";
+                break;
+
             default:
                 key = "unknownKey";
                 Log.log("!!! Warning: undefined Attribute in tag '"+name+"': ??? = "+val);
