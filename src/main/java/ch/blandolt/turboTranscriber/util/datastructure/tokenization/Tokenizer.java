@@ -437,12 +437,23 @@ public class Tokenizer {
         return res;
     }
 
-    public static List<TranscriptionToken> tokenizeAbbreviationMark(TranscriptionToken am) {
-        List<Tokenizable> l = extractGlyphs(Arrays.asList(am));
-        l = extractTextFragments(l);
+    public static List<TranscriptionToken> tokenizeExpansion(String text) {
+        List<Tokenizable> tokens = new LinkedList<>();
+        tokens.add(new TokenizableText(text));
+        tokens = extractGlyphs(tokens);
+        tokens = extractTextFragments(tokens);
 
-        ArrayList<TranscriptionToken> tokens_finished = castToTranscriptionTokens(l);
+        ArrayList<TranscriptionToken> tokens_finished = castToTranscriptionTokens(tokens);
 
         return tokens_finished;
     }
+//
+//    public static List<TranscriptionToken> tokenizeAbbreviationMark(TranscriptionToken am) {
+//        List<Tokenizable> l = extractGlyphs(Arrays.asList(am));
+//        l = extractTextFragments(l);
+//
+//        ArrayList<TranscriptionToken> tokens_finished = castToTranscriptionTokens(l);
+//
+//        return tokens_finished;
+//    }
 }

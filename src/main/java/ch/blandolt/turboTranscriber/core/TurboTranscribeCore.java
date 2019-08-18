@@ -180,9 +180,11 @@ public class TurboTranscribeCore {
     public void run() {
         // TODO: more to do in core.run()?
 
+        gui = new MainGUI(this);
         // Launch GUI
-        SwingUtilities.invokeLater(() -> gui = new MainGUI(this));
-        SwingUtilities.invokeLater(() -> gui.showMainGUI());
+        SwingUtilities.invokeLater(() -> {
+            gui.showMainGUI();
+        });
     }
 
     /**

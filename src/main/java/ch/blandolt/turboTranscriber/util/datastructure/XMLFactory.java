@@ -2,6 +2,7 @@ package ch.blandolt.turboTranscriber.util.datastructure;
 
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.*;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
 import org.jdom2.*;
 
 import java.util.List;
@@ -63,6 +64,7 @@ public class XMLFactory {
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getExpansion()));
             if (expan.hasInfix())
                 e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
+            // TODO: infix does not seem to work correctly
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getAbbreviationMark()));
             return e;
         } else if (tr instanceof TTAbbreviationMark){
@@ -85,7 +87,9 @@ public class XMLFactory {
         } else if (tr instanceof TTExpansion){
             TTExpansion ex = (TTExpansion)tr;
             Element e = new Element("ex", ns_TEI);
-            e.addContent(new Text(ex.toString()));
+            for (AbstractTranscriptionObject o: ex.getContent()){
+                e.addContent(XMLFactory.generateXMLFromTranscriptionObject(o));
+            }
             return e;
         } else if (tr instanceof TTGlyph){
             TTGlyph g = (TTGlyph)tr;
@@ -103,6 +107,8 @@ public class XMLFactory {
             return e;
         } else if (tr instanceof TTTag){ // TODO: special cases! should result in <div type="miracle" n="000">, not <miracle XXXXX="000">
             TTTag t = (TTTag)tr;
+            if (t == null || t.getTagName().isEmpty())
+                return null;
             Element e = new Element(t.getTagName(), ns_TEI);
             for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
                 e.setAttribute(attribute.getKey(),attribute.getValue());
