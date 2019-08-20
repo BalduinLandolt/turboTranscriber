@@ -4,10 +4,7 @@ import ch.blandolt.turboTranscriber.core.TurboTranscribeCore;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Loggable;
 import ch.blandolt.turboTranscriber.util.rsyntax.RawTokenMaker;
-import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
-import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
-import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
+import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
@@ -17,6 +14,8 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -186,6 +185,18 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
         atmf.putMapping("text/raw", RawTokenMaker.class.getName());
         transcriptionSyntaxTextArea.setSyntaxEditingStyle("text/raw");
+
+        try {
+            // TODO: make this a setting. make all of the UI according, not just the text area
+            String path = "theme_light.xml";
+            //String path = "theme_dark.xml";
+            Log.log(getClass());
+            InputStream in = getClass().getClassLoader().getResourceAsStream(path);
+            Theme theme = Theme.load(in);
+            theme.apply(transcriptionSyntaxTextArea);
+        } catch (IOException ioe) { // Never happens
+            ioe.printStackTrace();
+        }
         //transcriptionSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_C);
         Font prev = transcriptionSyntaxTextArea.getFont();
         transcriptionSyntaxTextArea.setBracketMatchingEnabled(true);
