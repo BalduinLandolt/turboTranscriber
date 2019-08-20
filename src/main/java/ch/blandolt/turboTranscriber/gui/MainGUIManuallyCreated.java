@@ -186,9 +186,13 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
         atmf.putMapping("text/raw", RawTokenMaker.class.getName());
         transcriptionSyntaxTextArea.setSyntaxEditingStyle("text/raw");
+        //transcriptionSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_C);
         Font prev = transcriptionSyntaxTextArea.getFont();
         transcriptionSyntaxTextArea.setBracketMatchingEnabled(true);
         transcriptionSyntaxTextArea.setPaintMatchedBracketPair(true);
+        transcriptionSyntaxTextArea.setShowMatchedBracketPopup(true);
+        transcriptionSyntaxTextArea.setAnimateBracketMatching(true);
+        // TODO: get this to work!
         transcriptionSyntaxTextArea.setFont(new Font(prev.getName(), prev.getStyle(), prev.getSize()+4));
         // TODO make font size a setting
 
