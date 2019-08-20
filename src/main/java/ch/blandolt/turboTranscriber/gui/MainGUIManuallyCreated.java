@@ -187,6 +187,8 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         atmf.putMapping("text/raw", RawTokenMaker.class.getName());
         transcriptionSyntaxTextArea.setSyntaxEditingStyle("text/raw");
         Font prev = transcriptionSyntaxTextArea.getFont();
+        transcriptionSyntaxTextArea.setBracketMatchingEnabled(true);
+        transcriptionSyntaxTextArea.setPaintMatchedBracketPair(true);
         transcriptionSyntaxTextArea.setFont(new Font(prev.getName(), prev.getStyle(), prev.getSize()+4));
         // TODO make font size a setting
 
