@@ -279,14 +279,14 @@ public class RawTokenMaker extends AbstractTokenMaker {
                         case '(':
                             addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = ABBREVIATION;
+                            currentTokenType = BRACKET;
                             abbreviation_open = true;
                             break;
 
                         case '{':
                             addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = GLYPH;
+                            currentTokenType = BRACKET;
                             glyph_open = true;
                             break;
 
