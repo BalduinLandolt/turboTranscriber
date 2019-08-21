@@ -14,9 +14,9 @@
 
     <!--  General editor colors. -->
     <background color="ffffff" />
-    <caret color="c1cbc2" />
+    <caret color="bbaaaa" />
     <selection useFG="false" bg="d4e4ff" roundedEdges="false" />
-    <currentLineHighlight color="dddddd" fade="false" />
+    <currentLineHighlight color="dfdfdf" fade="false" />
     <marginLine fg="394448" />
     <markAllHighlight color="6b8189" />
     <!-- TODO: Fix me -->
