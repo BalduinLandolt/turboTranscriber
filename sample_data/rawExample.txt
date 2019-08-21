@@ -6,8 +6,7 @@
 [lb=6] [head] hv(er;er){slong}u t(il;isup) ko(m;bar) (con;condes)cep(t;bar)io. [/head]
 [p]
 
-[lb=7] [hi=2] [supplied=omitted] A [/supplied] [/hi] Þ(ei;bar)m tima {slong}(e;bar)m [name=person] vilhialm(ur;ur) [/name] ba{slong}t(ar;rsup)d{rrot} h(er;er)
-[lb=8] tugi no{rrot}ma(nn;ndot)ie lagdi vnd(ir;er) s(ik;csup) [name=place] engl(an;)d(;combcurl) [/name]
+[lb=7] [hi=2] [supplied=omitted] A [/supplied] [/hi] Þ(ei;bar)m tima {slong}(e;bar)m [name=person] vilhialm(ur;ur) [/name] ba{slong}t(ar;rsup)d{rrot} h(er;er)[lb=8]tugi no{rrot}ma(nn;ndot)ie lagdi vnd(ir;er) s(ik;csup) [name=place] engl(an;)d(;combcurl) [/name]
 [lb=9] v(ar;rsup) {slong}a aboti e(r;er) [name=person] elphin(us;us) [/name] het. i k(ir;bar)kiu heilags [name=person] aug(us;us)
 [lb=10] tini [/name] b(isku;bar)ps {aalig} [name=place] engl(an;)d(;combcurl)i [/name] j hu(er;er){rrot}i {slong}ialf(ur;ur) h(an;bar)n (ok;et) h(an;bar)s ept(ir;er)
 [lb=11] kom(en;bar)d{rrot} b(isku;bar)p(ar;rsup)n(ir;er) huila. S(e;bar)m [name=org] dan(ir;er) [/name] hey(ra;ra) at [name=org] engl(an;)d(;combcurl)
