@@ -290,6 +290,13 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             glyph_open = true;
                             break;
 
+                        case '[':
+                            addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
+                            currentTokenStart = i;
+                            currentTokenType = BRACKET;
+                            tag_open = true;
+                            break;
+
                         default:
                             addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
                             currentTokenStart = i;

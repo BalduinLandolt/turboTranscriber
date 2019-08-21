@@ -6,16 +6,17 @@
 [lb=6] [head] hv(er;er){slong}u t(il;isup) ko(m;bar) (con;condes)cep(t;bar)io. [/head]
 [p]
 
-[lb=7] [hi=2] [supplied=omitted] A [/supplied] [/hi] Þ(ei;bar)m tima {slong}(e;bar)m [name=person] vilhialm(ur;ur) [/name] ba{slong}t(ar;rsup)d{rrot} h(er;er)[lb=8]tugi no{rrot}ma(nn;ndot)ie lagdi vnd(ir;er) s(ik;csup) [name=place] engl(an;)d(;combcurl) [/name]
-[lb=9] v(ar;rsup) {slong}a aboti e(r;er) [name=person] elphin(us;us) [/name] het. i k(ir;bar)kiu heilags [name=person] aug(us;us)
-[lb=10] tini [/name] b(isku;bar)ps {aalig} [name=place] engl(an;)d(;combcurl)i [/name] j hu(er;er){rrot}i {slong}ialf(ur;ur) h(an;bar)n (ok;et) h(an;bar)s ept(ir;er)
-[lb=11] kom(en;bar)d{rrot} b(isku;bar)p(ar;rsup)n(ir;er) huila. S(e;bar)m [name=org] dan(ir;er) [/name] hey(ra;ra) at [name=org] engl(an;)d(;combcurl)
-[lb=12] e(r;er) [/name] vn(n;bar)it af [name=org] no{rrot}man(n;bar)is [/name] : bua þ(ei;bar){rrot} {slong}in vopn (ok;et) h(er;er){slong}k
-[lb=13] ap at þ(ei;bar){rrot} f(ar;rsup)i t(il;isup) [name=place] engl(an;)d(;combcurl){ezh} [/name] (ok;et) {rscap}æki þa {aalig} b(ro;osup)tt. En(n;dot)
-[lb=14] e(r;er) hin(n;nleg) mattuga{ezh}ti no{rrot}dm(anna;saup) h(er;er)tugi [name=person] vilhjalm(ur;ur) [/name]
-[lb=15] hey{rrot}(ir;er) þ(at;bar). {slong}end(ir;er) h(an;bar)n fy{rscap}{slong}agd(an;nsup). abota [name=person] elphinu(m;bar) [/name] j
-[lb=16] [name=place] danm(or;osup)k [/name] at h(an;bar)n fo{rrot}vitnad(i{ezh}t;zsup) hu(or;osup)t {slong}aun(n;dot) v(ær;er)i þ(es;bar)si
-[lb=17] [catch] h(er;er){slong}aga [/catch]
+[lb=7] [hi=2][supplied=omitted]A[/supplied][/hi] Þ(ei;bar)m tima {slong}(e;bar)m [name=person]vilhialm(ur;ur)[/name] ba{slong}t(ar;rsup)d{rrot} h(er;er)
+[lb=8]tugi no{rrot}ma(nn;ndot)ie lagdi vnd(ir;er) s(ik;csup) [name=place]engl(an;)d(;combcurl)[/name]
+[lb=9] v(ar;rsup) {slong}a aboti e(r;er) [name=person]elphin(us;us)[/name] het. i k(ir;bar)kiu heilags [name=person]aug(us;us)
+[lb=10]tini[/name] b(isku;bar)ps {aalig} [name=place]engl(an;)d(;combcurl)i[/name] j hu(er;er){rrot}i {slong}ialf(ur;ur) h(an;bar)n (ok;et) h(an;bar)s ept(ir;er)
+[lb=11] kom(en;bar)d{rrot} b(isku;bar)p(ar;rsup)n(ir;er) huila. S(e;bar)m [name=org]dan(ir;er)[/name] hey(ra;ra) at [name=org]engl(an;)d(;combcurl)
+[lb=12]e(r;er)[/name] vn(n;bar)it af [name=org]no{rrot}man(n;bar)is[/name] : bua þ(ei;bar){rrot} {slong}in vopn (ok;et) h(er;er){slong}k
+[lb=13]ap at þ(ei;bar){rrot} f(ar;rsup)i t(il;isup) [name=place]engl(an;)d(;combcurl){ezh}[/name] (ok;et) {rscap}æki þa {aalig} b(ro;osup)tt. En(n;dot)
+[lb=14] e(r;er) hin(n;nleg) mattuga{ezh}ti no{rrot}dm(anna;saup) h(er;er)tugi [name=person]vilhjalm(ur;ur)[/name]
+[lb=15] hey{rrot}(ir;er) þ(at;bar). {slong}end(ir;er) h(an;bar)n fy{rscap}{slong}agd(an;nsup). abota [name=person]elphinu(m;bar)[/name] j
+[lb=16] [name=place]danm(or;osup)k[/name] at h(an;bar)n fo{rrot}vitnad(i{ezh}t;zsup) hu(or;osup)t {slong}aun(n;dot) v(ær;er)i þ(es;bar)si
+[lb=17] [catch]h(er;er){slong}aga[/catch]
 
 # nothing changed below this line
 

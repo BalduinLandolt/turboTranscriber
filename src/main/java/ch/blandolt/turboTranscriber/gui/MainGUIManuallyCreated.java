@@ -547,8 +547,11 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
     }
 
     public void setXML(String string){
+        int y = xmlScroller.getViewport().getViewPosition().y;
+        Log.log(y);
+        // FIXME: doesn't work
         xmlArea.setText(string);
-        // TODO: is there a better way, component-specific?
+        xmlScroller.getViewport().setViewPosition(new Point(0, y));
     }
 
     public String getXMLString() {

@@ -119,7 +119,9 @@ public class XMLFactory {
                 e.setAttribute(attr_lookedup.getKey(),attr_lookedup.getValue());
             }
             for (AbstractTranscriptionObject o: t.getContent()){
-                e.addContent(XMLFactory.generateXMLFromTranscriptionObject(o));
+                Content c = XMLFactory.generateXMLFromTranscriptionObject(o);
+                if (c != null)
+                    e.addContent(c);
             }
             return e;
         } else if (tr instanceof TTTextSegment){
