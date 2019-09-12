@@ -61,6 +61,8 @@ public class XMLFactory {
 
     private static Content generateXMLFromTranscriptionObject(AbstractTranscriptionObject tr) {
         if (tr instanceof TTAbbreviation){
+            // TODO: is <expan> correct? or do I need both <expan> and <abbr>?
+            // TODO: needs choice in any case!
             TTAbbreviation expan = (TTAbbreviation)tr;
             Element e = new Element("expan", ns_TEI);
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getExpansion()));
