@@ -111,6 +111,7 @@ public class XMLFactory {
             return e;
         } else if (tr instanceof TTTag){
             // TODO: special cases! should result in <div type="miracle" n="000">, not <miracle XXXXX="000">
+            //      - equally: <fw type="catch"> instead of <catch>
             //      - probably better to move look-up to the TTTag construction
             TTTag t = (TTTag)tr;
             if (t == null || t.getTagName().isEmpty())
