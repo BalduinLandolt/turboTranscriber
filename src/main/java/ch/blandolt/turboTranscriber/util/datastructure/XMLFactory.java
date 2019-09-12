@@ -148,9 +148,37 @@ public class XMLFactory {
 
         Element fileDesc = new Element("fileDesc", ns_TEI);
         teiHeader.addContent(fileDesc);
+        Element titleStmt = new Element("titleStmt", ns_TEI);
+        fileDesc.addContent(titleStmt);
+        Element title = new Element("title", ns_TEI);
+        titleStmt.addContent(title);
+        Text txt = new Text("[Title]");
+        title.addContent(txt);
+        // TODO: add Title information
+        Element publicationStmt = new Element("publicationStmt", ns_TEI);
+        fileDesc.addContent(publicationStmt);
+        Element p = new Element("p", ns_TEI);
+        publicationStmt.addContent(p);
+        txt = new Text("[Publication Statement]");
+        p.addContent(txt);
+        // TODO: add publ. information
+        Element sourceDesc = new Element("sourceDesc", ns_TEI);
+        fileDesc.addContent(sourceDesc);
+        p = new Element("p", ns_TEI);
+        sourceDesc.addContent(p);
+        txt = new Text("[Publication Statement]");
+        p.addContent(txt);
+        // TODO: add publ. information
+
 
         Element encodingDesc = new Element("encodingDesc", ns_TEI);
         teiHeader.addContent(encodingDesc);
+        p = new Element("p", ns_TEI);
+        encodingDesc.addContent(p);
+        txt = new Text("[source description]");
+        p.addContent(txt);
+        // TODO: add encoding information
+
 
         // TODO: add more elements, to get valid tei header
 
