@@ -187,7 +187,10 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         transcriptionSyntaxTextArea.setSyntaxEditingStyle("text/raw");
 
         try {
-            // TODO: make this a setting. make all of the UI according, not just the text area
+            // TODO: make this a setting
+            // TODO: make all of the UI according, not just the text area
+            // TODO: ensure loading in jars (might not work, not sure)
+
             String path = "theme_light.xml";
             //String path = "theme_dark.xml";
             Log.log(getClass());
@@ -550,6 +553,8 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         int y = xmlScroller.getViewport().getViewPosition().y;
         Log.log(y);
         // FIXME: doesn't work
+
+        // TODO: try with caret position instead of scroller position
         xmlArea.setText(string);
         xmlScroller.getViewport().setViewPosition(new Point(0, y));
     }
