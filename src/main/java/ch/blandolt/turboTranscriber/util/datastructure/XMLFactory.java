@@ -2,7 +2,6 @@ package ch.blandolt.turboTranscriber.util.datastructure;
 
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.*;
-import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
 import org.jdom2.*;
 
 import java.util.List;
@@ -10,6 +9,9 @@ import java.util.Map;
 
 public class XMLFactory {
     private static Namespace ns_TEI = Namespace.getNamespace("http://www.tei-c.org/ns/1.0");
+
+    // FIXME: <lb> often ends up in word tag
+    // FIXME: if a tag surrounds a word (e.g. [name]...[/name]), it ends up in <w>, not around.
 
     // TODO: implement menota
 
@@ -105,16 +107,21 @@ public class XMLFactory {
             Element e = new Element("pc", ns_TEI);
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(p.getContent().getFirst()));
             return e;
-        } else if (tr instanceof TTTag){ // TODO: special cases! should result in <div type="miracle" n="000">, not <miracle XXXXX="000">
+        } else if (tr instanceof TTTag){
+            // TODO: special cases! should result in <div type="miracle" n="000">, not <miracle XXXXX="000">
+            //      - probably better to move look-up to the TTTag construction
             TTTag t = (TTTag)tr;
             if (t == null || t.getTagName().isEmpty())
                 return null;
             Element e = new Element(t.getTagName(), ns_TEI);
             for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
-                e.setAttribute(attribute.getKey(),attribute.getValue());
+                Map.Entry<String, String> attr_lookedup = XMLLookup.lookUpAttribute(t.getTagName(), attribute);
+                e.setAttribute(attr_lookedup.getKey(),attr_lookedup.getValue());
             }
             for (AbstractTranscriptionObject o: t.getContent()){
-                e.addContent(XMLFactory.generateXMLFromTranscriptionObject(o));
+                Content c = XMLFactory.generateXMLFromTranscriptionObject(o);
+                if (c != null)
+                    e.addContent(c);
             }
             return e;
         } else if (tr instanceof TTTextSegment){

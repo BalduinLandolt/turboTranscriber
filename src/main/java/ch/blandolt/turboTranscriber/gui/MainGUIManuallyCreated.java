@@ -4,10 +4,7 @@ import ch.blandolt.turboTranscriber.core.TurboTranscribeCore;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Loggable;
 import ch.blandolt.turboTranscriber.util.rsyntax.RawTokenMaker;
-import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
-import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
-import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
+import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
@@ -17,6 +14,8 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +24,8 @@ import java.util.List;
  *
  * @author Balduin Landolt
  */
+
+//  TODO: rename eventually
 public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowListener, DocumentListener {
     private JTabbedPane mainTabbedPane;
     private JPanel mainPanel;
@@ -184,7 +185,28 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
         atmf.putMapping("text/raw", RawTokenMaker.class.getName());
         transcriptionSyntaxTextArea.setSyntaxEditingStyle("text/raw");
+
+        try {
+            // TODO: make this a setting
+            // TODO: make all of the UI according, not just the text area
+            // TODO: ensure loading in jars (might not work, not sure)
+
+            String path = "theme_light.xml";
+            //String path = "theme_dark.xml";
+            Log.log(getClass());
+            InputStream in = getClass().getClassLoader().getResourceAsStream(path);
+            Theme theme = Theme.load(in);
+            theme.apply(transcriptionSyntaxTextArea);
+        } catch (IOException ioe) { // Never happens
+            ioe.printStackTrace();
+        }
+        //transcriptionSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_C);
         Font prev = transcriptionSyntaxTextArea.getFont();
+        transcriptionSyntaxTextArea.setBracketMatchingEnabled(true);
+        transcriptionSyntaxTextArea.setPaintMatchedBracketPair(true);
+        transcriptionSyntaxTextArea.setShowMatchedBracketPopup(true);
+        transcriptionSyntaxTextArea.setAnimateBracketMatching(true);
+        // TODO: get this to work!
         transcriptionSyntaxTextArea.setFont(new Font(prev.getName(), prev.getStyle(), prev.getSize()+4));
         // TODO make font size a setting
 
@@ -225,12 +247,6 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
 
         bt_zoomIn.addActionListener(e -> zoomIn());
         bt_zoomOut.addActionListener(e -> zoomOut());
-
-        transcriptionSyntaxTextArea.getDocument().addDocumentListener(new DocumentListener() {
-            public void insertUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
-            public void removeUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
-            public void changedUpdate(DocumentEvent e) {owner.a_xmlArea_state_changed();}
-        });
         transcriptionSyntaxTextArea.getDocument().addDocumentListener(this);
         // TODO this is clearly double!
     }
@@ -534,8 +550,13 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
     }
 
     public void setXML(String string){
+        int y = xmlScroller.getViewport().getViewPosition().y;
+        Log.log(y);
+        // FIXME: doesn't work
+
+        // TODO: try with caret position instead of scroller position
         xmlArea.setText(string);
-        // TODO: is there a better way, component-specific?
+        xmlScroller.getViewport().setViewPosition(new Point(0, y));
     }
 
     public String getXMLString() {
@@ -544,12 +565,12 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        owner.a_transcription_state_changed();
+//        owner.a_transcription_state_changed();
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        owner.a_transcription_state_changed();
+        //owner.a_transcription_state_changed();
     }
 
     @Override

@@ -145,6 +145,9 @@ public class Tokenizer {
             if (t instanceof TokenizableText) {
                 String s = t.getText();
                 s = s.replace(" ", " ___wordborder___ ");
+                while (s.contains(" ___wordborder___  ___wordborder___ ")){
+                    s = s.replace(" ___wordborder___  ___wordborder___ ", " ___wordborder___ ");
+                }
                 String[] ss = s.split(" ");
                 for (String substr: ss){
                     if (substr.equals("___wordborder___")){

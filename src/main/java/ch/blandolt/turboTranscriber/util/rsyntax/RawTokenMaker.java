@@ -9,7 +9,7 @@ import javax.swing.text.Segment;
 public class RawTokenMaker extends AbstractTokenMaker {
     private static final int NULL = Token.NULL;
     private static final int WHITESPACE = Token.WHITESPACE;
-    private static final int TAG_DELIMITER = Token.MARKUP_TAG_DELIMITER;
+    private static final int BRACKET = Token.SEPARATOR;
     private static final int ABBREVIATION = Token.REGEX;
     private static final int COMMENT_EOL = Token.COMMENT_EOL;
     private static final int COMMENT_MULTILINE = Token.COMMENT_MULTILINE;
@@ -82,17 +82,17 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             break;
 
                         case '[':
-                            currentTokenType = TAG_DELIMITER;
+                            currentTokenType = BRACKET;
                             tag_open = true;
                             break;
 
                         case '(':
-                            currentTokenType = ABBREVIATION;
+                            currentTokenType = BRACKET;
                             abbreviation_open = true;
                             break;
 
                         case '{':
-                            currentTokenType = GLYPH;
+                            currentTokenType = BRACKET;
                             glyph_open = true;
                             break;
 
@@ -129,28 +129,28 @@ public class RawTokenMaker extends AbstractTokenMaker {
                         case '[':
                             addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = TAG_DELIMITER;
+                            currentTokenType = BRACKET;
                             tag_open = true;
                             break;
 
-                        case ']':
+                        case ']': //in theory, this should never happen
                             addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = TAG_DELIMITER;
+                            currentTokenType = BRACKET;
                             tag_open = false;
                             break;
 
                         case '(':
                             addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = ABBREVIATION;
+                            currentTokenType = BRACKET;
                             abbreviation_open = true;
                             break;
 
                         case '{':
                             addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = GLYPH;
+                            currentTokenType = BRACKET;
                             glyph_open = true;
                             break;
 
@@ -158,7 +158,7 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             addToken(text, currentTokenStart,i-1, WHITESPACE, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             if (tag_open)
-                                currentTokenType = TAG_NAME;
+                                currentTokenType = TAG_NAME; // should not happen
                             else
                                 currentTokenType = TEXT;
                             break;
@@ -196,28 +196,28 @@ public class RawTokenMaker extends AbstractTokenMaker {
                         case '[':
                             addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = TAG_DELIMITER;
+                            currentTokenType = BRACKET;
                             tag_open = true;
                             break;
 
-                        case ']':
+                        case ']': //should not happen
                             addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = TAG_DELIMITER;
+                            currentTokenType = BRACKET;
                             tag_open = false;
                             break;
 
                         case '(':
                             addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = ABBREVIATION;
+                            currentTokenType = BRACKET;
                             abbreviation_open = true;
                             break;
 
                         case '{':
                             addToken(text, currentTokenStart,i-1, TEXT, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = GLYPH;
+                            currentTokenType = BRACKET;
                             glyph_open = true;
                             break;
 
@@ -236,26 +236,26 @@ public class RawTokenMaker extends AbstractTokenMaker {
 
                     break;
 
-                case TAG_DELIMITER:
+                case BRACKET:
 
                     switch (c) {
 
                         case ' ':
                         case '\t':
-                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             currentTokenType = WHITESPACE;
                             break;
 
                         case '#':
-                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             currentTokenType = COMMENT_EOL;
                             break;
 
                         case '/':
                             if (i+1 < array.length && array[i+1] == '*') {
-                                addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
+                                addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
                                 currentTokenStart = i;
                                 currentTokenType = COMMENT_MULTILINE;
                             }
@@ -264,37 +264,48 @@ public class RawTokenMaker extends AbstractTokenMaker {
                         case ';':
                         case ':':
                         case '=':
-                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             currentTokenType = Token.OPERATOR;
                             break;
 
                         case ']':
-                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = TAG_DELIMITER;
+                            currentTokenType = BRACKET;
                             tag_open = false;
                             break;
 
                         case '(':
-                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = ABBREVIATION;
+                            currentTokenType = BRACKET;
                             abbreviation_open = true;
                             break;
 
                         case '{':
-                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = GLYPH;
+                            currentTokenType = BRACKET;
                             glyph_open = true;
                             break;
 
+                        case '[':
+                            addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
+                            currentTokenStart = i;
+                            currentTokenType = BRACKET;
+                            tag_open = true;
+                            break;
+
                         default:
-                            addToken(text, currentTokenStart,i-1, TAG_DELIMITER, newStartOffset+currentTokenStart);
+                            addToken(text, currentTokenStart,i-1, BRACKET, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             if (tag_open)
                                 currentTokenType = TAG_NAME;
+                            else if (glyph_open)
+                                currentTokenType = GLYPH;
+                            else if (abbreviation_open)
+                                currentTokenType = ABBREVIATION;
                             else
                                 currentTokenType = TEXT;
                             break;
@@ -316,23 +327,33 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             break;
 
                         case '[':
-                            currentTokenType = TAG_DELIMITER;
+                            currentTokenType = BRACKET;
                             tag_open = true;
                             break;
 
                         case ']':
-                            currentTokenType = TAG_DELIMITER;
+                            currentTokenType = BRACKET;
                             tag_open = false;
                             break;
 
                         case '(':
-                            currentTokenType = ABBREVIATION;
+                            currentTokenType = BRACKET;
                             abbreviation_open = true;
                             break;
 
                         case '{':
-                            currentTokenType = GLYPH;
+                            currentTokenType = BRACKET;
                             glyph_open = true;
+                            break;
+
+                        case ')':
+                            currentTokenType = BRACKET;
+                            abbreviation_open = false;
+                            break;
+
+                        case '}':
+                            currentTokenType = BRACKET;
+                            glyph_open = false;
                             break;
 
                         default:
@@ -381,23 +402,33 @@ public class RawTokenMaker extends AbstractTokenMaker {
                                 break;
 
                             case '[':
-                                currentTokenType = TAG_DELIMITER;
+                                currentTokenType = BRACKET;
                                 tag_open = true;
                                 break;
 
                             case ']':
-                                currentTokenType = TAG_DELIMITER;
+                                currentTokenType = BRACKET;
                                 tag_open = false;
                                 break;
 
                             case '(':
-                                currentTokenType = ABBREVIATION;
+                                currentTokenType = BRACKET;
                                 abbreviation_open = true;
                                 break;
 
                             case '{':
-                                currentTokenType = GLYPH;
+                                currentTokenType = BRACKET;
                                 glyph_open = true;
+                                break;
+
+                            case ')':
+                                currentTokenType = BRACKET;
+                                abbreviation_open = false;
+                                break;
+
+                            case '}':
+                                currentTokenType = BRACKET;
+                                glyph_open = false;
                                 break;
 
                             default:
@@ -450,7 +481,7 @@ public class RawTokenMaker extends AbstractTokenMaker {
                         case ']':
                             addToken(text, currentTokenStart,i-1, TAG_NAME, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = TAG_DELIMITER;
+                            currentTokenType = BRACKET;
                             tag_open = false;
                             break;
 
@@ -483,27 +514,29 @@ public class RawTokenMaker extends AbstractTokenMaker {
                         case '{':
                             addToken(text, currentTokenStart,i-1, ABBREVIATION, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
-                            currentTokenType = GLYPH;
+                            currentTokenType = BRACKET;
+                            glyph_open = true;
                             break;
 
                         case ')':
-                            i++;
+                            //i++;
                             addToken(text, currentTokenStart,i-1, ABBREVIATION, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             abbreviation_open= false;
-                            if (array.length <= i){
+                            currentTokenType = BRACKET;
+                            /*if (array.length <= i){
                                 currentTokenType = NULL;
                                 break;
                             } else {
                                 c = array[i];
                                 switch (c){
                                     case '[':
-                                        currentTokenType = TAG_DELIMITER;
+                                        currentTokenType = BRACKET;
                                         break;
                                     default:
                                         currentTokenType = TEXT;
                                 } // end switch c
-                            }
+                            }*/
                             break;
 
                         default:
@@ -526,18 +559,19 @@ public class RawTokenMaker extends AbstractTokenMaker {
                             break;
 
                         case '}':
-                            i++;
+                            //i++;
                             addToken(text, currentTokenStart,i-1, GLYPH, newStartOffset+currentTokenStart);
                             currentTokenStart = i;
                             glyph_open = false;
-                            if (array.length <= i){
+                            currentTokenType = BRACKET;
+                            /*if (array.length <= i){
                                 currentTokenType = NULL;
                                 break;
                             } else {
                                 c = array[i];
                                 switch (c){
                                     case '[':
-                                        currentTokenType = TAG_DELIMITER;
+                                        currentTokenType = BRACKET;
                                         break;
                                     default:
                                         if (abbreviation_open)
@@ -545,7 +579,7 @@ public class RawTokenMaker extends AbstractTokenMaker {
                                         else
                                             currentTokenType = TEXT;
                                 } // end switch c
-                            }
+                            }*/
                             break;
 
                         default:
