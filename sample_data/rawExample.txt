@@ -1,4 +1,22 @@
 # A transcription of Miracle 155 by ???; reworked by B.L.
+
+
+
+/*
+
+Notes for Rules:
+================
+
+- Tags, that are within <w> are directly next to the word; no blank space.
+
+- New Line in raw does not indicate a word border
+
+- tags with blank space are outside <w>
+
+*/
+
+
+
 [miracle=155]
 
 [pb=303]
