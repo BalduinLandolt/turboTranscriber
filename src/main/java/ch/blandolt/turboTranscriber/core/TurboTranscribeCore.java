@@ -331,8 +331,42 @@ public class TurboTranscribeCore {
      */
     public void am_save_as() {
         Log.log("Action: Save As");
-        // TODO: Implement
+
+        // TODO: Add concept of "current file I'm working on".
+        //      that would change, when doing save_as or import; and it would define,
+        //      where save saves the data to.
+
+        // TODO: Add concept of saved/unsaved changes
+
+
+        JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File("./sample_data"));
+        fc.setFileFilter(new FileNameExtensionFilter("Raw", "txt", "raw"));
+        fc.setMultiSelectionEnabled(false);
+        int returnVal = fc.showSaveDialog(gui);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();
+            if (!f.getName().endsWith(".txt"))
+                f = new File(f.getPath() + ".txt");
+            try {
+                Files.write(Paths.get(f.toURI()), gui.getTranscriptionString().getBytes());
+                // TODO: make this optional
+                if (Desktop.isDesktopSupported()) {
+                    Desktop d = Desktop.getDesktop();
+                    d.open(f);
+                }
+                Log.log("Exported Raw to File: "+f.getPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.log(e.getStackTrace());
+            }
+
+            // TODO: handle overwrite etc.
+        } else {
+            Log.log("Aborted.");
+        }
     }
+
 
     /**
      * Action (Menu): Close
