@@ -19,6 +19,41 @@ public class TTTag extends AbstractTranscriptionContainer{
     }
 
     private void setUpData(String rawRepresentation) {
+        /*
+        Rules for Tag:
+        ==============
+
+        Possible cases:
+        ---------------
+
+        regulars:
+
+         - name only
+         [p]...[/p]
+
+         - name plus one attribute set
+         [lb:n=1]
+
+         - name plus multiple attribute sets
+         [name:type=person:rend=hi]
+
+
+         special cases that need look-up:
+
+         - name plus one value
+         [lb=1]
+         // TODO: should logically be [lb:1] -> make synonymous?
+
+         - only values
+         [miracle=1]
+
+         - implicit keys for values
+         [name:person:hi]
+
+
+         */
+
+
         // TODO: handle all kinds of cases
         String[] ss = rawRepresentation.split("=");
         if (ss.length == 1){ // no attributes
