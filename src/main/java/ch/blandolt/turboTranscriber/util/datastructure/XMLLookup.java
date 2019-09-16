@@ -42,6 +42,17 @@ public class XMLLookup {
                 key = "type";
                 break;
 
+            case "fw":
+                key = "type";
+                break;
+
+            case "div":
+                if (val.matches("\\d+"))
+                    key = "n";
+                else if (val.equals("miracle"))
+                    key = "type";
+                break;
+
             default:
                 key = "unknownKey";
                 Log.log("!!! Warning: undefined Attribute in tag '"+name+"': ??? = "+val);
@@ -49,4 +60,25 @@ public class XMLLookup {
         return new AbstractMap.SimpleEntry<String, String>(key, val);
     }
 
+    public static boolean isSpecialCase__valueForName(String tagName) {
+        switch (tagName){
+            case "miracle":
+            case "catch":
+                return true;
+            default:
+                return false;
+
+        }
+    }
+
+    public static String getSpecialCase__nameByValue(String tagName) {
+        switch (tagName){
+            case "miracle":
+                return "div";
+            case "catch":
+                return "fw";
+            default:
+                return "unknownTagName";
+        }
+    }
 }

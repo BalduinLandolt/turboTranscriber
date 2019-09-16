@@ -110,9 +110,10 @@ public class XMLFactory {
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(p.getContent().getFirst()));
             return e;
         } else if (tr instanceof TTTag){
-            // TODO: special cases! should result in <div type="miracle" n="000">, not <miracle XXXXX="000">
-            //      - equally: <fw type="catch"> instead of <catch>
-            //      - probably better to move look-up to the TTTag construction
+            // TODO: move all lookup to TTTag constructor?
+
+            // TODO: find solution for tags that should not be anchors (e.g. [p], [div], ...)
+
             TTTag t = (TTTag)tr;
             if (t == null || t.getTagName().isEmpty())
                 return null;
