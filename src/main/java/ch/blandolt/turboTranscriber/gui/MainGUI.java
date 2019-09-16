@@ -26,8 +26,7 @@ import java.util.List;
  * @author Balduin Landolt
  */
 
-//  TODO: rename eventually
-public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowListener, DocumentListener {
+public class MainGUI extends JFrame  implements Loggable, WindowListener, DocumentListener {
     private JTabbedPane mainTabbedPane;
     private JPanel mainPanel;
     private JPanel logPane;
@@ -86,11 +85,11 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
      * This sets up the entire GUI, creating the JFrame and all of its contents, including the menu bar.
      * </p>
      * <p>
-     * Once this is done, the GUI can be shown by calling {@link MainGUIManuallyCreated#showMainGUI()}.
+     * Once this is done, the GUI can be shown by calling {@link MainGUI#showMainGUI()}.
      * </p>
      * @param caller the {@link TurboTranscribeCore} that calls this constructor. Is stored as the owner.
      */
-    public MainGUIManuallyCreated(TurboTranscribeCore caller){
+    public MainGUI(TurboTranscribeCore caller){
 
         // TODOs
         // -----

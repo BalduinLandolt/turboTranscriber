@@ -3,7 +3,7 @@
  */
 package ch.blandolt.turboTranscriber.core;
 
-import ch.blandolt.turboTranscriber.gui.MainGUIManuallyCreated;
+import ch.blandolt.turboTranscriber.gui.MainGUI;
 import ch.blandolt.turboTranscriber.gui.ThumbnailPanel;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Settings;
@@ -23,7 +23,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Core class of TurboTranscribe.
@@ -49,7 +47,7 @@ import java.util.stream.Stream;
 public class TurboTranscribeCore {
     private boolean IS_LOCKED = false;
     private boolean REQUESTED_REFRESH = false;
-    private MainGUIManuallyCreated gui;
+    private MainGUI gui;
     private Data data = new Data();
 
     public void thumbnailRequestsActivation(ThumbnailPanel thumbnail) {
@@ -186,7 +184,7 @@ public class TurboTranscribeCore {
     public void run() {
         // TODO: more to do in core.run()?
 
-        gui = new MainGUIManuallyCreated(this);
+        gui = new MainGUI(this);
         // Launch GUI
         SwingUtilities.invokeLater(() -> {
             gui.showMainGUI();
@@ -342,7 +340,7 @@ public class TurboTranscribeCore {
         //      where save saves the data to.
 
         // TODO: Add concept of saved/unsaved changes
-        
+
         JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("./sample_data"));
         fc.setFileFilter(new FileNameExtensionFilter("Raw", "txt", "raw"));
