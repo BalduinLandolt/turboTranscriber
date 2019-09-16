@@ -124,6 +124,7 @@ public class TurboTranscribeCore {
         res = res.replaceAll("[^\\S\\n]*\\<pb ", "\n\n <pb ");
         res = res.replaceAll("[^\\S\\n]*\\<cb ", "\n  <cb ");
         res = res.replaceAll("[^\\S\\n]*\\<lb ", "   <lb ");
+        res = res.replaceAll("(\\S)   +\\<lb ", "$1<lb ");
 
         return res;
     }
