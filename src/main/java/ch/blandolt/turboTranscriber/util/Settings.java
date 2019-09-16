@@ -65,4 +65,8 @@ public class Settings {
 	public static void setAutoOpenXMLFile(boolean autoOpenXMLFile) {
 		Settings.autoOpenXMLFile = autoOpenXMLFile;
 	}
+
+	public static boolean hasCurrentRawFile() {
+		return null != getCurrent_raw_file();
+	}
 }

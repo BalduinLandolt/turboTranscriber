@@ -230,7 +230,7 @@ public class TurboTranscribeCore {
      */
     public boolean hasUnsavedChanges() {
         // TODO: implement checking, if there are unsaved changes
-        return false;
+        return true;
     }
 
     /**
@@ -271,6 +271,7 @@ public class TurboTranscribeCore {
                     Desktop d = Desktop.getDesktop();
                     d.open(f);
                 }
+                refreshGUI();
                 Log.log("Exported XML to File: "+f.getPath());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -327,6 +328,7 @@ public class TurboTranscribeCore {
     public void am_save() {
         Log.log("Action: Save");
         // TODO: Implement
+        refreshGUI();
     }
 
     /**
@@ -356,10 +358,12 @@ public class TurboTranscribeCore {
                         .map(x -> new StringBuffer(x))
                         .collect(Collectors.toList());
                 Files.write(Paths.get(f.toURI()), lines);
+                Settings.setCurrent_raw_file(f);
                 if (Desktop.isDesktopSupported() && Settings.isAutoOpenRawFile()) {
                     Desktop d = Desktop.getDesktop();
                     d.open(f);
                 }
+                refreshGUI();
                 Log.log("Exported Raw to File: "+f.getPath());
             } catch (IOException e) {
                 e.printStackTrace();

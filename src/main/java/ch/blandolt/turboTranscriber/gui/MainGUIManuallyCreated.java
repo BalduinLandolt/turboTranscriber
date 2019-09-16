@@ -3,6 +3,7 @@ package ch.blandolt.turboTranscriber.gui;
 import ch.blandolt.turboTranscriber.core.TurboTranscribeCore;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Loggable;
+import ch.blandolt.turboTranscriber.util.Settings;
 import ch.blandolt.turboTranscriber.util.rsyntax.RawTokenMaker;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -416,7 +417,7 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         menuItem_file_newTranscription.setEnabled(true);
         menuItem_file_importXML.setEnabled(false);
         menuItem_file_importRaw.setEnabled(true);
-        menuItem_file_save.setEnabled(owner.hasUnsavedChanges());
+        menuItem_file_save.setEnabled(owner.hasUnsavedChanges() && Settings.hasCurrentRawFile());
         menuItem_file_saveAs.setEnabled(true);
         menuItem_exportXML.setEnabled(!xmlArea.getText().isEmpty());
         menuItem_file_close.setEnabled(false); // TODO: ?
