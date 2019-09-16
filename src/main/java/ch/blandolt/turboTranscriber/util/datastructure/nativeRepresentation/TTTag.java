@@ -19,6 +19,7 @@ public class TTTag extends AbstractTranscriptionContainer{
     }
 
     private void setUpData(String rawRepresentation) {
+        // TODO: handle all kinds of cases
         String[] ss = rawRepresentation.split("=");
         if (ss.length == 1){ // no attributes
             tagName = ss[0];
