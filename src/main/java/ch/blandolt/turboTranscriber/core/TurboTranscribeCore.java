@@ -267,8 +267,7 @@ public class TurboTranscribeCore {
                         .map(x -> new StringBuffer(x))
                         .collect(Collectors.toList());
                 Files.write(Paths.get(f.toURI()), lines);
-                // TODO: make this optional
-                if (Desktop.isDesktopSupported()) {
+                if (Desktop.isDesktopSupported() && Settings.isAutoOpenXMLFile()) {
                     Desktop d = Desktop.getDesktop();
                     d.open(f);
                 }
@@ -357,8 +356,7 @@ public class TurboTranscribeCore {
                         .map(x -> new StringBuffer(x))
                         .collect(Collectors.toList());
                 Files.write(Paths.get(f.toURI()), lines);
-                // TODO: make this optional
-                if (Desktop.isDesktopSupported()) {
+                if (Desktop.isDesktopSupported() && Settings.isAutoOpenRawFile()) {
                     Desktop d = Desktop.getDesktop();
                     d.open(f);
                 }
