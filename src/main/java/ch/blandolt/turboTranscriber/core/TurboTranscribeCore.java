@@ -327,7 +327,7 @@ public class TurboTranscribeCore {
      */
     public void am_save() {
         Log.log("Action: Save");
-        // TODO: Implement
+        saveRawToFile(Settings.getCurrent_raw_file());
         refreshGUI();
     }
 
@@ -342,8 +342,7 @@ public class TurboTranscribeCore {
         //      where save saves the data to.
 
         // TODO: Add concept of saved/unsaved changes
-
-
+        
         JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("./sample_data"));
         fc.setFileFilter(new FileNameExtensionFilter("Raw", "txt", "raw"));
@@ -351,28 +350,31 @@ public class TurboTranscribeCore {
         int returnVal = fc.showSaveDialog(gui);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File f = fc.getSelectedFile();
-            if (!f.getName().endsWith(".txt"))
-                f = new File(f.getPath() + ".txt");
-            try {
-                List<CharSequence> lines = gui.getTranscriptionString().lines()
-                        .map(x -> new StringBuffer(x))
-                        .collect(Collectors.toList());
-                Files.write(Paths.get(f.toURI()), lines);
-                Settings.setCurrent_raw_file(f);
-                if (Desktop.isDesktopSupported() && Settings.isAutoOpenRawFile()) {
-                    Desktop d = Desktop.getDesktop();
-                    d.open(f);
-                }
-                refreshGUI();
-                Log.log("Exported Raw to File: "+f.getPath());
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.log(e.getStackTrace());
-            }
-
-            // TODO: handle overwrite etc.
+            saveRawToFile(f);
         } else {
             Log.log("Aborted.");
+        }
+    }
+
+    private void saveRawToFile(File f) {
+        // TODO: handle overwrite etc.
+        if (!f.getName().endsWith(".txt"))
+            f = new File(f.getPath() + ".txt");
+        try {
+            List<CharSequence> lines = gui.getTranscriptionString().lines()
+                    .map(x -> new StringBuffer(x))
+                    .collect(Collectors.toList());
+            Files.write(Paths.get(f.toURI()), lines);
+            Settings.setCurrent_raw_file(f);
+            if (Desktop.isDesktopSupported() && Settings.isAutoOpenRawFile()) {
+                Desktop d = Desktop.getDesktop();
+                d.open(f);
+            }
+            refreshGUI();
+            Log.log("Exported Raw to File: "+f.getPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.log(e.getStackTrace());
         }
     }
 
