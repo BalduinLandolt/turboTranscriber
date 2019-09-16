@@ -11,7 +11,6 @@ public class XMLFactory {
     private static Namespace ns_TEI = Namespace.getNamespace("http://www.tei-c.org/ns/1.0");
 
     // FIXME: <lb> often ends up in word tag
-    // FIXME: if a tag surrounds a word (e.g. [name]...[/name]), it ends up in <w>, not around.
 
     // TODO: implement menota
 
@@ -53,24 +52,22 @@ public class XMLFactory {
                 body.addContent(content);
         }
 
-
-        // TODO make TEI correct!
-
         return text;
     }
 
     private static Content generateXMLFromTranscriptionObject(AbstractTranscriptionObject tr) {
         if (tr instanceof TTAbbreviation){
             // TODO: is <expan> correct? or do I need both <expan> and <abbr>?
-            // TODO: needs choice in any case!
             TTAbbreviation expan = (TTAbbreviation)tr;
+            Element choice = new Element("choice", ns_TEI);
             Element e = new Element("expan", ns_TEI);
+            choice.addContent(e);
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getExpansion()));
             if (expan.hasInfix())
                 e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
-            // TODO: infix does not seem to work correctly
+            // FIXME: infix does not seem to work correctly
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getAbbreviationMark()));
-            return e;
+            return choice;
         } else if (tr instanceof TTAbbreviationMark){
             TTAbbreviationMark am = (TTAbbreviationMark)tr;
             Element e = new Element("am", ns_TEI);
