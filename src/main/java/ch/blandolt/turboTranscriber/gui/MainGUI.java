@@ -550,13 +550,11 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
     }
 
     public void setXML(String string){
-        int y = xmlScroller.getViewport().getViewPosition().y;
+        int y = xmlArea.getCaretPosition();
         Log.log(y);
-        // FIXME: doesn't work
-
-        // TODO: try with caret position instead of scroller position
+        // TODO: Improve
         xmlArea.setText(string);
-        xmlScroller.getViewport().setViewPosition(new Point(0, y));
+        xmlArea.setCaretPosition(y);
     }
 
     public String getXMLString() {
