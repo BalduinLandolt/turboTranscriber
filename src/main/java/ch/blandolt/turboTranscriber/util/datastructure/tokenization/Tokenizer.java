@@ -67,6 +67,8 @@ public class Tokenizer {
         tokens.add(0, new TokenTypeWordborder(""));
         tokens = Tokenizer.removeDoubleWordBorders(tokens);
 
+        // FIXME: when line ends on abbreviation (potentially others too), lb ends up in the previous word
+
         tokens = Tokenizer.segmentByWordborders(tokens);
         tokens = Tokenizer.getLegitWords(tokens);
 
