@@ -239,49 +239,6 @@ public class Tokenizer {
                         res.add(new TokenizableText(substr));
                     }
                 }
-
-
-                // TODO: get this to work propperly
-
-
-
-//                Pattern.matches(regex, s);
-//                Pattern p = Pattern.compile(regex);
-//                Matcher m = p.matcher(s);
-//
-//                while (m.find()){
-//                    int i = m.start();
-//                    if (i > 0){
-//                        String substr = rest.substring(0, i-1);
-//                        res.add(new TokenizableText(substr));
-//                    }
-//                    String match = m.group();
-//
-//                    //TODO: remove
-//                    Log.log("found: "+match);
-//                    Log.log("in: "+rest);
-//
-//                    res.add(new TokenTypePunctuationCharacter(match));
-//                    rest = rest.substring(match.length());
-//
-//                    Log.log("->: "+rest);
-//                }
-//                if (!rest.isEmpty()){
-//                    res.add(new TokenizableText(rest));
-//                }
-
-
-
-
-
-//                String[] ss = s.split(regex); // FixMe: this removes the punctuation character.
-//                for (String substr: ss){
-//                    if (substr.matches(regex)){
-//                        res.add(new TokenTypePunctuationCharacter(substr));
-//                    } else {
-//                        res.add(new TokenizableText(substr));
-//                    }
-//                }
             } else {
                 res.add(t);
             }
