@@ -11,15 +11,9 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
-//import ch.unibas.landolt.balduin.XMLSpeedupV6.src.application.main.MainGUI;
-//TODO get parent here
-
-//TODO Import from older version. Check!
 
 
 /**
