@@ -34,6 +34,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Core class of TurboTranscribe.
@@ -64,7 +66,6 @@ public class TurboTranscribeCore {
     }
 
     public void a_transcription_state_changed() {
-        // TODO: should timer be blocking here?
         Log.log("Transcription has changed.");
 
         if (isLocked()){
@@ -262,7 +263,10 @@ public class TurboTranscribeCore {
             if (!f.getName().endsWith(".xml"))
                 f = new File(f.getPath() + ".xml");
             try {
-                Files.write(Paths.get(f.toURI()), s.getBytes());
+                List<CharSequence> lines = s.lines()
+                        .map(x -> new StringBuffer(x))
+                        .collect(Collectors.toList());
+                Files.write(Paths.get(f.toURI()), lines);
                 // TODO: make this optional
                 if (Desktop.isDesktopSupported()) {
                     Desktop d = Desktop.getDesktop();
@@ -349,7 +353,10 @@ public class TurboTranscribeCore {
             if (!f.getName().endsWith(".txt"))
                 f = new File(f.getPath() + ".txt");
             try {
-                Files.write(Paths.get(f.toURI()), gui.getTranscriptionString().getBytes());
+                List<CharSequence> lines = gui.getTranscriptionString().lines()
+                        .map(x -> new StringBuffer(x))
+                        .collect(Collectors.toList());
+                Files.write(Paths.get(f.toURI()), lines);
                 // TODO: make this optional
                 if (Desktop.isDesktopSupported()) {
                     Desktop d = Desktop.getDesktop();
