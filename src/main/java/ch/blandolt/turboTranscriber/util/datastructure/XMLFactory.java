@@ -57,16 +57,21 @@ public class XMLFactory {
 
     private static Content generateXMLFromTranscriptionObject(AbstractTranscriptionObject tr) {
         if (tr instanceof TTAbbreviation){
-            // TODO: is <expan> correct? or do I need both <expan> and <abbr>?
             TTAbbreviation expan = (TTAbbreviation)tr;
             Element choice = new Element("choice", ns_TEI);
             Element e = new Element("expan", ns_TEI);
+            Element a = new Element("abbr", ns_TEI);
+            choice.addContent(a);
             choice.addContent(e);
+
+            if (expan.hasInfix())
+                a.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
+            a.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getAbbreviationMark()));
+
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getExpansion()));
             if (expan.hasInfix())
                 e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
             // FIXME: infix does not seem to work correctly
-            e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getAbbreviationMark()));
             return choice;
         } else if (tr instanceof TTAbbreviationMark){
             TTAbbreviationMark am = (TTAbbreviationMark)tr;
