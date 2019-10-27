@@ -30,12 +30,12 @@ public class ThumbnailPanel extends JLabel implements MouseListener {
 	private Border activatedBorder;
 	private Border nonActivatedBorder;
 	private boolean isSelected;
-	private MainGUIManuallyCreated owner;
+	private MainGUI owner;
 
 
 //	 * @param im
 //	 * @param caller
-	public ThumbnailPanel(BufferedImage im, MainGUIManuallyCreated owner) {
+	public ThumbnailPanel(BufferedImage im, MainGUI owner) {
 		this.owner = owner;
 		initialImage = im;
 		scaledImage = scale(im, 100);

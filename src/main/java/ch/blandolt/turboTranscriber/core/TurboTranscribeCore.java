@@ -3,7 +3,7 @@
  */
 package ch.blandolt.turboTranscriber.core;
 
-import ch.blandolt.turboTranscriber.gui.MainGUIManuallyCreated;
+import ch.blandolt.turboTranscriber.gui.MainGUI;
 import ch.blandolt.turboTranscriber.gui.ThumbnailPanel;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Settings;
@@ -23,7 +23,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -34,6 +33,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Core class of TurboTranscribe.
@@ -47,7 +47,7 @@ import java.util.regex.Pattern;
 public class TurboTranscribeCore {
     private boolean IS_LOCKED = false;
     private boolean REQUESTED_REFRESH = false;
-    private MainGUIManuallyCreated gui;
+    private MainGUI gui;
     private Data data = new Data();
 
     public void thumbnailRequestsActivation(ThumbnailPanel thumbnail) {
@@ -64,7 +64,6 @@ public class TurboTranscribeCore {
     }
 
     public void a_transcription_state_changed() {
-        // TODO: should timer be blocking here?
         Log.log("Transcription has changed.");
 
         if (isLocked()){
@@ -125,6 +124,7 @@ public class TurboTranscribeCore {
         res = res.replaceAll("[^\\S\\n]*\\<pb ", "\n\n <pb ");
         res = res.replaceAll("[^\\S\\n]*\\<cb ", "\n  <cb ");
         res = res.replaceAll("[^\\S\\n]*\\<lb ", "   <lb ");
+        res = res.replaceAll("(\\S)   +\\<lb ", "$1<lb ");
 
         return res;
     }
@@ -185,7 +185,7 @@ public class TurboTranscribeCore {
     public void run() {
         // TODO: more to do in core.run()?
 
-        gui = new MainGUIManuallyCreated(this);
+        gui = new MainGUI(this);
         // Launch GUI
         SwingUtilities.invokeLater(() -> {
             gui.showMainGUI();
@@ -229,7 +229,7 @@ public class TurboTranscribeCore {
      */
     public boolean hasUnsavedChanges() {
         // TODO: implement checking, if there are unsaved changes
-        return false;
+        return true;
     }
 
     /**
@@ -262,12 +262,15 @@ public class TurboTranscribeCore {
             if (!f.getName().endsWith(".xml"))
                 f = new File(f.getPath() + ".xml");
             try {
-                Files.write(Paths.get(f.toURI()), s.getBytes());
-                // TODO: make this optional
-                if (Desktop.isDesktopSupported()) {
+                List<CharSequence> lines = s.lines()
+                        .map(x -> new StringBuffer(x))
+                        .collect(Collectors.toList());
+                Files.write(Paths.get(f.toURI()), lines);
+                if (Desktop.isDesktopSupported() && Settings.isAutoOpenXMLFile()) {
                     Desktop d = Desktop.getDesktop();
                     d.open(f);
                 }
+                refreshGUI();
                 Log.log("Exported XML to File: "+f.getPath());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -323,7 +326,8 @@ public class TurboTranscribeCore {
      */
     public void am_save() {
         Log.log("Action: Save");
-        // TODO: Implement
+        saveRawToFile(Settings.getCurrent_raw_file());
+        refreshGUI();
     }
 
     /**
@@ -331,8 +335,48 @@ public class TurboTranscribeCore {
      */
     public void am_save_as() {
         Log.log("Action: Save As");
-        // TODO: Implement
+
+        // TODO: Add concept of "current file I'm working on".
+        //      that would change, when doing save_as or import; and it would define,
+        //      where save saves the data to.
+
+        // TODO: Add concept of saved/unsaved changes
+
+        JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File("./sample_data"));
+        fc.setFileFilter(new FileNameExtensionFilter("Raw", "txt", "raw"));
+        fc.setMultiSelectionEnabled(false);
+        int returnVal = fc.showSaveDialog(gui);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();
+            saveRawToFile(f);
+        } else {
+            Log.log("Aborted.");
+        }
     }
+
+    private void saveRawToFile(File f) {
+        // TODO: handle overwrite etc.
+        if (!f.getName().endsWith(".txt"))
+            f = new File(f.getPath() + ".txt");
+        try {
+            List<CharSequence> lines = gui.getTranscriptionString().lines()
+                    .map(x -> new StringBuffer(x))
+                    .collect(Collectors.toList());
+            Files.write(Paths.get(f.toURI()), lines);
+            Settings.setCurrent_raw_file(f);
+            if (Desktop.isDesktopSupported() && Settings.isAutoOpenRawFile()) {
+                Desktop d = Desktop.getDesktop();
+                d.open(f);
+            }
+            refreshGUI();
+            Log.log("Exported Raw to File: "+f.getPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.log(e.getStackTrace());
+        }
+    }
+
 
     /**
      * Action (Menu): Close

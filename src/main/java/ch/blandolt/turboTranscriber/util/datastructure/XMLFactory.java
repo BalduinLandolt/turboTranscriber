@@ -11,7 +11,6 @@ public class XMLFactory {
     private static Namespace ns_TEI = Namespace.getNamespace("http://www.tei-c.org/ns/1.0");
 
     // FIXME: <lb> often ends up in word tag
-    // FIXME: if a tag surrounds a word (e.g. [name]...[/name]), it ends up in <w>, not around.
 
     // TODO: implement menota
 
@@ -53,24 +52,13 @@ public class XMLFactory {
                 body.addContent(content);
         }
 
-
-        // TODO make TEI correct!
-
         return text;
     }
 
     private static Content generateXMLFromTranscriptionObject(AbstractTranscriptionObject tr) {
         if (tr instanceof TTAbbreviation){
-            // TODO: is <expan> correct? or do I need both <expan> and <abbr>?
-            // TODO: needs choice in any case!
             TTAbbreviation expan = (TTAbbreviation)tr;
-            Element e = new Element("expan", ns_TEI);
-            e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getExpansion()));
-            if (expan.hasInfix())
-                e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
-            // TODO: infix does not seem to work correctly
-            e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getAbbreviationMark()));
-            return e;
+            return generateXMLforAbbreviation(expan);
         } else if (tr instanceof TTAbbreviationMark){
             TTAbbreviationMark am = (TTAbbreviationMark)tr;
             Element e = new Element("am", ns_TEI);
@@ -110,22 +98,8 @@ public class XMLFactory {
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(p.getContent().getFirst()));
             return e;
         } else if (tr instanceof TTTag){
-            // TODO: special cases! should result in <div type="miracle" n="000">, not <miracle XXXXX="000">
-            //      - probably better to move look-up to the TTTag construction
             TTTag t = (TTTag)tr;
-            if (t == null || t.getTagName().isEmpty())
-                return null;
-            Element e = new Element(t.getTagName(), ns_TEI);
-            for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
-                Map.Entry<String, String> attr_lookedup = XMLLookup.lookUpAttribute(t.getTagName(), attribute);
-                e.setAttribute(attr_lookedup.getKey(),attr_lookedup.getValue());
-            }
-            for (AbstractTranscriptionObject o: t.getContent()){
-                Content c = XMLFactory.generateXMLFromTranscriptionObject(o);
-                if (c != null)
-                    e.addContent(c);
-            }
-            return e;
+            return getXMLforTag(t);
         } else if (tr instanceof TTTextSegment){
             TTTextSegment p = (TTTextSegment)tr;
             Text t = new Text(p.toString());
@@ -143,14 +117,85 @@ public class XMLFactory {
         return null; // should never happen
     }
 
+    private static Content getXMLforTag(TTTag t) {
+        // TODO: move all lookup to TTTag constructor?
+
+        // TODO: find solution for tags that should not be anchors (e.g. [p], [div], ...)
+
+        if (t == null || t.getTagName().isEmpty())
+            return null;
+        Element e = null;
+        try {
+            e = new Element(t.getTagName(), ns_TEI);
+            for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
+                Map.Entry<String, String> attr_lookedup = XMLLookup.lookUpAttribute(t.getTagName(), attribute);
+                e.setAttribute(attr_lookedup.getKey(),attr_lookedup.getValue());
+            }
+            for (AbstractTranscriptionObject o: t.getContent()){
+                Content c = XMLFactory.generateXMLFromTranscriptionObject(o);
+                if (c != null)
+                    e.addContent(c);
+            }
+        } catch (Exception ex) {
+            return null;
+        }
+        return e;
+    }
+
+    private static Content generateXMLforAbbreviation(TTAbbreviation expan) {
+        Element choice = new Element("choice", ns_TEI);
+        Element e = new Element("expan", ns_TEI);
+        Element a = new Element("abbr", ns_TEI);
+        choice.addContent(a);
+        choice.addContent(e);
+
+        if (expan.hasInfix())
+            a.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
+        a.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getAbbreviationMark()));
+
+        e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getExpansion()));
+        if (expan.hasInfix())
+            e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
+
+        return choice;
+    }
+
     private static Element makeTEIHeader() {
         Element teiHeader = new Element("teiHeader", ns_TEI);
 
         Element fileDesc = new Element("fileDesc", ns_TEI);
         teiHeader.addContent(fileDesc);
+        Element titleStmt = new Element("titleStmt", ns_TEI);
+        fileDesc.addContent(titleStmt);
+        Element title = new Element("title", ns_TEI);
+        titleStmt.addContent(title);
+        Text txt = new Text("[Title]");
+        title.addContent(txt);
+        // TODO: add Title information
+        Element publicationStmt = new Element("publicationStmt", ns_TEI);
+        fileDesc.addContent(publicationStmt);
+        Element p = new Element("p", ns_TEI);
+        publicationStmt.addContent(p);
+        txt = new Text("[Publication Statement]");
+        p.addContent(txt);
+        // TODO: add publ. information
+        Element sourceDesc = new Element("sourceDesc", ns_TEI);
+        fileDesc.addContent(sourceDesc);
+        p = new Element("p", ns_TEI);
+        sourceDesc.addContent(p);
+        txt = new Text("[Publication Statement]");
+        p.addContent(txt);
+        // TODO: add publ. information
+
 
         Element encodingDesc = new Element("encodingDesc", ns_TEI);
         teiHeader.addContent(encodingDesc);
+        p = new Element("p", ns_TEI);
+        encodingDesc.addContent(p);
+        txt = new Text("[source description]");
+        p.addContent(txt);
+        // TODO: add encoding information
+
 
         // TODO: add more elements, to get valid tei header
 

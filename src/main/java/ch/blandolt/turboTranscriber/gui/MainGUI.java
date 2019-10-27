@@ -3,6 +3,7 @@ package ch.blandolt.turboTranscriber.gui;
 import ch.blandolt.turboTranscriber.core.TurboTranscribeCore;
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Loggable;
+import ch.blandolt.turboTranscriber.util.Settings;
 import ch.blandolt.turboTranscriber.util.rsyntax.RawTokenMaker;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -25,8 +26,7 @@ import java.util.List;
  * @author Balduin Landolt
  */
 
-//  TODO: rename eventually
-public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowListener, DocumentListener {
+public class MainGUI extends JFrame  implements Loggable, WindowListener, DocumentListener {
     private JTabbedPane mainTabbedPane;
     private JPanel mainPanel;
     private JPanel logPane;
@@ -85,11 +85,11 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
      * This sets up the entire GUI, creating the JFrame and all of its contents, including the menu bar.
      * </p>
      * <p>
-     * Once this is done, the GUI can be shown by calling {@link MainGUIManuallyCreated#showMainGUI()}.
+     * Once this is done, the GUI can be shown by calling {@link MainGUI#showMainGUI()}.
      * </p>
      * @param caller the {@link TurboTranscribeCore} that calls this constructor. Is stored as the owner.
      */
-    public MainGUIManuallyCreated(TurboTranscribeCore caller){
+    public MainGUI(TurboTranscribeCore caller){
 
         // TODOs
         // -----
@@ -416,7 +416,7 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
         menuItem_file_newTranscription.setEnabled(true);
         menuItem_file_importXML.setEnabled(false);
         menuItem_file_importRaw.setEnabled(true);
-        menuItem_file_save.setEnabled(owner.hasUnsavedChanges());
+        menuItem_file_save.setEnabled(owner.hasUnsavedChanges() && Settings.hasCurrentRawFile());
         menuItem_file_saveAs.setEnabled(true);
         menuItem_exportXML.setEnabled(!xmlArea.getText().isEmpty());
         menuItem_file_close.setEnabled(false); // TODO: ?
@@ -550,13 +550,11 @@ public class MainGUIManuallyCreated extends JFrame  implements Loggable, WindowL
     }
 
     public void setXML(String string){
-        int y = xmlScroller.getViewport().getViewPosition().y;
+        int y = xmlArea.getCaretPosition();
         Log.log(y);
-        // FIXME: doesn't work
-
-        // TODO: try with caret position instead of scroller position
+        // TODO: Improve
         xmlArea.setText(string);
-        xmlScroller.getViewport().setViewPosition(new Point(0, y));
+        xmlArea.setCaretPosition(y);
     }
 
     public String getXMLString() {
