@@ -63,7 +63,7 @@ public class TTAbbreviation extends AbstractTranscriptionContainer {
 
     public boolean hasInfix() {
         TTTextSegment t = getInfix();
-        return t.toString().isBlank();
+        return !t.toString().isBlank();
     }
     // TODO: am, potential middle, ex
     //      - overload constructor
