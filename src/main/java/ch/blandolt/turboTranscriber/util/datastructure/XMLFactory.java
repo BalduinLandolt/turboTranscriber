@@ -98,29 +98,8 @@ public class XMLFactory {
             e.addContent(XMLFactory.generateXMLFromTranscriptionObject(p.getContent().getFirst()));
             return e;
         } else if (tr instanceof TTTag){
-            // TODO: move all lookup to TTTag constructor?
-
-            // TODO: find solution for tags that should not be anchors (e.g. [p], [div], ...)
-
             TTTag t = (TTTag)tr;
-            if (t == null || t.getTagName().isEmpty())
-                return null;
-            Element e = null;
-            try {
-                e = new Element(t.getTagName(), ns_TEI);
-            } catch (Exception ex) {
-                return null;
-            }
-            for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
-                Map.Entry<String, String> attr_lookedup = XMLLookup.lookUpAttribute(t.getTagName(), attribute);
-                e.setAttribute(attr_lookedup.getKey(),attr_lookedup.getValue());
-            }
-            for (AbstractTranscriptionObject o: t.getContent()){
-                Content c = XMLFactory.generateXMLFromTranscriptionObject(o);
-                if (c != null)
-                    e.addContent(c);
-            }
-            return e;
+            return getXMLforTag(t);
         } else if (tr instanceof TTTextSegment){
             TTTextSegment p = (TTTextSegment)tr;
             Text t = new Text(p.toString());
@@ -136,6 +115,31 @@ public class XMLFactory {
             return e;
         }
         return null; // should never happen
+    }
+
+    private static Content getXMLforTag(TTTag t) {
+        // TODO: move all lookup to TTTag constructor?
+
+        // TODO: find solution for tags that should not be anchors (e.g. [p], [div], ...)
+
+        if (t == null || t.getTagName().isEmpty())
+            return null;
+        Element e = null;
+        try {
+            e = new Element(t.getTagName(), ns_TEI);
+        } catch (Exception ex) {
+            return null;
+        }
+        for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
+            Map.Entry<String, String> attr_lookedup = XMLLookup.lookUpAttribute(t.getTagName(), attribute);
+            e.setAttribute(attr_lookedup.getKey(),attr_lookedup.getValue());
+        }
+        for (AbstractTranscriptionObject o: t.getContent()){
+            Content c = XMLFactory.generateXMLFromTranscriptionObject(o);
+            if (c != null)
+                e.addContent(c);
+        }
+        return e;
     }
 
     private static Content generateXMLforAbbreviation(TTAbbreviation expan) {
