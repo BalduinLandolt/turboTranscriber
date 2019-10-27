@@ -14,6 +14,8 @@ public class XMLFactory {
 
     // FIXME: space at end of line should not be necessary (but mind the case of new line within word)
 
+    // FIXME: add '#' to ref in <g>
+
     // TODO: implement menota
 
     public static Document createTEIXML(List<AbstractTranscriptionObject> data) {
