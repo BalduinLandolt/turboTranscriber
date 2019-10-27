@@ -12,6 +12,8 @@ public class XMLFactory {
 
     // FIXME: <lb> often ends up in word tag
 
+    // FIXME: space at end of line should not be necessary (but mind the case of new line within word)
+
     // TODO: implement menota
 
     public static Document createTEIXML(List<AbstractTranscriptionObject> data) {
