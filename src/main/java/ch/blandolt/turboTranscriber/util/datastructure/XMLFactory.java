@@ -127,17 +127,17 @@ public class XMLFactory {
         Element e = null;
         try {
             e = new Element(t.getTagName(), ns_TEI);
+            for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
+                Map.Entry<String, String> attr_lookedup = XMLLookup.lookUpAttribute(t.getTagName(), attribute);
+                e.setAttribute(attr_lookedup.getKey(),attr_lookedup.getValue());
+            }
+            for (AbstractTranscriptionObject o: t.getContent()){
+                Content c = XMLFactory.generateXMLFromTranscriptionObject(o);
+                if (c != null)
+                    e.addContent(c);
+            }
         } catch (Exception ex) {
             return null;
-        }
-        for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
-            Map.Entry<String, String> attr_lookedup = XMLLookup.lookUpAttribute(t.getTagName(), attribute);
-            e.setAttribute(attr_lookedup.getKey(),attr_lookedup.getValue());
-        }
-        for (AbstractTranscriptionObject o: t.getContent()){
-            Content c = XMLFactory.generateXMLFromTranscriptionObject(o);
-            if (c != null)
-                e.addContent(c);
         }
         return e;
     }
