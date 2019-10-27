@@ -58,21 +58,7 @@ public class XMLFactory {
     private static Content generateXMLFromTranscriptionObject(AbstractTranscriptionObject tr) {
         if (tr instanceof TTAbbreviation){
             TTAbbreviation expan = (TTAbbreviation)tr;
-            Element choice = new Element("choice", ns_TEI);
-            Element e = new Element("expan", ns_TEI);
-            Element a = new Element("abbr", ns_TEI);
-            choice.addContent(a);
-            choice.addContent(e);
-
-            if (expan.hasInfix())
-                a.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
-            a.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getAbbreviationMark()));
-
-            e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getExpansion()));
-            if (expan.hasInfix())
-                e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
-            // FIXME: infix does not seem to work correctly
-            return choice;
+            return generateXMLforAbbreviation(expan);
         } else if (tr instanceof TTAbbreviationMark){
             TTAbbreviationMark am = (TTAbbreviationMark)tr;
             Element e = new Element("am", ns_TEI);
@@ -150,6 +136,24 @@ public class XMLFactory {
             return e;
         }
         return null; // should never happen
+    }
+
+    private static Content generateXMLforAbbreviation(TTAbbreviation expan) {
+        Element choice = new Element("choice", ns_TEI);
+        Element e = new Element("expan", ns_TEI);
+        Element a = new Element("abbr", ns_TEI);
+        choice.addContent(a);
+        choice.addContent(e);
+
+        if (expan.hasInfix())
+            a.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
+        a.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getAbbreviationMark()));
+
+        e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getExpansion()));
+        if (expan.hasInfix())
+            e.addContent(XMLFactory.generateXMLFromTranscriptionObject(expan.getInfix()));
+
+        return choice;
     }
 
     private static Element makeTEIHeader() {
