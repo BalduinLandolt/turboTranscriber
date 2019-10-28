@@ -15,10 +15,8 @@ public class XMLFactory {
 
     // FIXME: space at end of line should not be necessary (but mind the case of new line within word)
     // TODO: ensure that tags with multiple arguments work properly
-    // FIXME: add '#' to ref in <g>
     // TODO: make paths work in .jar
 
-    // TODO: implement menota
 
     public static Document createTEIXML(List<AbstractTranscriptionObject> data) {
         Element root = new Element("TEI", ns_TEI);
@@ -92,7 +90,7 @@ public class XMLFactory {
         } else if (tr instanceof TTGlyph){
             TTGlyph g = (TTGlyph)tr;
             Element e = new Element("g", ns_TEI);
-            e.setAttribute("ref", g.toString());
+            e.setAttribute("ref", "#"+g.toString());
             return e;
         } else if (tr instanceof TTNonGlyphPunctuation){
             TTNonGlyphPunctuation p = (TTNonGlyphPunctuation)tr;
