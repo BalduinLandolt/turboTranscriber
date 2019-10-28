@@ -28,7 +28,7 @@ Notes for Rules:
 
 
  # test
-l(an;d;combcurl)
+g(ud;combcurl){slong}pialla_m(adur;asup)
 # test end
 
 [lb=7] [hi=2][supplied=omitted]A[/supplied][/hi] Þ(ei;bar)m tima {slong}(e;bar)m [name=person] vilhialm(ur;ur) [/name] ba{slong}t(ar;rsup)d{rrot} h(er;er)

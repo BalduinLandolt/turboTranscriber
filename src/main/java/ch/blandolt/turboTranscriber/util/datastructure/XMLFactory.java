@@ -15,7 +15,6 @@ public class XMLFactory {
 
     // FIXME: space at end of line should not be necessary (but mind the case of new line within word)
     // TODO: ensure that tags with multiple arguments work properly
-    // TODO: make paths work in .jar
 
 
     public static Document createTEIXML(List<AbstractTranscriptionObject> data) {
@@ -106,7 +105,7 @@ public class XMLFactory {
             return getXMLforTag(t);
         } else if (tr instanceof TTTextSegment){
             TTTextSegment p = (TTTextSegment)tr;
-            Text t = new Text(p.toString());
+            Text t = new Text(p.toString().replace('_', ' '));
             return t;
         } else if (tr instanceof TTWord){
             TTWord w = (TTWord)tr;
@@ -199,9 +198,6 @@ public class XMLFactory {
         txt = new Text("[source description]");
         p.addContent(txt);
         // TODO: add encoding information
-
-
-        // TODO: add more elements, to get valid tei header
 
         // TODO: how can metadata be implemented in raw?
 
