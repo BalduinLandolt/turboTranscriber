@@ -36,6 +36,8 @@ public class TurboTranscriberMain {
 		// Collection of Tasks
 		// -------------------
 		//
+		// TODO: add javadoc comments
+		//
 		// TODO: go through all legacy code
 		//
 		// TODO: look at error logging
@@ -47,9 +49,8 @@ public class TurboTranscriberMain {
 		// 		- Add file names to thumbnails and image
 		//
 		// TODO: improve Popped out Image inspection view
+
 		// TODO: show image inspection view upon double clicking image panel in transcription view
-		//
-		// TODO: integrate or remove MainDataSet class
 		//
 		// TODO: implement settings
 		//
@@ -58,6 +59,8 @@ public class TurboTranscriberMain {
 		// TODO: Settle for file-based or project-based working
 		//
 		// TODO: add things like "open recent"
+
+		// TODO: implement menota
 		//
 		// TODO: auto TEI core(?)/minimal(?) schema check, to see, what elements are anchors/containers/...
 		//

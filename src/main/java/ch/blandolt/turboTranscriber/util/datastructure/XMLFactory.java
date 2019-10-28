@@ -10,14 +10,8 @@ import java.util.Map;
 public class XMLFactory {
     private static Namespace ns_TEI = Namespace.getNamespace("http://www.tei-c.org/ns/1.0");
 
-    // FIXME: <lb> often ends up in word tag
-    // FIXME: space at end of line should not be necessary (but mind the case of new line within word)
-    // TODO: tokenize timeout should be much shorter
     // TODO: ensure that tags with multiple arguments work properly
-    // FIXME: add '#' to ref in <g>
-    // TODO: make paths work in .jar
 
-    // TODO: implement menota
 
     public static Document createTEIXML(List<AbstractTranscriptionObject> data) {
         Element root = new Element("TEI", ns_TEI);
@@ -91,7 +85,7 @@ public class XMLFactory {
         } else if (tr instanceof TTGlyph){
             TTGlyph g = (TTGlyph)tr;
             Element e = new Element("g", ns_TEI);
-            e.setAttribute("ref", g.toString());
+            e.setAttribute("ref", "#"+g.toString());
             return e;
         } else if (tr instanceof TTNonGlyphPunctuation){
             TTNonGlyphPunctuation p = (TTNonGlyphPunctuation)tr;
@@ -107,7 +101,7 @@ public class XMLFactory {
             return getXMLforTag(t);
         } else if (tr instanceof TTTextSegment){
             TTTextSegment p = (TTTextSegment)tr;
-            Text t = new Text(p.toString());
+            Text t = new Text(p.toString().replace('_', ' '));
             return t;
         } else if (tr instanceof TTWord){
             TTWord w = (TTWord)tr;
@@ -200,9 +194,6 @@ public class XMLFactory {
         txt = new Text("[source description]");
         p.addContent(txt);
         // TODO: add encoding information
-
-
-        // TODO: add more elements, to get valid tei header
 
         // TODO: how can metadata be implemented in raw?
 

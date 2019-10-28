@@ -46,16 +46,11 @@ public class Tokenizer {
 
     public static synchronized List<TranscriptionToken> tokenize(String text) {
 
-        // TODO: long term: speed up performance of tokenization
-
-        //Log.log("Tokenizing the following:");
-        //Log.log(text);
 
         List<Tokenizable> tokens = Tokenizer.extractMultilineComments(text);
         tokens = Tokenizer.extractSingleLineComments(tokens);
         tokens = Tokenizer.extractWordborders(tokens);
-        // TODO: implement special word-border-cases (e.g. `aa_lande` for `á landi`)
-        // TODO: should Linebreaks (in raw, not the anchor [lb]) work as wordborders?
+        // TODO: implement special word-border-cases (e.g. `aa¬lande` for `á landi`) (see: https://menota.org/HB3_ch5.xml)
         tokens = Tokenizer.extractOpeningAndClosingTags(tokens);
         tokens = Tokenizer.extractAbbreviations(tokens);
         tokens = Tokenizer.extractGlyphs(tokens);
@@ -66,8 +61,6 @@ public class Tokenizer {
         tokens.add(new TokenTypeWordborder(""));
         tokens.add(0, new TokenTypeWordborder(""));
         tokens = Tokenizer.removeDoubleWordBorders(tokens);
-
-        // FIXME: when line ends on abbreviation (potentially others too), lb ends up in the previous word
 
         tokens = Tokenizer.segmentByWordborders(tokens);
         tokens = Tokenizer.getLegitWords(tokens);
@@ -193,11 +186,18 @@ public class Tokenizer {
         for (Tokenizable t: tokens) {
             if (t instanceof TokenizableText) {
                 String s = t.getText();
+                s = s.replace("¬\n", "___protected-linebreak___");
                 s = s.replace("\n", "\n___linebreak___\n");
-                String[] ss = s.split("\n"); // TODO: does that work?
+                s = s.replace("___protected-linebreak___", "\n___protected-linebreak___\n");
+                String[] ss = s.split("\n");
                 for (String substr: ss){
                     if (substr.equals("___linebreak___")){
-                        res.add(new TokenTypeLinebreak(""));
+                        // TODO: test, if this works!
+                        res.add(new TokenTypeWordborder(""));
+                        res.add(new TokenTypeLinebreak("", false));
+                        res.add(new TokenTypeWordborder(""));
+                    } else if (substr.equals("___protected-linebreak___")){
+                        res.add(new TokenTypeLinebreak("", true));
                     } else {
                         res.add(new TokenizableText(substr));
                     }

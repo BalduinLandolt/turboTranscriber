@@ -19,6 +19,7 @@ public class Settings {
 	private static boolean autoOpenRawFile = false;
 	private static boolean autoOpenXMLFile = false;
 	private static File current_raw_file = null;
+	private static File last_used_directory = new File(".");
 	
 	public static boolean openLogOnClose() {
 		return openLogOnClose;
@@ -68,5 +69,13 @@ public class Settings {
 
 	public static boolean hasCurrentRawFile() {
 		return null != getCurrent_raw_file();
+	}
+
+	public static File getLast_used_directory() {
+		return last_used_directory;
+	}
+
+	public static void setLast_used_directory(File last_used_directory) {
+		Settings.last_used_directory = last_used_directory;
 	}
 }
