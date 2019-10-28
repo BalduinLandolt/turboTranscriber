@@ -253,7 +253,7 @@ public class TurboTranscribeCore {
         String s = gui.getXMLString();
 
         JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File("./sample_data"));
+        fc.setCurrentDirectory(Settings.getLast_used_directory());
         fc.setFileFilter(new FileNameExtensionFilter("XML", "xml"));
         fc.setMultiSelectionEnabled(false);
         int returnVal = fc.showSaveDialog(gui);
@@ -272,6 +272,7 @@ public class TurboTranscribeCore {
                 }
                 refreshGUI();
                 Log.log("Exported XML to File: "+f.getPath());
+                Settings.setLast_used_directory(f);
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.log(e.getStackTrace());
@@ -294,7 +295,7 @@ public class TurboTranscribeCore {
         // TODO: should add a new data stage to text area
 
         JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File("./sample_data"));
+        fc.setCurrentDirectory(Settings.getLast_used_directory());
         fc.setFileFilter(new FileNameExtensionFilter("Raw", "txt", "raw"));
         fc.setMultiSelectionEnabled(false);
         int returnVal = fc.showOpenDialog(gui);
@@ -302,9 +303,7 @@ public class TurboTranscribeCore {
             File f = fc.getSelectedFile();
             List<String> lines_raw = loadRaw(f);
             gui.setRaw(lines_raw);
-            //a_transcription_state_changed();
-            //refreshGUI();
-            // TODO: copy to project?
+            Settings.setLast_used_directory(f);
         } else {
             Log.log("Aborted.");
         }
@@ -343,7 +342,7 @@ public class TurboTranscribeCore {
         // TODO: Add concept of saved/unsaved changes
 
         JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File("./sample_data"));
+        fc.setCurrentDirectory(Settings.getLast_used_directory());
         fc.setFileFilter(new FileNameExtensionFilter("Raw", "txt", "raw"));
         fc.setMultiSelectionEnabled(false);
         int returnVal = fc.showSaveDialog(gui);
@@ -371,6 +370,7 @@ public class TurboTranscribeCore {
             }
             refreshGUI();
             Log.log("Exported Raw to File: "+f.getPath());
+            Settings.setLast_used_directory(f);
         } catch (IOException e) {
             e.printStackTrace();
             Log.log(e.getStackTrace());
