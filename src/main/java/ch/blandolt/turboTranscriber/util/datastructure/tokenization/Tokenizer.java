@@ -51,7 +51,6 @@ public class Tokenizer {
         tokens = Tokenizer.extractSingleLineComments(tokens);
         tokens = Tokenizer.extractWordborders(tokens);
         // TODO: implement special word-border-cases (e.g. `aa¬lande` for `á landi`) (see: https://menota.org/HB3_ch5.xml)
-        // TODO: should Linebreaks (in raw, not the anchor [lb]) work as wordborders?
         tokens = Tokenizer.extractOpeningAndClosingTags(tokens);
         tokens = Tokenizer.extractAbbreviations(tokens);
         tokens = Tokenizer.extractGlyphs(tokens);
@@ -62,8 +61,6 @@ public class Tokenizer {
         tokens.add(new TokenTypeWordborder(""));
         tokens.add(0, new TokenTypeWordborder(""));
         tokens = Tokenizer.removeDoubleWordBorders(tokens);
-
-        // FIXME: when line ends on abbreviation (potentially others too), lb ends up in the previous word
 
         tokens = Tokenizer.segmentByWordborders(tokens);
         tokens = Tokenizer.getLegitWords(tokens);
