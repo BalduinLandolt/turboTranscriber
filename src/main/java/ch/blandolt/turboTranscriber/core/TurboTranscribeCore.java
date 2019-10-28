@@ -73,7 +73,7 @@ public class TurboTranscribeCore {
         }
         IS_LOCKED = true;
         REQUESTED_REFRESH = false;
-        long seconds = 5;
+        long seconds = 1;
         startTimer(seconds);
 
         long start = System.currentTimeMillis();

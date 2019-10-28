@@ -11,8 +11,9 @@ public class XMLFactory {
     private static Namespace ns_TEI = Namespace.getNamespace("http://www.tei-c.org/ns/1.0");
 
     // FIXME: <lb> often ends up in word tag
+    // -> should be ok, if spaces are correct, right?
+
     // FIXME: space at end of line should not be necessary (but mind the case of new line within word)
-    // TODO: tokenize timeout should be much shorter
     // TODO: ensure that tags with multiple arguments work properly
     // FIXME: add '#' to ref in <g>
     // TODO: make paths work in .jar
