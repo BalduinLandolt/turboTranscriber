@@ -12,6 +12,8 @@ public class XMLFactory {
 
     // TODO: ensure that tags with multiple arguments work properly
 
+    // FIXME: name tags do't wrap around words anymore
+
 
     public static Document createTEIXML(List<AbstractTranscriptionObject> data) {
         Element root = new Element("TEI", ns_TEI);
