@@ -50,7 +50,7 @@ public class Tokenizer {
         List<Tokenizable> tokens = Tokenizer.extractMultilineComments(text);
         tokens = Tokenizer.extractSingleLineComments(tokens);
         tokens = Tokenizer.extractWordborders(tokens);
-        // TODO: implement special word-border-cases (e.g. `aa¬lande` for `á landi`)
+        // TODO: implement special word-border-cases (e.g. `aa¬lande` for `á landi`) (see: https://menota.org/HB3_ch5.xml)
         // TODO: should Linebreaks (in raw, not the anchor [lb]) work as wordborders?
         tokens = Tokenizer.extractOpeningAndClosingTags(tokens);
         tokens = Tokenizer.extractAbbreviations(tokens);
