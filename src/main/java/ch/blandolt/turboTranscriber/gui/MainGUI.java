@@ -542,7 +542,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
             sb.append("\n");
         }
         transcriptionSyntaxTextArea.setText(sb.toString());
-        // TODO: enusre it's undoable -> is it?
+        // TODO: ensure it's undoable -> is it?
     }
 
     public String getTranscriptionString() {
@@ -550,11 +550,13 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
     }
 
     public void setXML(String string){
-        int y = xmlArea.getCaretPosition();
-        Log.log(y);
-        // TODO: Improve
+        int cp = xmlArea.getCaretPosition();
+        int l = xmlArea.getText().length();
+        float pos = (float)Math.max(1, cp) / Math.max(1, l);
+        int cp_new = (int)(string.length()*pos);
+        // TODO: Improve: have a carret-pos token in raw, and pass its position here
         xmlArea.setText(string);
-        xmlArea.setCaretPosition(y);
+        xmlArea.setCaretPosition(cp_new);
     }
 
     public String getXMLString() {
