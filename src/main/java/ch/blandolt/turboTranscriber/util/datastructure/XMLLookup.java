@@ -10,9 +10,8 @@ public class XMLLookup {
     // TODO: initialize from Default
     // TODO: add option to load in custom lookups
 
-    public static Map.Entry<String, String> lookUpAttribute(String name, Map.Entry<String, String> attribute){
+    public static Map.Entry<String, String> lookUpAttribute(String name, String val){
         String key = "";
-        String val = attribute.getValue();
         switch (name){
 
             case "pb":
