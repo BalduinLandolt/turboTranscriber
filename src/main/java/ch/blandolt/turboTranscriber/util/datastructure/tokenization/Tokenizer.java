@@ -302,7 +302,7 @@ public class Tokenizer {
     }
 
     private static List<Tokenizable> extractOpeningAndClosingTags(List<Tokenizable> tokens) {
-        List<Tokenizable> res = new LinkedList<Tokenizable>();
+        List<Tokenizable> res = new LinkedList<>();
 
         for (Tokenizable t: tokens) {
             if (t instanceof TokenizableText) {

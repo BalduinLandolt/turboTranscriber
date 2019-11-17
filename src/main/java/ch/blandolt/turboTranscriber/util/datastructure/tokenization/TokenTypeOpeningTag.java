@@ -11,7 +11,7 @@ public class TokenTypeOpeningTag extends TranscriptionToken {
 
     public TokenTypeOpeningTag(String txt) {
         super(txt);
-        String[] ss = txt.split("=");
+        String[] ss = txt.split("[=:]");
         tagName = ss[0];
     }
 

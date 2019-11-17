@@ -45,7 +45,6 @@ public class TTTag extends AbstractTranscriptionContainer{
 
          - name plus one value
          [lb=1]
-         // TODO: should logically be [lb:1] -> make synonymous?
 
          - only values
          [miracle=1]
