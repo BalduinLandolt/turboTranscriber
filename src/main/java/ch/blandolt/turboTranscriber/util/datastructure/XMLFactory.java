@@ -12,8 +12,6 @@ public class XMLFactory {
 
     // TODO: ensure that tags with multiple arguments work properly
 
-    // FIXME: name tags do't wrap around words anymore
-
 
     public static Document createTEIXML(List<AbstractTranscriptionObject> data) {
         Element root = new Element("TEI", ns_TEI);
@@ -119,9 +117,7 @@ public class XMLFactory {
     }
 
     private static Content getXMLforTag(TTTag t) {
-        // TODO: move all lookup to TTTag constructor?
-
-        // TODO: find solution for tags that should not be anchors (e.g. [p], [div], ...)
+        // TODO: find solution for tags that should not be anchors (e.g. [p], [div], ...) [?]
 
         if (t == null || t.getTagName().isEmpty())
             return null;
@@ -129,8 +125,7 @@ public class XMLFactory {
         try {
             e = new Element(t.getTagName(), ns_TEI);
             for (Map.Entry<String, String> attribute: t.getAttributes().entrySet()){
-                Map.Entry<String, String> attr_lookedup = XMLLookup.lookUpAttribute(t.getTagName(), attribute);
-                e.setAttribute(attr_lookedup.getKey(),attr_lookedup.getValue());
+                e.setAttribute(attribute.getKey(),attribute.getValue());
             }
             for (AbstractTranscriptionObject o: t.getContent()){
                 Content c = XMLFactory.generateXMLFromTranscriptionObject(o);

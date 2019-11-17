@@ -1,0 +1,13 @@
+[div]
+
+[p] 
+
+[pb=1]
+
+[lb=3] mær [name=person] Maria [/person] /*intentional error*/ wæri komin
+[lb=6] þær meyi(ar) e(r;er) ath n{aalig}me w(oro;osup) m(ed;ezh) h(enn;bar)e . h(an;bar)a d(ro;osup)tt¬
+[lb=7]ni(n;bar)gv {slong}ina . {fins}(yrir;isup) þa {slong}ok ath h(on;osup) hlaut þ(at;bar) ia{fins}nan ath g(er)a
+
+[/p]
+
+[/div]

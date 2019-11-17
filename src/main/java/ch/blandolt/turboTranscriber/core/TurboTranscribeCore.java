@@ -109,7 +109,7 @@ public class TurboTranscribeCore {
 
     private String beautify(String xml) { // TODO: do something with LB and PB
         String res = xml;
-        Pattern p = Pattern.compile("(?s)\\<w\\>.*?\\<\\/w\\>");
+        Pattern p = Pattern.compile("(?s)<w>.*?</w>");
         Matcher m = p.matcher(xml);
 
         while (m.find()) {
@@ -121,17 +121,17 @@ public class TurboTranscribeCore {
             res = res.replace(hit, replacement);
         }
 
-        res = res.replaceAll("[^\\S\\n]*\\<pb ", "\n\n <pb ");
-        res = res.replaceAll("[^\\S\\n]*\\<cb ", "\n  <cb ");
-        res = res.replaceAll("[^\\S\\n]*\\<lb ", "   <lb ");
-        res = res.replaceAll("(\\S)   +\\<lb ", "$1<lb ");
+        res = res.replaceAll("[^\\S\\n]*<pb ", "\n\n <pb ");
+        res = res.replaceAll("[^\\S\\n]*<cb ", "\n  <cb ");
+        res = res.replaceAll("[^\\S\\n]*<lb ", "   <lb ");
+        res = res.replaceAll("(\\S) {2} +<lb ", "$1<lb ");
 
         return res;
     }
 
     private void startTimer(long seconds) {
         ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
-        Runnable unlock  = () -> this.unlock();
+        Runnable unlock  = this::unlock;
         ses.schedule(unlock , seconds, TimeUnit.SECONDS);
     }
 
@@ -311,8 +311,7 @@ public class TurboTranscribeCore {
 
     private List<String> loadRaw(File f) {
         try {
-            List<String> lines = Files.readAllLines(f.toPath());
-            return lines;
+            return Files.readAllLines(f.toPath());
         } catch (IOException e) {
             e.printStackTrace();
             Log.log("Error: Failed to read raw file.");
@@ -360,7 +359,7 @@ public class TurboTranscribeCore {
             f = new File(f.getPath() + ".txt");
         try {
             List<CharSequence> lines = gui.getTranscriptionString().lines()
-                    .map(x -> new StringBuffer(x))
+                    .map(StringBuffer::new)
                     .collect(Collectors.toList());
             Files.write(Paths.get(f.toURI()), lines);
             Settings.setCurrent_raw_file(f);
@@ -393,15 +392,13 @@ public class TurboTranscribeCore {
         Log.log("Action: Load Images");
 
         JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File("./sample_data"));
+        fc.setCurrentDirectory(Settings.getLast_used_directory());
         fc.setFileFilter(new FileNameExtensionFilter("images", "jpg", "jpeg"));
         fc.setMultiSelectionEnabled(true);
         int returnVal = fc.showOpenDialog(gui);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File[] ff = fc.getSelectedFiles();
-            if (ff.length < 1) {
-                return;
-            } else {
+            if (ff.length >= 1) {
                 loadImages(ff);
             }
         } else {
@@ -410,7 +407,7 @@ public class TurboTranscribeCore {
     }
 
     private void loadImages(File[] files) {
-        LinkedList<BufferedImage> images = new LinkedList<BufferedImage>();
+        LinkedList<BufferedImage> images = new LinkedList<>();
         for (File f: files) {
             BufferedImage im = loadImage(f);
             if (im != null) {
@@ -418,9 +415,7 @@ public class TurboTranscribeCore {
             }
         }
         Log.log("Loaded Images: "+images.size());
-        for (BufferedImage img: images) {
-            data.loadedImages.add(img);
-        }
+        data.loadedImages.addAll(images);
         data.activatedImage = data.loadedImages.getFirst();
         //addDataStage();
         refreshGUI();
@@ -445,8 +440,7 @@ public class TurboTranscribeCore {
             return null;
 
         try {
-            BufferedImage im = ImageIO.read(f);
-            return im;
+            return ImageIO.read(f);
         } catch (IOException e) {
             Log.log("Failed to load image.");
             e.printStackTrace();
@@ -472,8 +466,7 @@ public class TurboTranscribeCore {
     }
 
     public ArrayList<BufferedImage> getLoadedImages() {
-        ArrayList<BufferedImage> res = new ArrayList<BufferedImage>(data.loadedImages);
-        return res;
+        return new ArrayList<BufferedImage>(data.loadedImages);
     }
 
     public void popoutImage() {

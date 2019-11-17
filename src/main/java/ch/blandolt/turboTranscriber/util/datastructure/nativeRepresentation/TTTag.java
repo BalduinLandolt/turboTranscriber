@@ -5,10 +5,7 @@ import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeClo
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeOpeningTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class TTTag extends AbstractTranscriptionContainer{
     private String rawRepresentation;
@@ -45,7 +42,6 @@ public class TTTag extends AbstractTranscriptionContainer{
 
          - name plus one value
          [lb=1]
-         // TODO: should logically be [lb:1] -> make synonymous?
 
          - only values
          [miracle=1]
@@ -73,8 +69,8 @@ public class TTTag extends AbstractTranscriptionContainer{
                 String[] pp = part.split("=");
                 attributes.put(pp[0], pp[1]);
             } else {
-                attributes.put(part, part);
-                // TODO: lookup here already?
+                Map.Entry<String, String> attr_lookedup = XMLLookup.lookUpAttribute(tagName, part);
+                attributes.put(attr_lookedup.getKey(), attr_lookedup.getValue());
             }
         }
     }

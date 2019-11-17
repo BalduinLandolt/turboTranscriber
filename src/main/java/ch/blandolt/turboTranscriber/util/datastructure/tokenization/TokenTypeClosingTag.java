@@ -1,7 +1,16 @@
 package ch.blandolt.turboTranscriber.util.datastructure.tokenization;
 
 public class TokenTypeClosingTag extends TranscriptionToken {
-    public TokenTypeClosingTag(String txt) {
+    private TokenTypeOpeningTag opener;
+    TokenTypeClosingTag(String txt) {
         super(txt);
+    }
+
+    void addOpeningTag(TokenTypeOpeningTag opener) {
+        this.opener = opener;
+    }
+
+    public TokenTypeOpeningTag getOpeningTag() {
+        return opener;
     }
 }
