@@ -393,7 +393,7 @@ public class TurboTranscribeCore {
         Log.log("Action: Load Images");
 
         JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File("./sample_data"));
+        fc.setCurrentDirectory(Settings.getLast_used_directory());
         fc.setFileFilter(new FileNameExtensionFilter("images", "jpg", "jpeg"));
         fc.setMultiSelectionEnabled(true);
         int returnVal = fc.showOpenDialog(gui);
