@@ -1,6 +1,7 @@
 package ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation;
 
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeClosingTag;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeMultilineComment;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeOpeningTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
 
@@ -40,8 +41,13 @@ public class DataFactory {
         for (TranscriptionToken t: tokens){
             if (t instanceof TokenTypeClosingTag) {
                 TokenTypeOpeningTag opener = findOpeningTag(tokens, t);
-                if (opener == null)
-                    return null;
+                if (opener == null) {
+                    TranscriptionToken t_new =
+                            new TokenTypeMultilineComment("!!! Fixme: Can't find opening tag for closing tag '[" +
+                            t.getText() + "]' !!! (Auto-generated comment by TurboTranscriber.)");
+                    tokens.set(tokens.indexOf(t), t_new);
+                    continue;
+                }
                 opener.addClosingTag((TokenTypeClosingTag) t);
             }
         }
