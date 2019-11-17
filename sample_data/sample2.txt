@@ -5,7 +5,7 @@
 [pb=1]
 [lb=1] [hi=caps] [hi=6][supplied=omitted]S[/supplied][/hi]uo seger [name=person] Ieronimvs [/name]
 [lb=2] prestur [/hi] ath {slong}æl (ok;et) dy{rrot}lig
-[lb=3] mær [name=person] Maria [/name] wæri komin 
+[lb=3] mær [name=person] Maria [/name] wæri komin
 [lb=4] a{fins} k(onun;bar)glig{rrot}e ætt . (ok;et) tok h(an;bar)n þ(vi;bar) a{fins} {fins}ra
 [lb=5]{slong}ogu [name=person] Mathe(us) [/name] g(u;d;combcurl){slong}pialla_man{ezh} . {fins}(yrir;isup)
 [lb=6] þ(ui;isup) ath h(an;bar)n tok ath v{pplig}ha{fins}i {slong}in{slong}
@@ -16,11 +16,11 @@
 [lb=11] [name=person] ab{rrot}aham [/name] {slong}id(arr;rsup) . þo at h(ann;bar) wæri {fins}y{rrot}r {jscap} hei(m;bar)e . ath
 [lb=12] g(u;d;combcurl)  het h(onu;bar)m ath taka {aalig} {slong}ig m(ann;nsup)dom (ok;et) lata b(er)a{ezh}t
 [lb=13] o{rrot} h(a;bar)n{slong} ætt . (ok;et) {fins}(ra) h(a;bar)n{slong} ætt_m({ocurl}nnu;msup) . {jscap} þ(en;bar)na heim . ok w(ar;rsup)
-[lb=14] þui [name=person] Maria [/person] d(ro;osup)ttni(n;bar)g bædi k(onun;bar)ga kyn{slong} (ok;et) ken(n;bar)i_m(anna;asup) .
+[lb=14] þui [name=person] Maria [/name] d(ro;osup)ttni(n;bar)g bædi k(onun;bar)ga kyn{slong} (ok;et) ken(n;bar)i_m(anna;asup) .
 [lb=15] ath h(on;osup) {fins}æddi þ(an;bar)n {slong}on e(r;er) bædi e(r;er) k(onun;bar)g{rrot} . (ok;et) ken(n;bar)i_m(adr;rsup) .  k(onun;bar)g{rrot}
 [lb=16] {jscap} guddo(m;bar){slong} velldi . ken(n;bar)i_m(adr;rsup) {jscap} pi{slong}l {slong}ine . þa e(r;er) h(an;bar)n {fins}ærdi
 [lb=17] {slong}ig {slong}ial{fins}(an;nsup) {jscap} {fins}o{rrot}n gudi {fins}er(ur) {aalig} k(ro;osup){slong}{slong}in(um;msup) halga . [name=person] Mar¬
-[lb=18]ia [/person] /*fixme: name tag doesnt show correctly*/ w(ar;rsup) bo{rrot}in {jscap} n(or;bar)g þ(ei;bar){rrot}e e(r;er) [name=place] na{ezh}areth [/name] heit(er) . en(n;bar) {fins}ædd
+[lb=18]ia [/name] /*fixme: name tag doesnt show correctly*/ w(ar;rsup) bo{rrot}in {jscap} n(or;bar)g þ(ei;bar){rrot}e e(r;er) [name=place] na{ezh}areth [/name] heit(er) . en(n;bar) {fins}ædd
 
 [pb=2]
 [lb=1] w{pplig} {jscap} b(or;bar)g þ(ei;bar){rrot}e e(r;er) [name=place] {jscap}o{rrot}{slong}ala_b(or;bar)g [/name] heit(ir;er) . (ok) lærd {jscap} g(u;d;combcurl){slong} m(us)t¬

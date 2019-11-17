@@ -16,7 +16,7 @@ public class DataFactory {
 
         // TODO: handle word borders somehow
 
-        prepareTags(tokens);
+        tokens = prepareTags(tokens);
         LinkedList<AbstractTranscriptionObject> data = convertTokens(tokens);
 
         //Log.log(data);
@@ -36,12 +36,12 @@ public class DataFactory {
         return res;
     }
 
-    private static void prepareTags(List<TranscriptionToken> tokens) {
+    private static List<TranscriptionToken> prepareTags(List<TranscriptionToken> tokens) {
         for (TranscriptionToken t: tokens){
             if (t instanceof TokenTypeClosingTag) {
                 TokenTypeOpeningTag opener = findOpeningTag(tokens, t);
                 if (opener == null)
-                    return;
+                    return null;
                 opener.addClosingTag((TokenTypeClosingTag) t);
             }
         }
@@ -57,14 +57,15 @@ public class DataFactory {
             }
         }
 
-        makeTagTreeShape(tokens);
+        return makeTagTreeShape(tokens);
     }
 
-    private static void makeTagTreeShape(List<TranscriptionToken> tokens) {
+    private static List<TranscriptionToken> makeTagTreeShape(List<TranscriptionToken> tokens) {
         while (hasClosingTags(tokens)){
             TokenTypeClosingTag closer = getFirstClosingTag(tokens);
             tokens = putContentInTags(closer, tokens);
         }
+        return tokens;
     }
 
     private static TokenTypeClosingTag getFirstClosingTag(List<TranscriptionToken> tokens) {
