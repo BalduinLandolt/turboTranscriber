@@ -13,16 +13,9 @@ import java.util.List;
 public class DataFactory {
 
     public static List<AbstractTranscriptionObject> buildDatastructure(List<TranscriptionToken> tokens) {
-        List<AbstractTranscriptionObject> res = new LinkedList<>();
-
-        // TODO: handle word borders somehow
-
         tokens = prepareTags(tokens);
         LinkedList<AbstractTranscriptionObject> data = convertTokens(tokens);
 
-        //Log.log(data);
-
-        // TODO: return something
         return data;
     }
 
@@ -69,6 +62,7 @@ public class DataFactory {
     private static List<TranscriptionToken> makeTagTreeShape(List<TranscriptionToken> tokens) {
         while (hasClosingTags(tokens)){
             TokenTypeClosingTag closer = getFirstClosingTag(tokens);
+            assert closer != null; // Should never happen while hasClosingTags()
             tokens = putContentInTags(closer, tokens);
         }
         return tokens;
@@ -103,12 +97,8 @@ public class DataFactory {
 
         res.add(opener);
 
-        LinkedList<TranscriptionToken> contents = new LinkedList<>();
-        for (TranscriptionToken t: tokens.subList(i_opener+1, i_closer)){
-            contents.add(t);
-        }
+        LinkedList<TranscriptionToken> contents = new LinkedList<>(tokens.subList(i_opener + 1, i_closer));
         opener.setContent(contents);
-        // TODO: add content into opener
 
         if (i_closer < tokens.size()-1){
             res.addAll(tokens.subList(i_closer+1, tokens.size()));
@@ -121,7 +111,7 @@ public class DataFactory {
         String name = t.getText().replace("/", "");
         List<TranscriptionToken> sublist = tokens.subList(0, tokens.indexOf(t));
         sublist = new LinkedList<>(sublist);
-        Collections.reverse(sublist); // FIXME: seems to manipulate the original list.
+        Collections.reverse(sublist); // FIXME: seems to manipulate the original list. (or does it?)
         for (TranscriptionToken sub: sublist){
             if (sub instanceof TokenTypeOpeningTag){
                 TokenTypeOpeningTag tag = (TokenTypeOpeningTag) sub;

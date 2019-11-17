@@ -1,11 +1,6 @@
 package ch.blandolt.turboTranscriber.util.datastructure.tokenization;
 
-import ch.blandolt.turboTranscriber.util.Log;
-
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -160,7 +155,7 @@ public class Tokenizer {
     }
 
     private static List<Tokenizable> extractTextFragments(List<Tokenizable> tokens) {
-        List<Tokenizable> res = new LinkedList<Tokenizable>();
+        List<Tokenizable> res = new LinkedList<>();
 
         for (Tokenizable t: tokens) {
             if (t instanceof TokenizableText) {
@@ -211,7 +206,7 @@ public class Tokenizer {
     }
 
     private static List<Tokenizable> extractPunctuationCharacters(List<Tokenizable> tokens) {
-        List<Tokenizable> res = new LinkedList<Tokenizable>();
+        List<Tokenizable> res = new LinkedList<>();
 
         for (Tokenizable t: tokens) {
             if (t instanceof TokenizableText) {
@@ -277,7 +272,7 @@ public class Tokenizer {
     }
 
     private static List<Tokenizable> extractAbbreviations(List<Tokenizable> tokens) {
-        List<Tokenizable> res = new LinkedList<Tokenizable>();
+        List<Tokenizable> res = new LinkedList<>();
 
         for (Tokenizable t: tokens) {
             if (t instanceof TokenizableText) {
@@ -341,7 +336,7 @@ public class Tokenizer {
     }
 
     private static List<Tokenizable> extractSingleLineComments(List<Tokenizable> tokens) {
-        List<Tokenizable> res = new LinkedList<Tokenizable>();
+        List<Tokenizable> res = new LinkedList<>();
 
         for (Tokenizable t: tokens){
             if (t instanceof TokenizableText){
@@ -371,7 +366,7 @@ public class Tokenizer {
     }
 
     private static List<Tokenizable> extractMultilineComments(String text) {
-        List<Tokenizable> res = new LinkedList<Tokenizable>();
+        List<Tokenizable> res = new LinkedList<>();
 
         text = text.replaceAll("/\\*", "/*££start_comment££");
         text = text.replaceAll("\\*/", "/*");
@@ -405,17 +400,6 @@ public class Tokenizer {
         tokens = extractGlyphs(tokens);
         tokens = extractTextFragments(tokens);
 
-        ArrayList<TranscriptionToken> tokens_finished = castToTranscriptionTokens(tokens);
-
-        return tokens_finished;
+        return castToTranscriptionTokens(tokens);
     }
-//
-//    public static List<TranscriptionToken> tokenizeAbbreviationMark(TranscriptionToken am) {
-//        List<Tokenizable> l = extractGlyphs(Arrays.asList(am));
-//        l = extractTextFragments(l);
-//
-//        ArrayList<TranscriptionToken> tokens_finished = castToTranscriptionTokens(l);
-//
-//        return tokens_finished;
-//    }
 }
