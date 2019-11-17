@@ -25,6 +25,7 @@ public class TokenTypeOpeningTag extends TranscriptionToken {
 
     public void addClosingTag(TokenTypeClosingTag t) {
         closingTag = t;
+        t.addOpeningTag(this);
     }
 
     public void setIsAnchor(boolean b) {
