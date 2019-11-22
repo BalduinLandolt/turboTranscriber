@@ -5,6 +5,7 @@ import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Loggable;
 import ch.blandolt.turboTranscriber.util.Settings;
 import ch.blandolt.turboTranscriber.util.rsyntax.RawTokenMaker;
+import ch.blandolt.turboTranscriber.util.rsyntax.WeightedCompletion;
 import org.fife.ui.autocomplete.AutoCompletion;
 import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -19,7 +20,7 @@ import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -251,7 +252,28 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
     }
 
     public void refreshCodeCompletion() {
-        // TODO
+        List<String> tokens = getCompletionTokens();
+        HashMap<String, Integer> types = new HashMap<>();
+        for (String token: tokens){
+            if (token.equals(""))
+                continue;
+            if (types.containsKey(token)){
+                Integer v2 = types.get(token)+1;
+                types.put(token, v2);
+            } else {
+                types.put(token, Integer.valueOf(1));
+            }
+        }
+        provider.clear();
+        for (Map.Entry<String, Integer> entry: types.entrySet()){
+            provider.addCompletion(new WeightedCompletion(provider, entry.getKey(), entry.getValue()));
+        }
+    }
+
+    private List<String> getCompletionTokens() {
+        String s = transcriptionSyntaxTextArea.getText();
+        s = s.replaceAll("\n", " ");
+        return Arrays.asList(s.split(" "));
     }
 
     private void handle_listeners() {
