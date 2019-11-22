@@ -5,6 +5,8 @@ import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Loggable;
 import ch.blandolt.turboTranscriber.util.Settings;
 import ch.blandolt.turboTranscriber.util.rsyntax.RawTokenMaker;
+import org.fife.ui.autocomplete.AutoCompletion;
+import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
@@ -78,6 +80,8 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
 
     private BufferedImage loadedImage;
     private float imageScaling = 0.4f;
+
+    private DefaultCompletionProvider provider = null;
 
     /**
      * Constructor of the GUI.
@@ -192,6 +196,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
             // TODO: ensure loading in jars (might not work, not sure)
 
             String path = "theme_light.xml";
+            // TODO: make dark theme more contrastive
             //String path = "theme_dark.xml";
             Log.log(getClass());
             InputStream in = getClass().getClassLoader().getResourceAsStream(path);
@@ -200,7 +205,6 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
         } catch (IOException ioe) { // Never happens
             ioe.printStackTrace();
         }
-        //transcriptionSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_C);
         Font prev = transcriptionSyntaxTextArea.getFont();
         transcriptionSyntaxTextArea.setBracketMatchingEnabled(true);
         transcriptionSyntaxTextArea.setPaintMatchedBracketPair(true);
@@ -209,6 +213,8 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
         // TODO: get this to work!
         transcriptionSyntaxTextArea.setFont(new Font(prev.getName(), prev.getStyle(), prev.getSize()+4));
         // TODO make font size a setting
+
+        setUpCodeCompletion();
 
         xmlScroller = new RTextScrollPane(xmlArea);
         styledScroller = new JScrollPane(new JLabel("Imagine nice HTML here."));
@@ -236,6 +242,16 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
         logScroller = new JScrollPane(logTextArea);
         logPane.setLayout(new BorderLayout());
         logPane.add(logScroller, BorderLayout.CENTER);
+    }
+
+    private void setUpCodeCompletion() {
+        provider = new DefaultCompletionProvider();
+        AutoCompletion ac = new AutoCompletion(provider);
+        ac.install(transcriptionSyntaxTextArea);
+    }
+
+    public void refreshCodeCompletion() {
+        // TODO
     }
 
     private void handle_listeners() {
