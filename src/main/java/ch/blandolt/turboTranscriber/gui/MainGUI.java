@@ -247,7 +247,9 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
 
     private void setUpCodeCompletion() {
         provider = new DefaultCompletionProvider();
+        provider.setAutoActivationRules(true, "({[;");
         AutoCompletion ac = new AutoCompletion(provider);
+        ac.setAutoActivationEnabled(true);
         ac.install(transcriptionSyntaxTextArea);
     }
 
