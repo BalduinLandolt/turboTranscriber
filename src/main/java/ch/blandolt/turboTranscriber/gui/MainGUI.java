@@ -7,6 +7,7 @@ import ch.blandolt.turboTranscriber.util.Settings;
 import ch.blandolt.turboTranscriber.util.rsyntax.RawTokenMaker;
 import ch.blandolt.turboTranscriber.util.rsyntax.WeightedCompletion;
 import org.fife.ui.autocomplete.AutoCompletion;
+import org.fife.ui.autocomplete.BasicCompletion;
 import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -251,6 +252,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
         AutoCompletion ac = new AutoCompletion(provider);
         ac.setAutoActivationEnabled(true);
         ac.install(transcriptionSyntaxTextArea);
+        // FIXME: when completion starts with bracket, this gets doubled.
     }
 
     public void refreshCodeCompletion() {
@@ -268,7 +270,9 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
         }
         provider.clear();
         for (Map.Entry<String, Integer> entry: types.entrySet()){
-            provider.addCompletion(new WeightedCompletion(provider, entry.getKey(), entry.getValue()));
+            // TODO: get weighted completion to work
+            //provider.addCompletion(new WeightedCompletion(provider, entry.getKey(), entry.getValue()));
+            provider.addCompletion(new BasicCompletion(provider, entry.getKey(), entry.getValue().toString()));
         }
     }
 
