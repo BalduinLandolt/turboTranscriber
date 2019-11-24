@@ -5,6 +5,11 @@ import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Loggable;
 import ch.blandolt.turboTranscriber.util.Settings;
 import ch.blandolt.turboTranscriber.util.rsyntax.RawTokenMaker;
+import ch.blandolt.turboTranscriber.util.rsyntax.TTCompletionProvider;
+import ch.blandolt.turboTranscriber.util.rsyntax.WeightedCompletion;
+import org.fife.ui.autocomplete.AutoCompletion;
+import org.fife.ui.autocomplete.BasicCompletion;
+import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
@@ -17,7 +22,7 @@ import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -78,6 +83,8 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
 
     private BufferedImage loadedImage;
     private float imageScaling = 0.4f;
+
+    private DefaultCompletionProvider provider = null;
 
     /**
      * Constructor of the GUI.
@@ -192,6 +199,7 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
             // TODO: ensure loading in jars (might not work, not sure)
 
             String path = "theme_light.xml";
+            // TODO: make dark theme more contrastive
             //String path = "theme_dark.xml";
             Log.log(getClass());
             InputStream in = getClass().getClassLoader().getResourceAsStream(path);
@@ -200,7 +208,6 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
         } catch (IOException ioe) { // Never happens
             ioe.printStackTrace();
         }
-        //transcriptionSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_C);
         Font prev = transcriptionSyntaxTextArea.getFont();
         transcriptionSyntaxTextArea.setBracketMatchingEnabled(true);
         transcriptionSyntaxTextArea.setPaintMatchedBracketPair(true);
@@ -209,6 +216,8 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
         // TODO: get this to work!
         transcriptionSyntaxTextArea.setFont(new Font(prev.getName(), prev.getStyle(), prev.getSize()+4));
         // TODO make font size a setting
+
+        setUpCodeCompletion();
 
         xmlScroller = new RTextScrollPane(xmlArea);
         styledScroller = new JScrollPane(new JLabel("Imagine nice HTML here."));
@@ -236,6 +245,41 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
         logScroller = new JScrollPane(logTextArea);
         logPane.setLayout(new BorderLayout());
         logPane.add(logScroller, BorderLayout.CENTER);
+    }
+
+    private void setUpCodeCompletion() {
+        provider = new TTCompletionProvider();
+        provider.setAutoActivationRules(true, "({[;");
+        AutoCompletion ac = new AutoCompletion(provider);
+        ac.setAutoActivationEnabled(true);
+        ac.install(transcriptionSyntaxTextArea);
+    }
+
+    public void refreshCodeCompletion() {
+        List<String> tokens = getCompletionTokens();
+        HashMap<String, Integer> types = new HashMap<>();
+        for (String token: tokens){
+            if (token.equals(""))
+                continue;
+            if (types.containsKey(token)){
+                Integer v2 = types.get(token)+1;
+                types.put(token, v2);
+            } else {
+                types.put(token, Integer.valueOf(1));
+            }
+        }
+        provider.clear();
+        for (Map.Entry<String, Integer> entry: types.entrySet()){
+            // TODO: get weighted completion to work
+            //provider.addCompletion(new WeightedCompletion(provider, entry.getKey(), entry.getValue()));
+            provider.addCompletion(new BasicCompletion(provider, entry.getKey(), entry.getValue().toString()));
+        }
+    }
+
+    private List<String> getCompletionTokens() {
+        String s = transcriptionSyntaxTextArea.getText();
+        s = s.replaceAll("\n", " ");
+        return Arrays.asList(s.split(" "));
     }
 
     private void handle_listeners() {

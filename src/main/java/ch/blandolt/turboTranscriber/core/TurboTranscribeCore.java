@@ -432,6 +432,8 @@ public class TurboTranscribeCore {
         gui.createThumbnails();
         gui.refreshEnabledComponents();
 
+        gui.refreshCodeCompletion();
+
         // TODO: more?
     }
 
