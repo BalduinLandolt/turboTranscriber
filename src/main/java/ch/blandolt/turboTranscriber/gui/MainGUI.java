@@ -5,6 +5,7 @@ import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.Loggable;
 import ch.blandolt.turboTranscriber.util.Settings;
 import ch.blandolt.turboTranscriber.util.rsyntax.RawTokenMaker;
+import ch.blandolt.turboTranscriber.util.rsyntax.TTCompletionProvider;
 import ch.blandolt.turboTranscriber.util.rsyntax.WeightedCompletion;
 import org.fife.ui.autocomplete.AutoCompletion;
 import org.fife.ui.autocomplete.BasicCompletion;
@@ -247,12 +248,11 @@ public class MainGUI extends JFrame  implements Loggable, WindowListener, Docume
     }
 
     private void setUpCodeCompletion() {
-        provider = new DefaultCompletionProvider();
+        provider = new TTCompletionProvider();
         provider.setAutoActivationRules(true, "({[;");
         AutoCompletion ac = new AutoCompletion(provider);
         ac.setAutoActivationEnabled(true);
         ac.install(transcriptionSyntaxTextArea);
-        // FIXME: when completion starts with bracket, this gets doubled.
     }
 
     public void refreshCodeCompletion() {
