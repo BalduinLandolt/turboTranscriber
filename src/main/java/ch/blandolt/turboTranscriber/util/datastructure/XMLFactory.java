@@ -17,13 +17,13 @@ public class XMLFactory {
         Element root = new Element("TEI", ns_TEI);
         Document res = new Document(root);
         ProcessingInstruction relaxng = new ProcessingInstruction("xml-model",
-                "href='http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng' " +
+                "href='../schema/tei-onmm.rng' " +
                         "type='application/xml' schematypens='http://relaxng.org/ns/structure/1.0'");
         res.addContent(0, relaxng);
-        ProcessingInstruction schematron = new ProcessingInstruction("xml-model",
-                "href='http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng' " +
-                        "type='application/xml' schematypens='http://purl.oclc.org/dsdl/schematron'");
-        res.addContent(1, schematron);
+        ProcessingInstruction restrict = new ProcessingInstruction("xml-model",
+                "href='../schema/restrict.xsd' " +
+                        "type='application/xml' schematypens='http://www.w3.org/2001/XMLSchema'");
+        res.addContent(1, restrict);
         ProcessingInstruction stylesheet = new ProcessingInstruction("xml-stylesheet",
                 "href='style.css' type='text/css'");
         res.addContent(2, stylesheet);
