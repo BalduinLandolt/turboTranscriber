@@ -11,9 +11,12 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.*;
 
 
 /**
@@ -40,6 +43,8 @@ public class Log {
 	private PrintStream printStream;
 	private LogStream logStream;
 	private LinkedList<Loggable> loggables;
+
+	private static Logger julLogger;
 
 	/**
 	 * Generate an instance of {@link Log}
@@ -358,4 +363,30 @@ public class Log {
 	private void addLoggableToList(Loggable l) {
 		loggables.add(l);
 	}
+
+	public static Logger getJulLogger(){
+		if (julLogger == null){
+			createJulLogger();
+			System.err.println("Log had to create Log itself. Bad.");
+		}
+		return julLogger;
+	}
+
+	public static void createJulLogger() {
+		julLogger = Logger.getLogger(Log.class.getName());
+		julLogger.setLevel(Level.ALL);
+
+		String home = System.getProperty("user.home");
+		Path p = Paths.get(home, ".ttr-lsp", "log.txt");
+		try {
+			Handler handler = new FileHandler(p.toString());
+			handler.setFormatter(new SimpleFormatter());
+			handler.setLevel(Level.ALL);
+			julLogger.addHandler(handler);
+			julLogger.info("Info: Log created");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

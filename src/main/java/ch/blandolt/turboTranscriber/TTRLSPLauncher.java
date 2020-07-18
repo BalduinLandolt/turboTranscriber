@@ -1,6 +1,7 @@
 package ch.blandolt.turboTranscriber;
 
 import ch.blandolt.turboTranscriber.lsp.TurboTranscriberLanguageServer;
+import ch.blandolt.turboTranscriber.util.Log;
 import org.eclipse.lsp4j.jsonrpc.Launcher;
 import org.eclipse.lsp4j.launch.LSPLauncher;
 import org.eclipse.lsp4j.services.LanguageClient;
@@ -9,21 +10,22 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 public class TTRLSPLauncher {
+    private static Logger log;
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         // As we are using system std io channels
         // we need to reset and turn off the logging globally
         // So our client->server communication doesn't get interrupted.
         LogManager.getLogManager().reset();
-        Logger globalLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        Logger globalLogger = Logger.getLogger("Launcher");
         globalLogger.setLevel(Level.OFF);
 
         // start the language server
         startServer(System.in, System.out);
+
     }
     /**
      * Start the language server.
@@ -33,6 +35,11 @@ public class TTRLSPLauncher {
      * @throws InterruptedException Unable to start the server
      */
     private static void startServer(InputStream in, OutputStream out) throws ExecutionException, InterruptedException {
+        Log.createJulLogger();
+        log = Log.getJulLogger();
+        Log.getJulLogger().info("BLah");
+        log.info("Log initialized. Server starting...");
+
         // Initialize the HelloLanguageServer
         TurboTranscriberLanguageServer server = new TurboTranscriberLanguageServer();
         // Create JSON RPC launcher for HelloLanguageServer instance.

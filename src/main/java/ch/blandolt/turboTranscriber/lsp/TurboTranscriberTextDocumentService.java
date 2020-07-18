@@ -1,5 +1,6 @@
 package ch.blandolt.turboTranscriber.lsp;
 
+import ch.blandolt.turboTranscriber.util.Log;
 import org.eclipse.lsp4j.*;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.lsp4j.services.TextDocumentService;
@@ -7,8 +8,15 @@ import org.eclipse.lsp4j.services.TextDocumentService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Logger;
 
 public class TurboTranscriberTextDocumentService implements TextDocumentService {
+    private static Logger log;
+
+    public TurboTranscriberTextDocumentService() {
+        log = Log.getJulLogger();
+    }
+
     @Override
     public CompletableFuture<Either<List<CompletionItem>, CompletionList>> completion(CompletionParams position) {
         // Provide completion item.
@@ -132,7 +140,9 @@ public class TurboTranscriberTextDocumentService implements TextDocumentService 
 
     @Override
     public void didChange(DidChangeTextDocumentParams params) {
-
+//        Log.log("got a change in the document");
+//        Log.terminate();
+        log.info("Logger works?");
     }
 
     @Override

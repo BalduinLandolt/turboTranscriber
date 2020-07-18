@@ -1,5 +1,6 @@
 package ch.blandolt.turboTranscriber.lsp;
 
+import ch.blandolt.turboTranscriber.util.Log;
 import org.eclipse.lsp4j.CompletionOptions;
 import org.eclipse.lsp4j.InitializeParams;
 import org.eclipse.lsp4j.InitializeResult;
@@ -12,8 +13,11 @@ import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Logger;
 
 public class TurboTranscriberLanguageServer implements LanguageServer, LanguageClientAware {
+    private static Logger log;
+
     private TextDocumentService textDocumentService;
     private WorkspaceService workspaceService;
     private LanguageClient client;
@@ -22,10 +26,13 @@ public class TurboTranscriberLanguageServer implements LanguageServer, LanguageC
     public TurboTranscriberLanguageServer() {
         this.textDocumentService = new TurboTranscriberTextDocumentService();
         this.workspaceService = new TurboTranscriberWorkspaceService();
+        log = Log.getJulLogger();
     }
 
     @Override
     public CompletableFuture<InitializeResult> initialize(InitializeParams initializeParams) {
+        log.info("Initialize Server.");
+
         // Initialize the InitializeResult for this LS.
         final InitializeResult initializeResult = new InitializeResult(new ServerCapabilities());
 
@@ -38,6 +45,7 @@ public class TurboTranscriberLanguageServer implements LanguageServer, LanguageC
 
     @Override
     public CompletableFuture<Object> shutdown() {
+        log.info("Server Shutdown requested.");
         // If shutdown request comes from client, set the error code to 0.
         errorCode = 0;
         return null;
@@ -45,6 +53,7 @@ public class TurboTranscriberLanguageServer implements LanguageServer, LanguageC
 
     @Override
     public void exit() {
+        log.info("Server Terminated.");
         // Kill the LS on exit request from client.
         System.exit(errorCode);
     }
@@ -63,6 +72,7 @@ public class TurboTranscriberLanguageServer implements LanguageServer, LanguageC
 
     @Override
     public void connect(LanguageClient languageClient) {
+        log.info("Client connected to Server.");
         // Get the client which started this LS.
         this.client = languageClient;
     }
