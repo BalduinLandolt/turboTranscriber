@@ -63,7 +63,7 @@
 								<archive>
 									<manifest>
 										<addClasspath>true</addClasspath>
-										<mainClass>ch.blandolt.turboTranscriber.LSPLauncher</mainClass>
+										<mainClass>ch.blandolt.turboTranscriber.TTRLSPLauncher</mainClass>
 									</manifest>
 								</archive>
 								<descriptorRefs>
