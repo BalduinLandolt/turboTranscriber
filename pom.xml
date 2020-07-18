@@ -4,11 +4,11 @@
 		<modelVersion>4.0.0</modelVersion>
 		<groupId>turboTranscriber</groupId>
 		<artifactId>turboTranscriber</artifactId>
-		<version>0.0.4</version>
+		<version>0.0.5</version>
 		<packaging>jar</packaging>
-<!--		<properties>
+		<properties>
 			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		</properties>-->
+		</properties>
 
 		<build>
 			<plugins>
@@ -39,23 +39,44 @@
 					<artifactId>maven-assembly-plugin</artifactId>
 					<executions>
 						<execution>
+							<id>standalone</id>
+							<configuration>
+								<archive>
+									<manifest>
+										<addClasspath>true</addClasspath>
+										<mainClass>ch.blandolt.turboTranscriber.TurboTranscriberMain</mainClass>
+									</manifest>
+								</archive>
+								<descriptorRefs>
+									<descriptorRef>jar-with-dependencies</descriptorRef>
+								</descriptorRefs>
+								<!--<finalName></finalName>-->
+							</configuration>
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>LSP-Server</id>
+							<configuration>
+								<archive>
+									<manifest>
+										<addClasspath>true</addClasspath>
+										<mainClass>ch.blandolt.turboTranscriber.LSPLauncher</mainClass>
+									</manifest>
+								</archive>
+								<descriptorRefs>
+									<descriptorRef>jar-with-dependencies</descriptorRef>
+								</descriptorRefs>
+								<finalName>TurboTranscriber-LSP-Server-${project.version}</finalName>
+							</configuration>
 							<phase>package</phase>
 							<goals>
 								<goal>single</goal>
 							</goals>
 						</execution>
 					</executions>
-					<configuration>
-						<descriptorRefs>
-							<descriptorRef>jar-with-dependencies</descriptorRef>
-						</descriptorRefs>
-						<archive>
-							<manifest>
-								<addClasspath>true</addClasspath>
-								<mainClass>ch.blandolt.turboTranscriber.TurboTranscriberMain</mainClass>
-							</manifest>
-						</archive>
-					</configuration>
 				</plugin>
 
 			</plugins>
@@ -65,17 +86,22 @@
 			<dependency>
 				<groupId>org.jdom</groupId>
 				<artifactId>jdom2</artifactId>
-				<version>2.0.6</version>
+				<version>[2.0.6,)</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fifesoft</groupId>
 				<artifactId>rsyntaxtextarea</artifactId>
-				<version>3.0.3</version>
+				<version>[3.0.3,)</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fifesoft</groupId>
 				<artifactId>autocomplete</artifactId>
-				<version>3.0.2</version>
+				<version>[3.0.2,)</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.lsp4j</groupId>
+				<artifactId>org.eclipse.lsp4j</artifactId>
+				<version>[0.9.0,)</version>
 			</dependency>
 		</dependencies>
 	</project>
