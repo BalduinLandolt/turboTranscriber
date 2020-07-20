@@ -37,7 +37,6 @@ public class TTRLSPLauncher {
     private static void startServer(InputStream in, OutputStream out) throws ExecutionException, InterruptedException {
         Log.createJulLogger();
         log = Log.getJulLogger();
-        Log.getJulLogger().info("BLah");
         log.info("Log initialized. Server starting...");
 
         // Initialize the HelloLanguageServer

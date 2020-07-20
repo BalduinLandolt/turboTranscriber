@@ -380,6 +380,7 @@ public class Log {
 		Path p = Paths.get(home, ".ttr-lsp", "log.txt");
 		try {
 			Handler handler = new FileHandler(p.toString());
+			handler.setEncoding(java.nio.charset.StandardCharsets.UTF_8.name());
 			handler.setFormatter(new SimpleFormatter());
 			handler.setLevel(Level.ALL);
 			julLogger.addHandler(handler);

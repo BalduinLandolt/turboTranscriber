@@ -17,7 +17,7 @@ public class TurboTranscriberWorkspaceService implements WorkspaceService {
 
     @Override
     public void didChangeConfiguration(DidChangeConfigurationParams didChangeConfigurationParams) {
-
+        // TODO: update configurations
     }
 
     @Override
