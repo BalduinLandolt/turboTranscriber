@@ -1,17 +1,21 @@
 package ch.blandolt.turboTranscriber.lsp.documents;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.eclipse.lsp4j.TextDocumentContentChangeEvent;
 import org.eclipse.lsp4j.TextDocumentItem;
 
+import ch.blandolt.turboTranscriber.util.Log;
+
 // LATER: make Core TTR use this class aswell
 
 public class TTRDocument extends TextDocumentItem {
-
-    private final Object lock = new Object();
     
 	private static String DEFAULT_DELIMTER = System.lineSeparator();
+
+	private final Object lock = new Object();
+	private final Logger log;
 
 	public TTRDocument(TextDocumentItem document) {
 		this(document.getText(), document.getUri());
@@ -21,11 +25,12 @@ public class TTRDocument extends TextDocumentItem {
 
     public TTRDocument(String text, String uri) {
         super.setUri(uri);
-        super.setText(text);
+		super.setText(text);
+		log = Log.getJulLogger();
     }
     
     public String getUri() {
-        return null;
+        return super.getUri();
     }
 
 

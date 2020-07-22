@@ -377,7 +377,7 @@ public class Log {
 		julLogger.setLevel(Level.ALL);
 
 		String home = System.getProperty("user.home");
-		Path p = Paths.get(home, ".ttr-lsp", "log.txt");
+		Path p = Paths.get(home, ".ttr-lsp", "ttr-lsp-server.log");
 		try {
 			Handler handler = new FileHandler(p.toString());
 			handler.setEncoding(java.nio.charset.StandardCharsets.UTF_8.name());

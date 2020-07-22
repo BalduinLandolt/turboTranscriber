@@ -1,5 +1,7 @@
 package ch.blandolt.turboTranscriber.lsp;
 
+import ch.blandolt.turboTranscriber.lsp.documents.TTRDocument;
+import ch.blandolt.turboTranscriber.lsp.documents.TTRDocuments;
 import ch.blandolt.turboTranscriber.util.Log;
 import org.eclipse.lsp4j.*;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
@@ -7,16 +9,19 @@ import org.eclipse.lsp4j.services.TextDocumentService;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TurboTranscriberTextDocumentService implements TextDocumentService {
     private static Logger log;
 
     private final TurboTranscriberLanguageServer languageServer;
+    private final TTRDocuments<TTRDocument> documents;
 
     public TurboTranscriberTextDocumentService(TurboTranscriberLanguageServer languageServer) {
         log = Log.getJulLogger();
         this.languageServer = languageServer;
+        documents = new TTRDocuments<>();
     }
 
     private TTRLanguageService getTTRLanguageService(){
@@ -27,7 +32,9 @@ public class TurboTranscriberTextDocumentService implements TextDocumentService 
     public CompletableFuture<Either<List<CompletionItem>, CompletionList>> completion(CompletionParams params) {
         // Provide completion item.
         return CompletableFuture.supplyAsync(() -> {
-            List<CompletionItem> completionItems = getTTRLanguageService().getCompletions(/*document*/ params.getPosition()); //TODO: add parameters: document
+            String uri = params.getTextDocument().getUri();
+            TTRDocument doc = documents.get(uri);
+            List<CompletionItem> completionItems = getTTRLanguageService().getCompletions(doc, params.getPosition());
 
             // Return the list of completion items.
             return Either.forLeft(completionItems);
@@ -121,18 +128,20 @@ public class TurboTranscriberTextDocumentService implements TextDocumentService 
 
     @Override
     public void didOpen(DidOpenTextDocumentParams params) {
-
+        documents.onDidOpenTextDocument(params);
+        log.info("Opened Document: " + params.getTextDocument().getUri());
     }
 
     @Override
     public void didChange(DidChangeTextDocumentParams params) {
-        VersionedTextDocumentIdentifier docID = params.getTextDocument();
+        documents.onDidChangeTextDocument(params);
         log.info("Document changed: " + params.getContentChanges());
     }
 
     @Override
     public void didClose(DidCloseTextDocumentParams params) {
-
+        documents.onDidCloseTextDocument(params);
+        log.info("Closed Document: " + params.getTextDocument().getUri());
     }
 
     @Override
