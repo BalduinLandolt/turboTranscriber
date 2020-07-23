@@ -25,12 +25,18 @@ public class CompletionTest {
     // TODO: stuff to make it work... magic.
 
 
+    /**
+     * Initialization before each test.
+     */
     @BeforeEach
     public void initializeEach() {
         // TODO: initialize
         service = new TTRLanguageService();
     }
 
+    /**
+     * Test completion for empty document.
+     */
     @Test
     public void testEmptyDocumentCompletion() {
         
