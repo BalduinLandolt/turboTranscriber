@@ -1,12 +1,16 @@
 package ch.blandolt.turboTranscriber.lsp.documents;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Logger;
 
 import org.eclipse.lsp4j.TextDocumentContentChangeEvent;
 import org.eclipse.lsp4j.TextDocumentItem;
 
 import ch.blandolt.turboTranscriber.util.Log;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
 
 // LATER: make Core TTR use this class aswell
 
@@ -16,6 +20,9 @@ public class TTRDocument extends TextDocumentItem {
 
 	private final Object lock = new Object();
 	private final Logger log;
+
+	private boolean isTokenized = false;
+	private List<TranscriptionToken> tokens;
 
 	public TTRDocument(TextDocumentItem document) {
 		this(document.getText(), document.getUri());
@@ -27,11 +34,40 @@ public class TTRDocument extends TextDocumentItem {
         super.setUri(uri);
 		super.setText(text);
 		log = Log.getJulLogger();
+		tokens = new ArrayList<>();
+		tokenizeContents();
     }
     
     public String getUri() {
         return super.getUri();
-    }
+	}
+	
+	/**
+	 * tokenizes the text contents asynchronously.
+	 * 
+	 * Will set <code>isTokenized</code> to true when finished.
+	 */
+	private void tokenizeContents() {
+		// TODO: implement lock, timer, lock, and retokenize here (or in a public function that calls this one, when it's sure?)
+		isTokenized = false;
+		CompletableFuture<List<TranscriptionToken>> future = CompletableFuture.supplyAsync(() -> {
+			return Tokenizer.tokenize(this.getText());
+		});
+		future.thenAccept((tokens) -> {
+			this.tokens = tokens;
+			isTokenized = true;
+			log.info("Successfully tokenized document.");
+			// TODO: add timer?
+		});
+	}
+
+	public List<TranscriptionToken> getTokens() {
+		return tokens;
+	}
+
+	public boolean isTokenized() {
+		return isTokenized;
+	}
 
 
     // TODO: handle Position stuff here?
