@@ -6,9 +6,9 @@
 .project
 .settings
 .classpath
+*.classpath
 .idea/*
 *.iml
-*.classpath
 
 
 # Maven Target
