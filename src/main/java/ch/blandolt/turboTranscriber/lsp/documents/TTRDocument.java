@@ -1,7 +1,10 @@
 package ch.blandolt.turboTranscriber.lsp.documents;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.AbstractMap.SimpleEntry;
@@ -12,6 +15,11 @@ import org.eclipse.lsp4j.TextDocumentContentChangeEvent;
 import org.eclipse.lsp4j.TextDocumentItem;
 
 import ch.blandolt.turboTranscriber.util.Log;
+import ch.blandolt.turboTranscriber.util.SuggestionCounter;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeClosingTag;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeGlyph;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeLegitWord;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeOpeningTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Tokenizer;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TranscriptionToken;
 
@@ -28,7 +36,7 @@ public class TTRDocument extends TextDocumentItem {
 
 	private boolean isTokenized = false;
 	private List<TranscriptionToken> tokens;
-	private List<SimpleEntry<String,Integer>> completionSuggestions;
+	private SuggestionCounter<String> completionSuggestions;
 	private TokenizationLock tokenizationLock;
 
 	public TTRDocument(TextDocumentItem document) {
@@ -42,7 +50,7 @@ public class TTRDocument extends TextDocumentItem {
 		super.setText(text);
 		log = Log.getJulLogger();
 		tokens = new ArrayList<>();
-		completionSuggestions = new ArrayList<>();
+		completionSuggestions = new SuggestionCounter<String>();
 		tokenizationLock = new TokenizationLock();
 		tokenizeContents();
 	}
@@ -79,14 +87,59 @@ public class TTRDocument extends TextDocumentItem {
 	}
 
 	private void updateCompletionSuggestions() {
-		CompletableFuture<List<SimpleEntry<String, Integer>>> future = CompletableFuture.supplyAsync(() -> {
-			List<SimpleEntry<String, Integer>> res = new ArrayList<>();
-			// TODO
+		CompletableFuture<SuggestionCounter<String>> future = CompletableFuture.supplyAsync(() -> {
+			// FIXME: need to get a flat list of tokens to get inner elements
+			SuggestionCounter<String> res = new SuggestionCounter<String>();
+			res.addAll(getWordSuggestions());
+			res.addAll(gettTagSuggestions());
+			res.addAll(gettAbbreviationSuggestions());
+			res.addAll(gettGlyphSuggestions());
+			// TODO: more?
 			return res;
 		});
 		future.thenAccept((suggestions) -> {
 			completionSuggestions = suggestions;
 		});
+	}
+
+	private SuggestionCounter<String> getWordSuggestions() {
+		SuggestionCounter<String> res = new SuggestionCounter<String>();
+		for (TranscriptionToken token : tokens) {
+			if (token instanceof TokenTypeLegitWord) {
+				completionSuggestions.add(token.getText());
+			}
+		}
+		return res;
+	}
+
+	private SuggestionCounter<String> gettTagSuggestions() {
+		SuggestionCounter<String> res = new SuggestionCounter<String>();
+		for (TranscriptionToken token : tokens) {
+			if (token instanceof TokenTypeOpeningTag || token instanceof TokenTypeClosingTag) {
+				completionSuggestions.add(token.getText());
+			}
+		}
+		return res;
+	}
+
+	private SuggestionCounter<String> gettAbbreviationSuggestions() {
+		SuggestionCounter<String> res = new SuggestionCounter<String>();
+		for (TranscriptionToken token : tokens) {
+			if (token instanceof TokenTypeClosingTag) {
+				completionSuggestions.add(token.getText());
+			}
+		}
+		return res;
+	}
+
+	private SuggestionCounter<String> gettGlyphSuggestions() {
+		SuggestionCounter<String> res = new SuggestionCounter<String>();
+		for (TranscriptionToken token : tokens) {
+			if (token instanceof TokenTypeGlyph) {
+				completionSuggestions.add(token.getText());
+			}
+		}
+		return res;
 	}
 
 	private boolean isLocked() {
