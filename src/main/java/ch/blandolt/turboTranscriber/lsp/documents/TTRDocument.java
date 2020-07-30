@@ -2,6 +2,9 @@ package ch.blandolt.turboTranscriber.lsp.documents;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Logger;
 
@@ -15,50 +18,79 @@ import ch.blandolt.turboTranscriber.util.datastructure.tokenization.Transcriptio
 // LATER: make Core TTR use this class aswell
 
 public class TTRDocument extends TextDocumentItem {
-    
+
 	private static String DEFAULT_DELIMTER = System.lineSeparator();
+	// TODO: make this a setting insted of hardcoding it
+	private static long LOCK_DURATION = 2500;
 
 	private final Object lock = new Object();
 	private final Logger log;
 
 	private boolean isTokenized = false;
 	private List<TranscriptionToken> tokens;
+	private List<SimpleEntry<String,Integer>> completionSuggestions;
+	private TokenizationLock tokenizationLock;
 
 	public TTRDocument(TextDocumentItem document) {
 		this(document.getText(), document.getUri());
 		super.setVersion(document.getVersion());
 		super.setLanguageId(document.getLanguageId());
-    }
+	}
 
-    public TTRDocument(String text, String uri) {
-        super.setUri(uri);
+	public TTRDocument(String text, String uri) {
+		super.setUri(uri);
 		super.setText(text);
 		log = Log.getJulLogger();
 		tokens = new ArrayList<>();
+		completionSuggestions = new ArrayList<>();
+		tokenizationLock = new TokenizationLock();
 		tokenizeContents();
-    }
-    
-    public String getUri() {
-        return super.getUri();
 	}
-	
+
+	public String getUri() {
+		return super.getUri();
+	}
+
 	/**
 	 * tokenizes the text contents asynchronously.
 	 * 
 	 * Will set <code>isTokenized</code> to true when finished.
 	 */
 	private void tokenizeContents() {
-		// TODO: implement lock, timer, lock, and retokenize here (or in a public function that calls this one, when it's sure?)
-		isTokenized = false;
+		if (isLocked()) {
+			tokenizationLock.requestRetokenization();
+			log.info("Tokenizer is locked.");
+			return;
+		}
+
+		log.info("Tokenizing Document.");
+		isTokenized = false; // TODO: do I really want this, might cost me a lot of tokenized stat while it
+								// is working on minor changes.
 		CompletableFuture<List<TranscriptionToken>> future = CompletableFuture.supplyAsync(() -> {
+			tokenizationLock.lock(LOCK_DURATION);
 			return Tokenizer.tokenize(this.getText());
 		});
 		future.thenAccept((tokens) -> {
 			this.tokens = tokens;
 			isTokenized = true;
 			log.info("Successfully tokenized document.");
-			// TODO: add timer?
+			updateCompletionSuggestions();
 		});
+	}
+
+	private void updateCompletionSuggestions() {
+		CompletableFuture<List<SimpleEntry<String, Integer>>> future = CompletableFuture.supplyAsync(() -> {
+			List<SimpleEntry<String, Integer>> res = new ArrayList<>();
+			// TODO
+			return res;
+		});
+		future.thenAccept((suggestions) -> {
+			completionSuggestions = suggestions;
+		});
+	}
+
+	private boolean isLocked() {
+		return tokenizationLock.isLocked();
 	}
 
 	public List<TranscriptionToken> getTokens() {
@@ -69,8 +101,7 @@ public class TTRDocument extends TextDocumentItem {
 		return isTokenized;
 	}
 
-
-    // TODO: handle Position stuff here?
+	// TODO: handle Position stuff here?
 
 	/**
 	 * Update text of the document by using the changes
@@ -84,51 +115,85 @@ public class TTRDocument extends TextDocumentItem {
 		}
 
 		// LATER: for performance, implement incremental too
-		
+
 		// if (isIncremental()) {
-		// 	try {
-		// 		long start = System.currentTimeMillis();
-		// 		synchronized (lock) {
-		// 			// Initialize buffer and line tracker from the current text document
-		// 			StringBuilder buffer = new StringBuilder(getText());
+		// try {
+		// long start = System.currentTimeMillis();
+		// synchronized (lock) {
+		// // Initialize buffer and line tracker from the current text document
+		// StringBuilder buffer = new StringBuilder(getText());
 
-		// 			// Loop for each changes and update the buffer
-		// 			for (int i = 0; i < changes.size(); i++) {
+		// // Loop for each changes and update the buffer
+		// for (int i = 0; i < changes.size(); i++) {
 
-		// 				TextDocumentContentChangeEvent changeEvent = changes.get(i);
-		// 				Range range = changeEvent.getRange();
-		// 				int length = 0;
+		// TextDocumentContentChangeEvent changeEvent = changes.get(i);
+		// Range range = changeEvent.getRange();
+		// int length = 0;
 
-		// 				if (range != null) {
-		// 					length = changeEvent.getRangeLength().intValue();
-		// 				} else {
-		// 					// range is optional and if not given, the whole file content is replaced
-		// 					length = buffer.length();
-		// 					range = new Range(positionAt(0), positionAt(length));
-		// 				}
-		// 				String text = changeEvent.getText();
-		// 				int startOffset = offsetAt(range.getStart());
-		// 				buffer.replace(startOffset, startOffset + length, text);
-		// 				lineTracker.replace(startOffset, length, text);
-		// 			}
-		// 			// Update the new text content from the updated buffer
-		// 			setText(buffer.toString());
-		// 		}
-		// 		LOGGER.fine("Text document content updated in " + (System.currentTimeMillis() - start) + "ms");
-		// 	} catch (BadLocationException e) {
-		// 		// Should never occur.
-		// 	}
+		// if (range != null) {
+		// length = changeEvent.getRangeLength().intValue();
 		// } else {
-			// like vscode does, get the last changes
-			// see
-			// https://github.com/Microsoft/vscode-languageserver-node/blob/master/server/src/main.ts
-			TextDocumentContentChangeEvent last = changes.size() > 0 ? changes.get(changes.size() - 1) : null;
-			if (last != null) {
-				setText(last.getText());
-				// lineTracker.set(last.getText());
-            }
-            // TODO: does that already do something? -> yes... but keep an eye on it
+		// // range is optional and if not given, the whole file content is replaced
+		// length = buffer.length();
+		// range = new Range(positionAt(0), positionAt(length));
 		// }
+		// String text = changeEvent.getText();
+		// int startOffset = offsetAt(range.getStart());
+		// buffer.replace(startOffset, startOffset + length, text);
+		// lineTracker.replace(startOffset, length, text);
+		// }
+		// // Update the new text content from the updated buffer
+		// setText(buffer.toString());
+		// }
+		// LOGGER.fine("Text document content updated in " + (System.currentTimeMillis()
+		// - start) + "ms");
+		// } catch (BadLocationException e) {
+		// // Should never occur.
+		// }
+		// } else {
+		// like vscode does, get the last changes
+		// see
+		// https://github.com/Microsoft/vscode-languageserver-node/blob/master/server/src/main.ts
+		TextDocumentContentChangeEvent last = changes.size() > 0 ? changes.get(changes.size() - 1) : null;
+		if (last != null) {
+			setText(last.getText());
+			// lineTracker.set(last.getText());
+		}
+		tokenizeContents();
 	}
-    
+
+
+	private class TokenizationLock {
+		private boolean isLocked = false;
+		private boolean willRetokenize = false;
+
+		public boolean isLocked() {
+			return isLocked;
+		}
+
+		public void lock(long duration) {
+			isLocked = true;
+			willRetokenize = false;
+			TimerTask task = new TimerTask(){
+				public void run(){
+					unlock();
+				}
+			};
+			Timer timer = new Timer();
+			timer.schedule(task, duration);
+		}
+
+		protected void unlock() {
+			isLocked = false;
+			if (willRetokenize) {
+				TTRDocument.this.tokenizeContents();
+			}
+		}
+
+		public void requestRetokenization() {
+			willRetokenize = true;
+		}
+
+	}
+
 }
