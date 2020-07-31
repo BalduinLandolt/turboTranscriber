@@ -2,6 +2,8 @@ package ch.blandolt.turboTranscriber.lsp.completions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,7 +47,17 @@ public class TTRCompletions {
 
                 return completionItems;
             } else {
-                // TODO: generate completions based on tokens in text
+                for (Entry<String,Integer> pair : doc.getSuggestionCount().entrySet()) {
+                    String s = pair.getKey()  +" - (" + pair.getValue() + ")";
+                    CompletionItem cl = new CompletionItem(s);
+                    cl.setInsertText(pair.getKey());
+                    cl.setKind(CompletionItemKind.Text);
+                    cl.setInsertTextFormat(InsertTextFormat.PlainText);
+                    cl.setSortText("suggestion_"+Integer.valueOf(999-pair.getValue()));
+                    completionItems.add(cl);
+                }
+                log.info("completion suggestions: "+completionItems.size());
+                return completionItems;
             }
         } catch (Exception e) {
             log.log(Level.SEVERE, "Failed to get snippet.", e);

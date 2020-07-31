@@ -35,6 +35,7 @@ public class TTRDocument extends TextDocumentItem {
 	private final Logger log;
 
 	private boolean isTokenized = false;
+	private boolean hasSuggestions = false;
 	private List<TranscriptionToken> tokens;
 	private SuggestionCounter<String> completionSuggestions;
 	private TokenizationLock tokenizationLock;
@@ -67,7 +68,6 @@ public class TTRDocument extends TextDocumentItem {
 	private void tokenizeContents() {
 		if (isLocked()) {
 			tokenizationLock.requestRetokenization();
-			log.info("Tokenizer is locked.");
 			return;
 		}
 
@@ -81,7 +81,6 @@ public class TTRDocument extends TextDocumentItem {
 		future.thenAccept((tokens) -> {
 			this.tokens = tokens;
 			isTokenized = true;
-			log.info("Successfully tokenized document.");
 			updateCompletionSuggestions();
 		});
 	}
@@ -99,14 +98,16 @@ public class TTRDocument extends TextDocumentItem {
 		});
 		future.thenAccept((suggestions) -> {
 			completionSuggestions = suggestions;
+			hasSuggestions = true;
 		});
 	}
 
 	private SuggestionCounter<String> getWordSuggestions() {
 		SuggestionCounter<String> res = new SuggestionCounter<String>();
+		// log.info("looking at tokens: "+tokens.size());
 		for (TranscriptionToken token : tokens) {
 			if (token instanceof TokenTypeLegitWord) {
-				completionSuggestions.add(token.getText());
+				res.add(token.getText());
 			}
 		}
 		return res;
@@ -116,7 +117,7 @@ public class TTRDocument extends TextDocumentItem {
 		SuggestionCounter<String> res = new SuggestionCounter<String>();
 		for (TranscriptionToken token : tokens) {
 			if (token instanceof TokenTypeOpeningTag || token instanceof TokenTypeClosingTag) {
-				completionSuggestions.add(token.getText());
+				res.add("["+token.getText()+"]");
 			}
 		}
 		return res;
@@ -126,7 +127,7 @@ public class TTRDocument extends TextDocumentItem {
 		SuggestionCounter<String> res = new SuggestionCounter<String>();
 		for (TranscriptionToken token : tokens) {
 			if (token instanceof TokenTypeClosingTag) {
-				completionSuggestions.add(token.getText());
+				res.add("("+token.getText()+")");
 			}
 		}
 		return res;
@@ -136,10 +137,14 @@ public class TTRDocument extends TextDocumentItem {
 		SuggestionCounter<String> res = new SuggestionCounter<String>();
 		for (TranscriptionToken token : tokens) {
 			if (token instanceof TokenTypeGlyph) {
-				completionSuggestions.add(token.getText());
+				res.add("{"+token.getText()+"}");
 			}
 		}
 		return res;
+	}
+
+	public Map<String,Integer> getSuggestionCount() {
+		return completionSuggestions.asMap();
 	}
 
 	private boolean isLocked() {
@@ -152,6 +157,10 @@ public class TTRDocument extends TextDocumentItem {
 
 	public boolean isTokenized() {
 		return isTokenized;
+	}
+
+	public boolean hasSuggestions() {
+		return hasSuggestions;
 	}
 
 	// TODO: handle Position stuff here?

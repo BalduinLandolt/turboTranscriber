@@ -32,4 +32,8 @@ public class SuggestionCounter<E> extends ArrayList<E> {
     public int getCount(E key) {
         return counter.containsKey(key) ? counter.get(key) : 0;
     }
+
+	public Map<E, Integer> asMap() {
+		return counter;
+	}
 }
