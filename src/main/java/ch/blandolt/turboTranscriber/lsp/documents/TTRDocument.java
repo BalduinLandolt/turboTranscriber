@@ -16,6 +16,7 @@ import org.eclipse.lsp4j.TextDocumentItem;
 
 import ch.blandolt.turboTranscriber.util.Log;
 import ch.blandolt.turboTranscriber.util.SuggestionCounter;
+import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeAbbreviation;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeClosingTag;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeGlyph;
 import ch.blandolt.turboTranscriber.util.datastructure.tokenization.TokenTypeLegitWord;
@@ -87,12 +88,43 @@ public class TTRDocument extends TextDocumentItem {
 
 	private void updateCompletionSuggestions() {
 		CompletableFuture<SuggestionCounter<String>> future = CompletableFuture.supplyAsync(() -> {
-			// FIXME: need to get a flat list of tokens to get inner elements
 			SuggestionCounter<String> res = new SuggestionCounter<String>();
-			res.addAll(getWordSuggestions());
-			res.addAll(gettTagSuggestions());
-			res.addAll(gettAbbreviationSuggestions());
-			res.addAll(gettGlyphSuggestions());
+			for (TranscriptionToken token : getTokenFlatList()) {
+				if (token instanceof TokenTypeLegitWord){ // FIXME: some words turn out wrong
+					if (!token.getText().isEmpty()){
+						res.add(token.getText());
+					} else {
+						StringBuilder sb = new StringBuilder();
+						for (TranscriptionToken t : ((TokenTypeLegitWord) token).getContents()) {
+							if (token instanceof TokenTypeOpeningTag || token instanceof TokenTypeClosingTag){
+								sb.append("["+t.getText()+"]");
+							} else if (token instanceof TokenTypeAbbreviation){
+								sb.append("("+t.getText()+")");
+							} else if (token instanceof TokenTypeGlyph){
+								sb.append("{"+t.getText()+"}");
+							} else {
+								sb.append(t.getText());
+							}
+						}
+						res.add(sb.toString());
+					}
+				}
+				if (token instanceof TokenTypeOpeningTag || token instanceof TokenTypeClosingTag) {
+					res.add("["+token.getText()+"]");
+				}
+				if (token instanceof TokenTypeAbbreviation) {
+					res.add("(" + token.getText() + ")");
+				}
+				if (token instanceof TokenTypeGlyph) {
+					res.add("{" + token.getText() + "}");
+				}
+
+			}
+
+			// res.addAll(getWordSuggestions());
+			// res.addAll(gettTagSuggestions());
+			// res.addAll(gettAbbreviationSuggestions());
+			// res.addAll(gettGlyphSuggestions());
 			// TODO: more?
 			return res;
 		});
@@ -102,48 +134,58 @@ public class TTRDocument extends TextDocumentItem {
 		});
 	}
 
-	private SuggestionCounter<String> getWordSuggestions() {
-		SuggestionCounter<String> res = new SuggestionCounter<String>();
-		// log.info("looking at tokens: "+tokens.size());
-		for (TranscriptionToken token : tokens) {
-			if (token instanceof TokenTypeLegitWord) {
-				res.add(token.getText());
-			}
+	private List<TranscriptionToken> getTokenFlatList() {
+		List<TranscriptionToken> res = new ArrayList<>();
+		for (TranscriptionToken rootToken : tokens) {
+			res.addAll(rootToken.getFlatList());
 		}
 		return res;
 	}
 
-	private SuggestionCounter<String> gettTagSuggestions() {
-		SuggestionCounter<String> res = new SuggestionCounter<String>();
-		for (TranscriptionToken token : tokens) {
-			if (token instanceof TokenTypeOpeningTag || token instanceof TokenTypeClosingTag) {
-				res.add("["+token.getText()+"]");
-			}
-		}
-		return res;
-	}
+	// private SuggestionCounter<String> getWordSuggestions() {
+	// SuggestionCounter<String> res = new SuggestionCounter<String>();
+	// // log.info("looking at tokens: "+tokens.size());
+	// for (TranscriptionToken token : tokens) {
+	// if (token instanceof TokenTypeLegitWord) {
+	// res.add(token.getText());
+	// }
+	// }
+	// return res;
+	// }
 
-	private SuggestionCounter<String> gettAbbreviationSuggestions() {
-		SuggestionCounter<String> res = new SuggestionCounter<String>();
-		for (TranscriptionToken token : tokens) {
-			if (token instanceof TokenTypeClosingTag) {
-				res.add("("+token.getText()+")");
-			}
-		}
-		return res;
-	}
+	// private SuggestionCounter<String> gettTagSuggestions() { // LATER: these
+	// things should be actual smart snippets, not just string
+	// SuggestionCounter<String> res = new SuggestionCounter<String>();
+	// for (TranscriptionToken token : tokens) {
+	// if (token instanceof TokenTypeOpeningTag || token instanceof
+	// TokenTypeClosingTag) {
+	// res.add("["+token.getText()+"]");
+	// }
+	// }
+	// return res;
+	// }
 
-	private SuggestionCounter<String> gettGlyphSuggestions() {
-		SuggestionCounter<String> res = new SuggestionCounter<String>();
-		for (TranscriptionToken token : tokens) {
-			if (token instanceof TokenTypeGlyph) {
-				res.add("{"+token.getText()+"}");
-			}
-		}
-		return res;
-	}
+	// private SuggestionCounter<String> gettAbbreviationSuggestions() {
+	// 	SuggestionCounter<String> res = new SuggestionCounter<String>();
+	// 	for (TranscriptionToken token : tokens) {
+	// 		if (token instanceof TokenTypeClosingTag) {
+	// 			res.add("(" + token.getText() + ")");
+	// 		}
+	// 	}
+	// 	return res;
+	// }
 
-	public Map<String,Integer> getSuggestionCount() {
+	// private SuggestionCounter<String> gettGlyphSuggestions() {
+	// 	SuggestionCounter<String> res = new SuggestionCounter<String>();
+	// 	for (TranscriptionToken token : tokens) {
+	// 		if (token instanceof TokenTypeGlyph) {
+	// 			res.add("{" + token.getText() + "}");
+	// 		}
+	// 	}
+	// 	return res;
+	// }
+
+	public Map<String, Integer> getSuggestionCount() {
 		return completionSuggestions.asMap();
 	}
 
@@ -224,7 +266,6 @@ public class TTRDocument extends TextDocumentItem {
 		tokenizeContents();
 	}
 
-
 	private class TokenizationLock {
 		private boolean isLocked = false;
 		private boolean willRetokenize = false;
@@ -236,8 +277,8 @@ public class TTRDocument extends TextDocumentItem {
 		public void lock(long duration) {
 			isLocked = true;
 			willRetokenize = false;
-			TimerTask task = new TimerTask(){
-				public void run(){
+			TimerTask task = new TimerTask() {
+				public void run() {
 					unlock();
 				}
 			};

@@ -78,7 +78,7 @@ public class CompletionTest {
         service = new TTRLanguageService();
 
         // String transcription = " ";
-        String transcription = "[p] sem {rrot} v(ar) [/p]";
+        String transcription = "[p] sem {rrot} v(ar) ha(nn;bar){slong} [/p]";
         TTRDocument doc = new TTRDocument(new TextDocumentItem("uri", "ttr", 0, transcription));
         // Position pos = new Position(0, 0);
         try {

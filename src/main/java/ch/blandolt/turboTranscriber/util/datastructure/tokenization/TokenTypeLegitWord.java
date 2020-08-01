@@ -1,8 +1,5 @@
 package ch.blandolt.turboTranscriber.util.datastructure.tokenization;
 
-import ch.blandolt.turboTranscriber.util.datastructure.nativeRepresentation.AbstractTranscriptionObject;
-
-import java.util.LinkedList;
 import java.util.List;
 
 public class TokenTypeLegitWord extends TranscriptionToken {
@@ -19,5 +16,12 @@ public class TokenTypeLegitWord extends TranscriptionToken {
 
     public List<TranscriptionToken> getContents() {
         return Tokenizer.castToTranscriptionTokens(word.getContents());
+    }
+
+    @Override
+    public List<TranscriptionToken> getFlatList() {
+        List<TranscriptionToken> res = super.getFlatList();
+        res.addAll(getContents());
+        return res;
     }
 }
