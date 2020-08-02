@@ -1,0 +1,47 @@
+@startuml Turbo Transcriber Macro Structure
+' Document style
+!define DARKBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+' Orientation
+left to right direction
+
+' output resolution
+skinparam dpi 300
+
+' UML
+' ---
+
+actor "VS Code User" as vs_user
+actor "GUI User" as gui_user
+
+package "VS Code" {
+    usecase "TTR Extension" as lspclient
+    usecase "Others Extensions" as o
+}
+
+package "Standalone Application" as standalone {
+    usecase "Application" as gui
+}
+note top of standalone: Developmenmt currently stalled due to priority on LSP
+
+vs_user --> lspclient
+gui_user --> gui
+
+package TurboTranscriber {
+    (LSP Server) as LSP
+    (Java API) as API
+    (Internal Processing) as processor
+}
+
+lspclient --> LSP : language server protocol
+gui --> API : Java API
+
+note right of API : Might get switched to LSP before v1.0.0 too
+
+LSP <~~> processor
+API <~~> processor
+
+
+
+@enduml

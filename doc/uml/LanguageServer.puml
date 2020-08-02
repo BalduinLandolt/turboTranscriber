@@ -1,0 +1,73 @@
+@startuml Language Server Class Diagram
+' Document style
+!define DARKBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+' Orientation
+'left to right direction
+
+' output resolution
+' skinparam dpi 300
+
+' UML
+' ---
+
+class TurboTranscriberLanguageServer {
+    - TTRLanguageService ttrLanguageService
+    - TextDocumentService textDocumentService
+    - WorkspaceService workspaceService
+    + initialize()
+    + shutdown()
+}
+
+class TTRLanguageService {
+    - TTRCompletions completions
+    + List<CompletionItem> getCompletions()
+}
+
+class TurboTranscriberWorkspaceService {
+    // TODO: implement
+}
+
+class TurboTranscriberTextDocumentService {
+    - TTRDocuments documents
+    + List<CompletionItem> completion()
+    + TTRDocument onDidChangeTextDocument()
+    + TTRDocument onDidOpenTextDocument()
+    + TTRDocument onDidCloseTextDocument()
+    //TODO: more there but only stubs
+}
+
+TurboTranscriberLanguageServer -- TurboTranscriberWorkspaceService
+TurboTranscriberLanguageServer -- TTRLanguageService
+TurboTranscriberLanguageServer -- TurboTranscriberTextDocumentService
+
+TurboTranscriberTextDocumentService -- TTRLanguageService
+
+class TTRCompletions {
+    + List<CompletionItem> getCompletions()
+    // TODO: add more
+}
+
+TTRLanguageService -- TTRCompletions
+
+class TTRDocuments {
+    - Map<uri,TTRDocument> documents
+    + TTRDocument get()
+    + Collection<TTRDocument> all()
+    + TTRDocument onDidChangeTextDocument()
+    + TTRDocument onDidOpenTextDocument()
+    + TTRDocument onDidCloseTextDocument()
+}
+
+TurboTranscriberTextDocumentService o-- TTRDocuments
+
+class TTRDocument {
+    - lock
+    // TODO: finish this class
+}
+
+TTRDocuments *-- TTRDocument
+TTRCompletions .. TTRDocument
+
+@enduml

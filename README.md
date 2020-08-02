@@ -24,3 +24,6 @@ The standalone version of TurboTranscriber was basically built around the beauti
 
 For the language server, I adapted a bunch of code from two main sources: The tree part blog post [Implementing a Language Server…How Hard Can It Be??](https://medium.com/ballerina-techblog/implementing-a-language-server-how-hard-can-it-be-part-1-introduction-c915d2437076) by Nipuna Marcus on the one hand side.  
 And on the other hand the XML Language Server [Lemminx](https://github.com/eclipse/lemminx), published by Eclipse and created/maintained first and foremost by Angelo Zerr.
+
+### Docs
+Diagrams are made with PlantUML using the PlantUML VS Code extension. Diagram styles by [Drakemor](https://github.com/Drakemor/RedDress-PlantUML/blob/master/style.puml).

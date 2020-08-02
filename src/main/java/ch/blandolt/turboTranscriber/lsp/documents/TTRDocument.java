@@ -82,7 +82,7 @@ public class TTRDocument extends TextDocumentItem {
 		future.thenAccept((tokens) -> {
 			this.tokens = tokens;
 			isTokenized = true;
-			updateCompletionSuggestions();
+			updateCompletionSuggestions();  // LATER: use actual Data, not transcriptiontokens
 		});
 	}
 
